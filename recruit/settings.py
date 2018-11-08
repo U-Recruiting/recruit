@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'index',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,23 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+## 自定义用户表
+AUTH_USER_MODEL = 'user.MyUser'
+
+
+######### 邮件配置信息 #####
+EMAIL_USE_SSL = True
+
+# 邮件服务器
+EMAIL_HOST = 'smtp.qq.com'
+
+# 端口
+EMAIL_PORT = 465
+
+# 发送邮件账号
+EMAIL_HOST_USER = '316043764@qq.com'
+
+# smtp服务密码
+EMAIL_HOST_PASSWORD = 'efkighmewsbobjah'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
