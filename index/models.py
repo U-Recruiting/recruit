@@ -3,6 +3,23 @@ from user.models import MyUser
 # Create your models here.
 
 
+class Job_Label1(models.Model):
+    id = models.IntegerField('一级标签', primary_key=True)
+    name = models.CharField('一级标签名称', max_length=20)
+
+
+class Job_Label2(models.Model):
+    id = models.IntegerField('二级标签', primary_key=True)
+    name = models.CharField('二级标签名称', max_length=20)
+    parent = models.ForeignKey(Job_Label1, on_delete=models.CASCADE,verbose_name='父标签ID')
+
+
+class Job_Label3(models.Model):
+    id = models.IntegerField('三级标签', primary_key=True)
+    name = models.CharField('三级标签名称', max_length=20)
+    parent = models.ForeignKey(Job_Label2, on_delete=models.CASCADE,verbose_name='父标签ID')
+
+
 class UserInfo(models.Model):
     avatar = models.CharField('头像', max_length=20)
     name = models.CharField('用户名', max_length=50)
@@ -61,14 +78,18 @@ class Resume(models.Model):
 
 
 class OrgInfo(models.Model):
+
+    name = models.CharField('公司名称', max_length=20)
     avatar = models.CharField('公司图标', max_length=50)
     type = models.CharField('公司类型', max_length=20)
-    name = models.CharField('公司名称', max_length=20)
+    phase = models.CharField('公司所在阶段', max_length=50) #A轮
     desc = models.CharField('公司描述', max_length=500)
     scale = models.IntegerField('公司人数')
     url = models.CharField('公司网站', max_length=20)
     phone = models.CharField('联系方式', max_length=20)
+    city = models.CharField('城市', max_length=20)
     email = models.EmailField('公司邮箱')
+    tags = models.CharField('公司标签', max_length=200) #绩效奖金 通讯津贴...
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
 
@@ -76,14 +97,22 @@ class PositionInfo(models.Model):
     type = models.CharField('岗位类型', max_length=20)
     name = models.CharField('职位名称', max_length=20)
     department = models.CharField('所属部门', max_length=20)
-    job_catagory = models.CharField('工作性质', max_length=20)
+    job_catagory = models.CharField('工作性质', max_length=20) #全职，兼职，实习
     start_salary = models.CharField('起始薪资', max_length=20)
     end_salary = models.CharField('最高薪资', max_length=20)
     city = models.CharField('工作城市', max_length=20)
     work_exp = models.CharField('工作经验', max_length=20)
     edu_exp = models.CharField('学历要求', max_length=20)
-    desc = models.CharField('职位描述', max_length=400)
     address = models.CharField('工作地址', max_length=100)
+    desc = models.CharField('职位描述', max_length=400)
+    seduction = models.CharField('职位诱惑', max_length=200)
+    org = models.ForeignKey(OrgInfo, on_delete=models.CASCADE, default='') #
     resume = models.ManyToManyField(Resume)
+
+
+class PositionResumeStatus(models.Model):
+    position = models.ForeignKey(PositionInfo, on_delete=models.CASCADE,default='')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE,default='')
+    status = models.CharField('状态', max_length=20, default='')
 
 
