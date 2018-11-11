@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
@@ -12,35 +13,42 @@ from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 
-def test(request):
+@login_required(login_url='/user/login')
+def index(request):
     return HttpResponse('test page')
 
 
 # 用户登录
 def loginView(request):
-    unit_1 = '/user/register'
-    unit_1_name = '立即注册'
-    unit_2 = '/user/setpassword'
-    unit_2_name = '修改密码'
+    remembered_email = request.COOKIES.get('remember_email', '')
+    if remembered_email:
+        checked = 'checked'
     if request.method == 'POST':
-        loginUser = request.POST.get('email', '')
+        email = request.POST.get('email', '')
         password = request.POST.get('password', '')
-        if MyUser.objects.filter(Q(mobile=loginUser) | Q(email=loginUser)):
-            user = MyUser.objects.filter(Q(mobile=loginUser) | Q(username=loginUser)).first()
+        remerber = request.POST.get('autoLogin',None)
+        if MyUser.objects.filter(Q(mobile=email) | Q(email=email)):
+            user = MyUser.objects.filter(Q(mobile=email) | Q(email=email)).first()
             if check_password(password, user.password):
                 login(request, user)
-                return redirect('/')
+                if user.role.name == 'org':
+                    url = '/org/'+str(user.id)
+                elif user.role.name == 'user':
+                    url = '/'
+                r = redirect(url)  ##应聘者进入index, 招聘者进入org/position
+                if remerber:
+                    r.set_cookie('remember_email', email)
+                else:
+                    r.delete_cookie('remember_email')
+                    request.session.set_expiry(0)
+                return r
             else:
                 tips = '密码错误，请重新输入！'
         else:
-            tips = '此用户不存在，请重新输入！'
 
-    return render(request, 'login01.html', locals())
+                tips = '用户不存在'
+    return render(request, 'login.html', locals())
 
-
-# def loginView01(request):
-#
-#     return render(request, 'login01.html')
 
 
 # 用户注册

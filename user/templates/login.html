@@ -1,37 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>用户登录</title>
+
+    <meta charset="UTF-8">
+    <title>登录-淘职</title>
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'css/mobi.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/agent.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+
 </head>
-<body>
-<div class="flex-center">
-    <div class="container">
-    <div class="flex-center">
-    <div class="unit-1-2 unit-1-on-mobile">
-        <h1>U-Recruiting</h1>
-            {% if tips %}
-        <div>{{ tips }}</div>
-            {% endif %}
-        <form class="form" action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <div>邮箱:<input type="text" name='email' value="{{ username }}"></div>
-            <div>密码:<input type="password" name='password'></div>
-            <button type="submit" class="btn btn-primary btn-block">登录</button>
-        </form>
-        <div class="flex-left top-gap text-small">
-            <div class="unit-2-3">
-                <a href="{{ unit_1 }}">{{ unit_1_name }}</a>
-            </div>
-            <div class="unit-1-3 flex-right">
-                <a href="{{ unit_2 }}">{{ unit_2_name }}</a>
-            </div>
+<body id = "login_container">
+    <div class="login_wrapper">
+        <div class="login_header">
+            <a href="/"><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘" /></a>
         </div>
+        <div class="login_box">
+            <form id="loginForm" class="form" action="{% url 'login' %}" method="post">
+
+                {% csrf_token %}
+                 {% if tips %}
+                <div class="tips">{{ tips }}</div>
+                 {% endif %}
+                <input type="text"  id="email" name="email" value="{{ remembered_email }}" tabindex="1" placeholder="请输入登录邮箱地址" />
+                <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
+                <span class="error" style="display:none;" id="beError"></span>
+                <label class="fl" for="remember">
+                    <input type="checkbox" id="remember" {{ checked }} name="autoLogin" /> 记住我
+                </label>
+                <a href="reset.html" class="fr" target="_blank">忘记密码？</a>
+                <button type="submit" class="submitLogin">登 &nbsp; &nbsp; 录</button>
+
+                <input type="hidden" id="callback" name="callback" value=""/>
+                <input type="hidden" id="authType" name="authType" value=""/>
+                <input type="hidden" id="signature" name="signature" value=""/>
+                <input type="hidden" id="timestamp" name="timestamp" value=""/>
+
+            </form>
+            <div class="login_right">
+                <div>还没有帐号？</div>
+                <a  href="register.html"  class="registor_now">立即注册</a>
+
+            </div>
+
+
+
     </div>
     </div>
-    </div>
-</div>
+<script type="text/javascript">
+   $(function(){
+	//验证表单
+	 	$("#loginForm").validate({
+	 		/* onkeyup: false,
+	    	focusCleanup:true, */
+	        rules: {
+	    	   	email: {
+	    	    	required: true,
+	    	    	email: true
+	    	   	},
+	    	   	password: {
+	    	    	required: true
+	    	   	}
+	    	},
+	    	messages: {
+	    	   	email: {
+	    	    	required: "请输入登录邮箱地址",
+	    	    	email: "请输入有效的邮箱地址，如：vivi@lagou.com"
+	    	   	},
+	    	   	password: {
+	    	    	required: "请输入密码"
+	    	   	}
+	    	},
+	    	submitHandler:function(form){
+	    		if($('#remember').prop("checked")){
+	      			$('#remember').val(1);
+	      		}else{
+	      			$('#remember').val(null);
+	      		}
+	    		var email = $('#email').val();
+	    		var password = $('#password').val();
+	    		var remember = $('#remember').val();
+
+	    		var callback = $('#callback').val();
+	    		var authType = $('#authType').val();
+	    		var signature = $('#signature').val();
+	    		var timestamp = $('#timestamp').val();
+
+	    		$(form).find(":submit").attr("disabled", true);
+	            $.ajax({
+	            	type:'POST',
+	            	data:{email:email,password:password,autoLogin:remember, callback:callback, authType:authType, signature:signature, timestamp:timestamp},
+	            	url:ctx+'/user/login.json'
+	            }).done(function(result) {
+					if(result.success){
+					 	if(result.content.loginToUrl){
+							window.location.href=result.content.loginToUrl;
+	            		}else{
+	            			window.location.href=ctx+'/';
+	            		}
+					}else{
+						$('#beError').text(result.msg).show();
+					}
+					$(form).find(":submit").attr("disabled", false);
+	            });
+	        }
+		});
+})
+
+</script>
+
 </body>
 </html>
+
