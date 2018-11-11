@@ -35,7 +35,12 @@ def loginView(request):
         else:
             tips = '用户不存在'
 
-    return render(request, 'login.html', locals())
+    return render(request, 'login01.html', locals())
+
+
+def loginView01(request):
+
+    return render(request, 'login01.html')
 
 
 # 用户注册

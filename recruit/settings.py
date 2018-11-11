@@ -125,7 +125,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'user/static'),
+]
 
 ## 自定义用户表
 AUTH_USER_MODEL = 'user.MyUser'
