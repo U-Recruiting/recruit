@@ -8,8 +8,8 @@ from . import views
 
 urlpatterns = [
     path('login', views.loginView, name='login'),
-    #ada添加
-    path('login01/', views.loginView, name='login01'),
+    # #ada添加
+    # path('login01/', views.loginView, name='login01'),
 
     path('register', views.registerView, name='register'),
     path('setpassword', views.setpasswordView, name='setpassword'),

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <script id="allmobilize" charset="utf-8" src="{% static 'js/allmobilize.min.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>注册-淘职</title>
+
+    <link rel="stylesheet" href="{% static 'css/agent.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+
+</head>
+<body id ="login_container">
+    <div class="login_wrapper">
+        <div class="login_header">
+            <a href=""><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘" /></a>
+        </div>
+        <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27" />
+        <div class="login_box">
+
+            <form id="loginForm" class="form" action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <ul class="register_radio clearfix">
+		            <li>
+		            	找工作
+		              	<input type="radio" value="0" name="type" />
+		            </li>
+		            <li>
+                        招人
+		              	<input type="radio" value="1" name="type" />
+		            </li>
+		        </ul>
+                  {% if tips %}
+                <div class="tips">{{ tips }}</div>
+                  {% endif %}
+                <input type="text" id="email" name="email" tabindex="1" value="{{ username }}" placeholder="请输入常用邮箱地址" />
+                <span class="error" style="display:none;" id="beError"></span>
+                <div class="verification">
+                    <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码" />
+                    <button type="submit" class="Code">获取验证码</button>
+                </div>
+
+                <label class="fl registerAgree" for="checkbox">
+            		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《用户协议》</a>
+           		</label>
+                <button type="botton"  class="submitLogin">注 &nbsp; &nbsp; 册</button>
+
+                <input type="hidden" id="callback" name="callback" value=""/>
+                <input type="hidden" id="authType" name="authType" value=""/>
+                <input type="hidden" id="signature" name="signature" value=""/>
+                <input type="hidden" id="timestamp" name="timestamp" value=""/>
+
+            </form>
+            <div class="login_right">
+                <div>已有帐号</div>
+            	<a  href="/user/login"  class="registor_now">直接登录</a>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+    	$('.register_radio li input').click(function(e){
+    		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+    	});
+
+    	$('#email').focus(function(){
+    		$('#beError').hide();
+    	});
+    	//验证表单
+	    	 $("#loginForm").validate({
+	    	        rules: {
+	    	        	type:{
+	    	        		required: true
+	    	        	},
+			    	   	email: {
+			    	    	required: true,
+			    	    	email: true
+			    	   	},
+
+			    	   	checkbox:{required:true}
+			    	},
+			    	messages: {
+			    		type:{
+	    	        		required:"请选择使用淘职的目的"
+	    	        	},
+			    	 	email: {
+			    	    	required: "请输入常用邮箱地址",
+			    	    	email: "请输入有效的邮箱地址，如：vivi@lagou.com"
+			    	   	},
+			    	   	checkbox: {
+			    	    	required: "请接受用户协议"
+			    	   	}
+			    	},
+			    	errorPlacement:function(label, element){/*
+			    		if(element.attr("type") == "radio"){
+			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
+			    		}else if(element.attr("type") == "checkbox"){
+			    			label.inserresult.contenttAfter($(element).parent()).css('clear','left');
+			    		}else{
+			    			label.insertAfter(element);
+			    		} */
+			    		/*modify nancy*/
+			    		if(element.attr("type") == "radio"){
+			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
+			    		}else if(element.attr("type") == "checkbox"){
+			    			label.insertAfter($(element).parent()).css('clear','left');
+			    		}else{
+			    			label.insertAfter(element);
+			    		};
+			    	},
+			    	submitHandler:function(form){
+			    		var type =$('input[type="radio"]:checked',form).val();
+			    		var email =$('#email').val();
+			    		var verificationCode =$('#verificationCode').val();
+			    		var resubmitToken = $('#resubmitToken').val();
+
+			    		var callback = $('#callback').val();
+			    		var authType = $('#authType').val();
+			    		var signature = $('#signature').val();
+			    		var timestamp = $('#timestamp').val();
+
+			    		$(form).find(":submit").attr("disabled", true);
+
+			            $.ajax({
+			            	type:'POST',
+			            	data: {email:email,password:password,type:type,resubmitToken:resubmitToken, callback:callback, authType:authType, signature:signature, timestamp:timestamp},
+			            	url:ctx+'/user/register.json',
+			            	dataType:'json'
+			            }).done(function(result) {
+		            		$('#resubmitToken').val(result.resubmitToken);
+			            	if(result.success){
+			            		window.location.href=result.content;
+			            	}else{
+								$('#beError').text(result.msg).show();
+			            	}
+			            	$(form).find(":submit").attr("disabled", false);
+			            });
+			        }
+	    	});
+    });
+
+    </script>
+
+</body>
+</html>

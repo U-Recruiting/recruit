@@ -31,16 +31,16 @@ def loginView(request):
                 login(request, user)
                 return redirect('/')
             else:
-                tips = '密码错误'
+                tips = '密码错误，请重新输入！'
         else:
-            tips = '用户不存在'
+            tips = '此用户不存在，请重新输入！'
 
     return render(request, 'login01.html', locals())
 
 
-def loginView01(request):
-
-    return render(request, 'login01.html')
+# def loginView01(request):
+#
+#     return render(request, 'login01.html')
 
 
 # 用户注册
@@ -72,7 +72,7 @@ def registerView(request):
             else:
                 tips = '验证码错误, 请重新获取'
                 del request.session['verification_code']
-    return render(request, 'register.html', locals())
+    return render(request, 'register01.html', locals())
 
 
 # 修改密码
