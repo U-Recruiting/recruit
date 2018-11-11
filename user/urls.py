@@ -7,12 +7,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('login', views.loginView, name='login'),
+    # path('login', views.loginView, name='login'),
     #ada添加
-    path('login01/', views.loginView, name='login01'),
+    path('login/', views.loginView, name='login'),
 
     path('register', views.registerView, name='register'),
     path('setpassword', views.setpasswordView, name='setpassword'),
     path('logout', views.logoutView, name='logout'),
-    path('test', views.test, name='test'),
+    path('index', views.index, name='index'),
 ]

@@ -90,6 +90,7 @@ class OrgInfo(models.Model):
     city = models.CharField('城市', max_length=20)
     email = models.EmailField('公司邮箱')
     tags = models.CharField('公司标签', max_length=200) #绩效奖金 通讯津贴...
+    createTime = models.DateTimeField(default=None)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
 
@@ -101,11 +102,15 @@ class PositionInfo(models.Model):
     start_salary = models.CharField('起始薪资', max_length=20)
     end_salary = models.CharField('最高薪资', max_length=20)
     city = models.CharField('工作城市', max_length=20)
+    distinct = models.CharField('区/县', max_length=20, default=None)
+    address = models.CharField('工作地址', max_length=100)
     work_exp = models.CharField('工作经验', max_length=20)
     edu_exp = models.CharField('学历要求', max_length=20)
-    address = models.CharField('工作地址', max_length=100)
+    tags = models.CharField('职位标签', max_length=200, default=None)
     desc = models.CharField('职位描述', max_length=400)
-    seduction = models.CharField('职位诱惑', max_length=200)
+    positionAdvantage = models.CharField('职位诱惑', max_length=200,default=None)
+    subwayline = models.CharField('地铁线', max_length=20,default=None)
+    linestaion = models.CharField('地铁线路', max_length=200, default=None)
     org = models.ForeignKey(OrgInfo, on_delete=models.CASCADE, default='') #
     resume = models.ManyToManyField(Resume)
 
