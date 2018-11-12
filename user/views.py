@@ -1,21 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
 import random
-from .models import MyUser
+import datetime
+from .models import MyUser, Role
 from django.contrib.auth import login, logout, authenticate
 
 
 # Create your views here.
 
 
-@login_required(login_url='/user/login')
-def index(request):
-    return HttpResponse('test page')
+def test(request):
+    return HttpResponse('测试页面')
 
 
 # 用户登录
@@ -26,7 +25,7 @@ def loginView(request):
     if request.method == 'POST':
         email = request.POST.get('email', '')
         password = request.POST.get('password', '')
-        remerber = request.POST.get('autoLogin',None)
+        remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=email) | Q(email=email)):
             user = MyUser.objects.filter(Q(mobile=email) | Q(email=email)).first()
             if check_password(password, user.password):
@@ -36,47 +35,47 @@ def loginView(request):
                 elif user.role.name == 'user':
                     url = '/'
                 r = redirect(url)  ##应聘者进入index, 招聘者进入org/position
-                if remerber:
-                    r.set_cookie('remember_email', email)
+                if remembered_email:
+                    if not remerber:
+                        r.delete_cookie('remember_email')
+                        request.session.set_expiry(0)
                 else:
-                    r.delete_cookie('remember_email')
-                    request.session.set_expiry(0)
+                    if remerber:
+                        r.set_cookie('remember_email', email)
                 return r
             else:
                 tips = '密码错误，请重新输入！'
         else:
-
-                tips = '用户不存在'
+            tips = '用户不存在'
     return render(request, 'login.html', locals())
 
 
 
 # 用户注册
 def registerView(request):
-    title = '注册'
-    button = '获取验证码'
-    unit_1 = '/user/login'
-    unit_1_name = '立即登录'
-    unit_2 = '/user/setpassword'
-    unit_2_name = '修改密码'
 
     if request.method == 'POST':
+        role_type = int(request.POST.get('type', ''))+1
+
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
         if MyUser.objects.filter(email=email):
             tips = '用户已存在'
         else:
             if not request.session.get('verification_code', ''):
-                button = '用户注册'
                 tips = '验证码已发送'
+                username = email
                 verification_code = str(random.randint(100000, 999999))
                 request.session['verification_code'] = verification_code
                 from_email = settings.DEFAULT_FROM_EMAIL
                 send_mail('用户注册', verification_code, from_email, [email])
             elif verification_code == request.session.get('verification_code'):
-                user = MyUser.objects.create_user(username=email, email=email, password=verification_code, is_active=0)
+                date_joined = datetime.datetime.now()
+                role = Role.objects.get(id=role_type)
+                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=verification_code,
+                                                  is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
                 user.save()
-                return redirect('test')
+                return redirect('/user/test')
             else:
                 tips = '验证码错误, 请重新获取'
                 del request.session['verification_code']

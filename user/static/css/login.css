@@ -1,5 +1,5 @@
 #login_container{ background: url(../imgs/bgwall.png) center 100px no-repeat;overflow:hidden;}
-.login_wrapper{ width:640px; margin:0 auto;color:#777;font-size:16px;padding-top:110px;}
+.login_wrapper{ width:640px; margin:0 auto;color:#777;font-size:16px;padding-top:30px;}
 .login_wrapper input[type="text"],.login_wrapper input[type="password"]{margin:0 0 20px 0; border:none;}
 .login_wrapper span.error{margin:-10px 0 10px 0; }
 .login_header{position:relative; margin-bottom:20px;}
