@@ -80,7 +80,7 @@ def registerView(request):
             else:
                 tips = '验证码错误, 请重新获取'
                 del request.session['verification_code']
-    return render(request, 'register01.html', locals())
+    return render(request, 'register.html', locals())
 
 
 # 修改密码
@@ -103,7 +103,7 @@ def setpasswordView(request):
             tips = '密码修改成功'
         else:
             tips = '用户不存在'
-    return render(request, 'register.html', locals())
+    return render(request, 'test/register.html', locals())
 
 
 # 使用make_password实现密码修改
