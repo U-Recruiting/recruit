@@ -16,7 +16,8 @@
     
 + 5-shoot 
     + 处理投递简历后台流程
-+ 6-collection 
++ 6-mycenter
+    + 投递箱
     + 处理收藏岗位信息后台流程
 
 + 7-org 
