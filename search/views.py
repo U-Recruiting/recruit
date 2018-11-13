@@ -8,7 +8,7 @@ from urllib.parse import unquote
 def searchView(request, page):
     if request.method == 'GET':
 
-        kword = request.session.get('kword', '')
+        kword = request.session.get('search_input', '')
         print(kword)
 
         city =request.GET.get('city', '')
@@ -66,5 +66,5 @@ def searchView(request, page):
         return render(request, 'search.html', locals())
     else:
         # 处理POST请求，并重定向搜索页面。
-        request.session['kword'] = request.POST.get('kword', '')
+        request.session['search_input'] = request.POST.get('search_input', '')
         return redirect('/search/1')

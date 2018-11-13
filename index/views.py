@@ -9,7 +9,7 @@ def index(request):
 
     #标签1，2，3
     lables = Job_Label1.objects.all()
-
+    print(lables)
     hot_position = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[:10]
 
     hot_company = Dynamic_Org.objects.select_related('org_info').order_by('-dynamic_search').all()[:10]

@@ -67,7 +67,7 @@ class OrgInfo(models.Model):
     type = models.CharField('公司类型', max_length=20, default=None, null=True)
     phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
     desc = models.CharField('公司描述', max_length=500, default=None, null=True)
-    scale = models.IntegerField('公司人数', null=True)
+    scale = models.CharField('公司人数',max_length=50, null=True)
     url = models.CharField('公司网站', max_length=20, default=None,null=True)
     phone = models.CharField('联系方式', max_length=20, default=None,null=True)
     city = models.CharField('城市', max_length=20, default=None,null=True)
