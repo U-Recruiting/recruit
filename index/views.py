@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Job_Label1,Dynamic_Position,Dynamic_Org,PositionInfo
 # Create your views here.
 
+from docx import Document
+
 # @login_required(login_url='/user/login')
 def index(request):
 
@@ -18,6 +20,15 @@ def index(request):
 
     # print(latest)
     return render(request, 'index.html', locals())
+
+from index.models import *
+def insert_label(request):
+    a = '矿产 能源 环保'
+    for i in a.split(' '):
+        j = Job_Label3(name=i, parent_id=38)
+        j.save()
+
+    return HttpResponse('success')
 
 
 

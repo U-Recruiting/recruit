@@ -73,7 +73,7 @@ def registerView(request):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
                 user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=verification_code,
-                                                  is_active=0, is_staff=0, date_joined=date_joined, mobile='', role=role.id)
+                                                  is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
                 user.save()
                 return redirect('/user/test')
             else:
