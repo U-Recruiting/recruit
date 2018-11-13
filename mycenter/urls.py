@@ -5,11 +5,11 @@
 @file: urls
 @time: 2018/11/13
 """
+
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<int:position_id>', views.shoot, name='shoot'),
+    path('delivery', views.delivery, name='delivery'),
+    path('mycollection', views.mycollection, name='mycollection')
 ]
-
-

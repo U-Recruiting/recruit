@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('index.urls')),
     path('search/', include('search.urls')),
     path('position/', include('position.urls')),
-    path('shoot/', include('shoot.urls'))
+    path('shoot/', include('shoot.urls')),
+    path('mycenter/', include('mycenter.urls')),
 
 
 ]

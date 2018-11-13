@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'resume',
     'search',
     'shoot',
-    'collect'
+    'mycenter'
 ]
 
 MIDDLEWARE = [
@@ -89,7 +89,7 @@ DATABASES = {
         'PASSWORD': 'yaoye',
         'HOST': 'localhost',
         'PORT': '3306',
-        'NAME': 'recruit3',
+        'NAME': 'recruit4',
     }
 }
 

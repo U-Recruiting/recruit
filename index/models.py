@@ -62,19 +62,19 @@ class Resume(models.Model):
 
 class OrgInfo(models.Model):
 
-    name = models.CharField('公司名称', max_length=20, default=None)
-    avatar = models.CharField('公司图标', max_length=50,default=None)
-    type = models.CharField('公司类型', max_length=20, default=None)
-    phase = models.CharField('公司所在阶段', max_length=50, default=None) #A轮
-    desc = models.CharField('公司描述', max_length=500, default=None)
-    scale = models.IntegerField('公司人数')
-    url = models.CharField('公司网站', max_length=20, default=None)
-    phone = models.CharField('联系方式', max_length=20, default=None)
-    city = models.CharField('城市', max_length=20, default=None)
-    email = models.EmailField('公司邮箱')
-    tags = models.CharField('公司标签', max_length=200, default=None) #绩效奖金 通讯津贴...
-    createTime = models.DateTimeField(default=None)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None)
+    name = models.CharField('公司名称', max_length=20, default=None, null=True)
+    avatar = models.CharField('公司图标', max_length=50,default=None, null=True)
+    type = models.CharField('公司类型', max_length=20, default=None, null=True)
+    phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
+    desc = models.CharField('公司描述', max_length=500, default=None, null=True)
+    scale = models.IntegerField('公司人数', null=True)
+    url = models.CharField('公司网站', max_length=20, default=None,null=True)
+    phone = models.CharField('联系方式', max_length=20, default=None,null=True)
+    city = models.CharField('城市', max_length=20, default=None,null=True)
+    email = models.EmailField('公司邮箱',null=True)
+    tags = models.CharField('公司标签', max_length=200, default=None,null=True) #绩效奖金 通讯津贴...
+    createTime = models.DateTimeField(default=None,null=True)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None,null=True)
 
 
 class PositionInfo(models.Model):
@@ -85,18 +85,29 @@ class PositionInfo(models.Model):
     start_salary = models.CharField('起始薪资', max_length=20)
     end_salary = models.CharField('最高薪资', max_length=20)
     city = models.CharField('工作城市', max_length=20)
-    distinct = models.CharField('区/县', max_length=20, default=None)
+
+    distinct = models.CharField('区/县', max_length=20, default=None, null=True)
+
     address = models.CharField('工作地址', max_length=100)
     work_exp = models.CharField('工作经验', max_length=20)
     edu_exp = models.CharField('学历要求', max_length=20)
-    tags = models.CharField('职位标签', max_length=200, default=None)
+
+    tags = models.CharField('职位标签', max_length=200, default=None,null=True)
+
     desc = models.CharField('职位描述', max_length=400)
-    positionAdvantage = models.CharField('职位诱惑', max_length=200, default=None)
-    subwayline = models.CharField('地铁线', max_length=20, default=None)
-    linestaion = models.CharField('地铁线路', max_length=200, default=None)
-    create_datetime = models.DateTimeField('创建时间',default=None)
-    org = models.ForeignKey(OrgInfo, on_delete=models.CASCADE, default='') #
+
+    positionAdvantage = models.CharField('职位诱惑', max_length=200, default=None,null=True)
+    subwayline = models.CharField('地铁线', max_length=20, default=None,null=True)
+    linestaion = models.CharField('地铁线路', max_length=200, default=None,null=True)
+    create_datetime = models.DateTimeField('创建时间',default=None,null=True)
+
+    org = models.ForeignKey(OrgInfo, on_delete=models.CASCADE, default='',null=True) #
     resume = models.ManyToManyField(Resume)
+
+
+class Collection(models.Model):
+    position = models.ForeignKey(PositionInfo, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None)
 
 
 class Dynamic_Position(models.Model):
