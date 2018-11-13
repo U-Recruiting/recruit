@@ -3,8 +3,6 @@ from user.models import MyUser
 # Create your models here.
 
 
-
-
 class UserInfo(models.Model):
     avatar = models.CharField('头像', max_length=20, default=None)
     name = models.CharField('用户名', max_length=50, default=None)

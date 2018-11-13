@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'resume',
     'search',
     'shoot',
+    'collect'
 ]
 
 MIDDLEWARE = [

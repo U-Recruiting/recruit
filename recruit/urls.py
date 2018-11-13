@@ -20,8 +20,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('org/', include('org.urls')),
+
     path('', include('index.urls')),
     path('search/', include('search.urls')),
+    path('position/', include('position.urls')),
+    path('shoot/', include('shoot.urls'))
 
 
 
