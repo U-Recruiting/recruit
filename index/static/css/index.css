@@ -53,16 +53,16 @@
 #sidebar .subscribe{display:block;font-size:18px;height:46px;line-height:46px;background:#fafafa url(../imgs/sub_icon.png) 180px center no-repeat;padding:0 80px 0 20px;margin-top:12px;border-bottom:2px solid #F4A002;}
 
 /*热门职位，最新职位*/
-#container_body{clear:both;width:1024px;float: none; margin:auto;padding-bottom:100px; position: relative;top:36px }
+#container_body{clear:both;width:1024px;float: none; margin:auto;padding-bottom:100px; position: relative;top:66px }
 
 .btn{font-size:16px;color:#fff;background:#F5B414 url(../imgs/arrow.png) 88px center no-repeat;padding:5px 40px 5px 15px;margin:10px 0 0 0;}
 .btn:hover{background-color:#D69700; color:#fff;}
-ul.hotabbing{height: 38px;font-size: 0;background:#f6f6f6;clear: both; position: relative;top:10px}
+ul.hotabbing{height: 38px;font-size: 0;background:#f6f6f6;clear: both; position: relative;top:30px}
 ul.hotabbing li{cursor:pointer;display:inline-block;*display:inline;*zoom:1;padding:7px 20px;font-size:18px;color:#999;float: left}
 ul.hotabbing li.current{border-top:3px solid #f4a002;background:#fff;color:#333; float: left}
 ul.hotabbing li.recommendNew{position:relative;}
 ul.hotabbing li i{width: 23px;height: 15px;position:absolute;right:-10px; top:-5px;background:url(../imgs/icon_new.png) left top no-repeat;}
-ul.hot_pos{clear:both; position:relative;  top:20px;}
+ul.hot_pos{clear:both; position:relative;  top:30px;}
 .hot_pos li{padding:13px; line-height:25px; position:relative; }
 ul.hot_pos i{width: 12px;height: 14px;background:url(../imgs/hot.png) left top no-repeat;left:0;}
 .apply{ position: absolute; right:0; background:#ff9a10; color:#fff; font-size:16px;  line-height:25px; cursor:pointer; }
