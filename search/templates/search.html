@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
-{{ position_info }}
+<div class="search-box">
+            <form id="searchForm" action="{% url 'search' 1 %}" method="post" target="_blank">
+                {% csrf_token %}
+                <div class="search-keyword">
+                    <input id="kword" name="kword" type="text" class="keyword" maxlength="120" placeholder="岗位名称"  />
+                </div>
+                <input id="subSerch" type="submit" class="search-button" value="搜 索" />
+            </form>
+            <div id="suggest" class="search-suggest"></div>
+
+</div>
+<div>
+    <ul>
+        {% for position in position_info %}
+        <li>{{ position.id }}</li>
+        {% endfor %}
+    </ul>
+
+</div>
 </body>
 </html>
