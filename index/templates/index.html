@@ -46,6 +46,12 @@
             	<li><a href="/user/register" >注册</a></li>
             </ul>
 
+             <ul>
+                 {% for lable in lables %}
+                     <li>{{ lable.name }}</li>
+                 {% endfor %}
+             </ul>
+
             {# 用户已登录 #}
             <!--
             <dl class="collapsible_menu">

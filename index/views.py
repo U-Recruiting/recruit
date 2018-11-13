@@ -11,11 +11,12 @@ def index(request):
     lables = Job_Label1.objects.all()
 
     hot_position = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[:10]
-
+    print(hot_position)
     hot_company = Dynamic_Org.objects.select_related('org_info').order_by('-dynamic_search').all()[:10]
 
     latest = PositionInfo.objects.order_by('-create_datetime').all()[:10]
 
+    # print(latest)
     return render(request, 'index.html', locals())
 
 
