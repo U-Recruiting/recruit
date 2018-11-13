@@ -27,5 +27,4 @@ urlpatterns = [
     path('shoot/', include('shoot.urls'))
 
 
-
 ]
