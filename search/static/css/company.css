@@ -1,0 +1,61 @@
+#container_list{width:1024px;margin:35px auto 0; padding-bottom:100px; }
+/*company_list.html*/
+.content_l{ float:left; width:1024px;}
+.content_l h1{font-weight:normal; line-height:42px; margin:0 0 20px 0;}
+.content_list{ float:left; width:680px;}
+.content_list h1{font-weight:normal; line-height:42px; margin:0 0 20px 0;}
+.hc_tag{margin-bottom:20px;}
+.hc_tag > dt{padding-bottom:10px; overflow:hidden;}
+.hc_tag h2{margin:0 0 10px 0;}
+.hc_tag > dd{ background:#fafafa; padding:20px 15px 10px 15px; overflow:hidden;}
+.hc_tag dl{ overflow:hidden; *margin-bottom:10px;}
+.hc_tag dl dt{ float:left; font-weight:bold; width:75px;}
+.hc_tag dl dd{ margin-left:75px; }
+.hc_tag dl a{ float:left; margin:0 10px 10px 0;padding:0px 8px;white-space:nowrap;}
+.hc_tag dl a:hover{background:#F5B414; color:#fff;}
+.hc_tag dl a.current{background:#F5B414; color:#fff;}
+.hc_list{width:1024px; overflow:hidden;}
+.hc_list > li{ width:200px; float:left; background:#fafafa url(../imgs/hc_list_bg.gif) left bottom repeat-x; padding:15px 13px; border:2px solid #fff; border-bottom:none; margin:0 34px 18px 0;}
+.hc_list > li:hover{background:#fafafa url(../imgs/hc_list_bg_curr.gif) left bottom repeat-x; border:2px solid #e6e7e8; border-bottom:none;}
+.hc_list h3{font-size:14px; margin:0 0 10px;}
+.hc_list a{ line-height:22px; display:block;position:relative;}
+.hc_list a:hover h3{ color:#F5B414; text-decoration:underline;}
+.comLogo{position:relative;margin:0 0 10px 0;}
+.comLogo ul{position:absolute;left:0;bottom:0; width:165px;margin:0;padding:0;}
+.hc_list a ul{list-style:disc;color:#fff;display:block; background-color:#000;filter:alpha(Opacity=70);-moz-opacity:0.7;opacity: 0.7;  padding:5px 5px 5px 20px; line-height:18px;}
+.hc_list ul.ctags{margin:10px 0 0 0; border-top:1px dashed #e6e7e7; padding-top:10px; overflow:hidden;}
+.hc_list ul.ctags li{white-space:nowrap; font-size:12px; float:left; border:1px solid #cbcbcb; background:#fff; margin:6px 5px 0 0; padding:0 4px;}
+.hc_list ul.ctags li.current{ border:1px solid #F5B414; color:#F5B414;}
+.content_r{ float:left; width:280px; margin-left:64px;}
+.content_r .eventAd{display:block;margin:20px 0;}
+.subscribe_side{border-top:3px solid #747778;border-bottom:3px solid #dadada; background:url(../imgs/subscribe_bg.jpg) repeat; padding:25px 16px 15px 16px;line-height:30px; overflow:hidden;}
+.subscribe_side div.subpos {font-size:20px; color:#555; margin-bottom:15px;}
+.subscribe_side div.subpos span{ font-size:46px;}
+.subscribe_side em{ color:#F5B414;}
+.subscribe_side div.why{font-size:20px;color:#555;}
+.subscribe_side h2{font-size:45px;color:#555; line-height:46px;font-weight:normal;}
+.subscribe_side div.count{font-size:18px; color:#777;margin:15px 0 0 0;}
+.subscribe_side div.count em{font-size:20px; color:#555;background:#fff;border:2px solid #DABD88;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:0 2px;margin:0 1px;}
+.subscribe_side i{font-size:20px;white-space:nowrap;font-style:normal; color:#333; text-decoration:underline; float:right; margin-top:10px;}
+.subscribe_side ul li{padding-left:60px; margin:20px 0; line-height:22px;}
+.subscribe_side ul li.sub1{background:url(../imgs/sub.png) 0 12px no-repeat; }
+.subscribe_side ul li.sub2{background:url(../imgs/sub.png) 0 -70px no-repeat;}
+.upload_file{display:block; margin-top:10px; background:#F5B414 url(../imgs/upload_file.png) 220px center no-repeat; color:#fff; font-size:24px; height:60px; line-height:60px; text-align:center;}
+.upload_file:hover{color:#fff;background-color:#D69700;}
+
+.workplace{ margin:0 0 15px; line-height:22px;overflow:hidden;}
+.workplace dd,.workplace li{float:left; margin-left:5px;}
+.workplace dd.more,.workplace li.more{padding-right:15px;position:relative;}
+.workplace a{ color:#555; padding:2px 5px; cursor:pointer;}
+.workplace a:hover{background:#F5B414; color:#fff;}
+.workplace a.current{background:#F5B414; color:#fff;}
+
+.triangle{ height:0;width:0;overflow: hidden;font-size: 0;line-height: 0; border-width:6px 5px 0; border-style:solid dashed; border-color:#F4A002 transparent transparent;-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}
+.triangle.transform{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg);transform: rotate(180deg);-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}
+.citymore_arrow{position:absolute;right:0;top:10px;}
+
+.Pagination{margin:20px auto; overflow:hidden;line-height:30px;}
+.Pagination a,.Pagination span{height:30px; line-height:30px;margin:0 10px 10px 0; float:left;padding:0 10px; color:#fff; background: #eac974;-webkit-transition: .2s;-moz-transition: .2s;transition: .2s;}
+.Pagination a:hover,.Pagination span:hover{background:#F39F01;-webkit-transition: .2s;-moz-transition: .2s;transition: .2s;}
+.Pagination a.current,.Pagination span.current,.Pagination span.disabled{background:#F39F01;cursor:pointer;}
+.Pagination input{border:1px solid #cbcbcb;margin:0 5px; height:28px;font-size:16px;line-height:28px;}

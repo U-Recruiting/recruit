@@ -68,3 +68,6 @@ def searchView(request, page):
         # 处理POST请求，并重定向搜索页面。
         request.session['search_input'] = request.POST.get('search_input', '')
         return redirect('/search/1')
+
+def companyView(request):
+    return render(request,'companylist.html')
