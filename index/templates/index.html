@@ -7,7 +7,7 @@
     <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
     <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
     <meta charset="UTF-8">
-    <title>首页-淘职</title>
+    <title>首页-淘职-让求职更简单</title>
 
 
     {#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
@@ -60,7 +60,7 @@
                     <a>我的简历</a>
                     <a>我的订阅</a>
                     <a>职位反馈</a>
-                    <a>退出</a>
+                    <a href="{% url 'login' %}">退出</a>
                 </div>
             </div>
         </div>

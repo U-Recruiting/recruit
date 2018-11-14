@@ -63,7 +63,7 @@ def searchView(request, page):
             else:
                 dynamic = Dynamic_Position(dynamic_search=1, position_info_id=position_id)
                 dynamic.save()
-        return render(request, 'search.html', locals())
+        return render(request, 'searchcomlist.html', locals())
     else:
         # 处理POST请求，并重定向搜索页面。
         request.session['search_input'] = request.POST.get('search_input', '')

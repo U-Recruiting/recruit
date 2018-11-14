@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <script src="{% static 'js/allmobilize.min.js'%}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+    <title>搜索公司职位</title>
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+</head>
+<body>
+<div id ="body">
+     <div id="header">
+          <div class="index_wrapper">
+            <a href="index.html" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li ><a href="/">首页</a></li>
+                <li class="current"><a href="{% url 'company' %}">公司</a></li>
+                <li><a href="jianli.html" rel="nofollow">我的简历</a></li>
+            </ul>
+            {# 用户未登录 #}
+            <!--
+            <ul class="loginTop">
+            	<li><a href="/user/login/" >登录</a></li>
+            	<li>|</li>
+            	<li><a href="/user/register" >注册</a></li>
+            </ul>
+            -->
+            <!-- 用户已登录-->
+            <div class="navheader_dropdown">
+                <botton class="navheader_bropbtn">欢迎回来，Ada <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                <div class="navheader_dropdown_content">
+                    <a>我的简历</a>
+                    <a>我的订阅</a>
+                    <a>职位反馈</a>
+                    <a>退出</a>
+                </div>
+            </div>
+        </div>
+     </div>
+     <div id="container_list">
+         <div class="sidebar">
+                  <div id="options" class="greybg">
+                      <dl>
+                    <dt>月薪范围 <em></em></dt>
+                    <dd>
+                        <div>2k以下</div>
+                        <div>2k-5k</div>
+                        <div>5k-10k</div>
+                        <div>10k-15k</div>
+                        <div>15k-25k</div>
+                        <div>25k-50k</div>
+                        <div>50k以上</div>
+                    </dd>
+                </dl>
+                      <dl>
+                    <dt>工作经验 <em></em></dt>
+                    <dd>
+                        <div>不限</div>
+                        <div>应届毕业生</div>
+                        <div>1年以下</div>
+                        <div>1-3年</div>
+                        <div>3-5年</div>
+                        <div>5-10年</div>
+                        <div>10年以上</div>
+                    </dd>
+                </dl>
+                      <dl>
+                    <dt>最低学历 <em></em></dt>
+                    <dd>
+                        <div>不限</div>
+                        <div>大专</div>
+                        <div>本科</div>
+                        <div>硕士</div>
+                        <div>博士</div>
+                    </dd>
+                </dl>
+                      <dl>
+                    <dt>工作性质 <em></em></dt>
+                    <dd>
+                        <div>全职</div>
+                        <div>兼职</div>
+                        <div>实习</div>
+                    </dd>
+                </dl>
+                      <dl>
+                    <dt>发布时间 <em></em></dt>
+                    <dd>
+                        <div>今天</div>
+                        <div>3天内</div>
+                        <div>一周内</div>
+                        <div>一月内</div>
+                    </dd>
+                </dl>
+                  </div>
+
+              </div> <!--左侧sidebar end-->
+         <div class="content">
+             <div id="search_box_more">
+                 <form id="searchForm" name="searchForm" action="list.html" method="get">
+                     <ul id="searchType">
+                         <li data-searchtype="1" class="type_selected">职位</li>
+                         <li data-searchtype="4">公司</li>
+                     </ul>
+                     <div class="searchtype_arrow"></div>
+                      <input type="text" id="search_input" name="kd" tabindex="1" value="前端开发"
+                           placeholder="请输入职位名称，如：产品经理"/>
+                     <input type="hidden" name="spc" id="spcInput" value="1"/>
+                    <input type="hidden" name="pl" id="plInput" value=""/>
+                    <input type="hidden" name="gj" id="gjInput" value=""/>
+                    <input type="hidden" name="xl" id="xlInput" value=""/>
+                    <input type="hidden" name="yx" id="yxInput" value=""/>
+                    <input type="hidden" name="gx" id="gxInput" value=""/>
+                    <input type="hidden" name="st" id="stInput" value=""/>
+                    <input type="hidden" name="labelWords" id="labelWords" value="label"/>
+                    <input type="hidden" name="lc" id="lc" value=""/>
+                    <input type="hidden" name="workAddress" id="workAddress" value=""/>
+                    <input type="hidden" name="city" id="cityInput" value="全国"/>
+                    <input type="submit" id="search_button" value="搜索"/>
+                 </form>
+             </div>
+             <style>
+                .ui-autocomplete {
+                    width: 488px;
+                    background: #fafafa !important;
+                    position: relative;
+                    z-index: 10;
+                    border: 2px solid #f4790b;
+                }
+
+                .ui-autocomplete-category {
+                    font-size: 16px;
+                    color: #999;
+                    width: 50px;
+                    position: absolute;
+                    z-index: 11;
+                    right: 0px; /*top: 6px; */
+                    text-align: center;
+                    border-top: 1px dashed #e5e5e5;
+                    padding: 5px 0;
+                }
+
+                .ui-menu-item {
+                    *width: 439px;
+                    vertical-align: middle;
+                    position: relative;
+                    margin: 0px;
+                    margin-right: 50px !important;
+                    background: #fff;
+                    border-right: 1px dashed #ededed;
+                }
+
+                .ui-menu-item a {
+                    display: block;
+                    overflow: hidden;
+                }
+            </style>
+             <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
+
+         </div> <!--左侧content end-->
+     </div>
+
+</div>
+</body>
+</html>
