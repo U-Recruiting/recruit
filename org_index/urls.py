@@ -1,21 +1,13 @@
-#!usr/bin/python
 # -*- coding:utf-8 -*-
-"""
-@author:shenchen
-@file: urls
-@time: 2018/11/11
-"""
+
 
 from django.urls import path
-from .views import home, create_success, positions, received_resumes, filtered_resumes, \
-    refused_resumes, resume_view, position_view
+from . import views
 
 urlpatterns = [
-    path('<int:org_id>/', home),
-    path('create/', create_success),
-    path('positions/', position_view),
-    path('received_resumes/<int:org_id>/', received_resumes),
-    path('filtered_resumes/<int:org_id>/', filtered_resumes),
-    path('refused_resumes/<int:org_id>', refused_resumes),
-    path('resumes/', resume_view)
+    path('<int:org_id>/', views.home),
+    path('create/<int:org_id>/', views.create),
+    path('positions/<int:ord_id>/', views.position_view),
+    path('resumes/<int:org_id>/', views.resume_view),
+    path('get_resumes/', views.get_resume, name='get_resumes')
 ]

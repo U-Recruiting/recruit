@@ -46,9 +46,9 @@
             </a>
             <ul id="navheader" class="reset">
                 <li><a href="/">首页</a></li>
-                <li><a href="">公司</a></li>
-                <li><a href="">简历管理</a></li>
-                <li><a href="">发布职位</a></li>
+                <li><a href="/org/myhome/">我的公司</a></li>
+                <li><a href="/org_index/resumes/{{ org_id }}">简历管理</a></li>
+                <li><a href="/org_index/create/{{ org_id }}">发布职位</a></li>
             </ul>
             <dl class="collapsible_menu">
                 <dt>
@@ -72,7 +72,7 @@
     </div><!-- end #header -->
     <div id="container">
         <div class="sidebar">
-            <a class="btn_create" href="/org_index/create">发布新职位</a>
+            <a class="btn_create" href="/org_index/create/{{ org_id }}">发布新职位</a>
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>
                 <dd class="current" id="dd_received">
@@ -94,10 +94,10 @@
             <dl class="company_center_aside">
                 <dt>我发布的职位</dt>
                 <dd>
-                    <a href="/org_index/positions">有效职位</a>
+                    <a href="/org_index/positions/{{ org_id }}">有效职位</a>
                 </dd>
                 <dd>
-                    <a href="/org_index/positions">已下线职位</a>
+                    <a href="/org_index/positions/{{ org_id }}">已下线职位</a>
                 </dd>
             </dl>
         </div><!-- end .sidebar -->
@@ -106,7 +106,7 @@
                 <dt>
                     <h1>
                         <em></em>
-                        <a id="item_title">待处理简历</a> <span>（共1份）</span></h1>
+                        <span id="item_title" style="font-size: 25px;">待处理简历（共{{ resume_numx }}份）</span></h1>
                 </dt>
                 <dd>
                     <form action="canInterviewResumes.html" method="get" id="filterForm">

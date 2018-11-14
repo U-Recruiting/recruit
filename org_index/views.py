@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 # @login_required(login_url='/user/login')
 def home(request, org_id):
-    return render(request, 'create.html', context={'org_id': org_id})
+    return render(request, 'resumes_view.html', context={'org_id': org_id})
 
 
 # @login_required(login_url='/user/login')
@@ -22,6 +22,10 @@ def create_success(request):
     return render(request, 'index06.html')
 
 
+def create(request, org_id):
+    return render(request, 'create_position.html', context={'org_id': org_id})
+
+
 # @login_required(login_url='/user/login')
 def positions(request):
     """
@@ -33,54 +37,29 @@ def positions(request):
     return JsonResponse('')
 
 
-# @login_required(login_url='/user/login')
-def received_resumes(request):
+def get_resume(request):
     """
-    待处理/已收到的简历
-    ——————————
+    根据请求的项目返回对应的简历Json
     :param request:
     :return:
     """
-    return JsonResponse('')
+    order = dict(request.POST)['resume_item']
+    if order == 'received':
+        return JsonResponse('')
+    elif order == 'notified':
+        return JsonResponse('')
+    elif order == 'passed':
+        return JsonResponse('')
+    elif order == 'refused':
+        return JsonResponse('')
+    elif order == 'filtered':
+        return JsonResponse('')
 
 
-# @login_required(login_url='/user/login')
-def filtered_resumes(request):
-    """
-    被自动过滤掉的简历
-    ———————————————
-    :param request:
-    :return:
-    """
-    return JsonResponse('')
+# 我收到的简历页面
+def resume_view(request, org_id):
+    return render(request, 'resumes_view.html', context={'org_id': org_id})
 
 
-# @login_required(login_url='/user/login')
-def refused_resumes(request):
-    """
-    不合适的简历
-    ——————————
-    :param request:
-    :return:
-    """
-    return JsonResponse('')
-
-
-# @login_required(login_url='/user/login')
-def noticed_resumes(request):
-    """
-    已通知的简历
-    ——————————
-    :param request:
-    :return:
-    """
-    return JsonResponse('')
-
-
-# 简历页面，根据不同需求填充
-def resume_view(request):
-    return render(request, 'resumes_view.html')
-
-
-def position_view(request):
-    return render(request, 'positions.html')
+def position_view(request, org_id):
+    return render(request, 'positions.html', context={'org_id': org_id})
