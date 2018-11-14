@@ -26,3 +26,7 @@ def myhome(request):
 
 def home01(request):
     return render(request, 'home.html')
+
+
+def post(request):
+    return HttpResponse('skfjakfajk')

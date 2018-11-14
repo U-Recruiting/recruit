@@ -75,7 +75,7 @@ def registerView(request):
                 user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=verification_code,
                                                   is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
                 user.save()
-                return redirect('/user/test')
+                return redirect('/org/register01')
             else:
                 tips = '验证码错误, 请重新获取'
                 del request.session['verification_code']
