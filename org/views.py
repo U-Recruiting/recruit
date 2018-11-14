@@ -12,9 +12,7 @@ def home(request, org_id):
 
 
 def register01(request):
-    if request.method == 'POST':
-        new_img = IMG(img=request.FILES.get('img'))
-        new_img.save()
+
     return render(request, 'register01.html')
 
 
