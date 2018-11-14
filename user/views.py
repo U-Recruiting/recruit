@@ -14,7 +14,7 @@ from django.contrib.auth import login, logout, authenticate
 
 
 def test(request):
-    return HttpResponse('测试页面')
+    return render(request,'reset.html')
 
 
 # 用户登录
