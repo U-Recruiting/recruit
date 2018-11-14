@@ -17,4 +17,5 @@ urlpatterns = [
     path('register02/',views.register02),
     path('myhome/',views.myhome),
     path('home01/',views.home01),
+    path('post/', views.post)
 ]
