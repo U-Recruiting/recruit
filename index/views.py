@@ -20,16 +20,16 @@ def index(request):
     print("hot_position:", hot_company)
     latest = PositionInfo.objects.order_by('-create_datetime').all()[:10]
     print("latest:",latest)
+
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
     return render(request, 'index.html', locals())
 
-from index.models import *
-def insert_label(request):
-    a = '矿产 能源 环保'
-    for i in a.split(' '):
-        j = Job_Label3(name=i, parent_id=38)
-        j.save()
 
-    return HttpResponse('success')
 
 
 

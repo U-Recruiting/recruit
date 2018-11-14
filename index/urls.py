@@ -8,5 +8,4 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('labels', views.insert_label)
 ]

@@ -38,7 +38,7 @@ class EducationExp(models.Model):
     school = models.CharField('学校', max_length=50, default=None)
     start_date = models.DateTimeField('起始时间')
     end_date = models.DateTimeField('终止时间')
-    education = models.DateTimeField('学历', max_length=50, default=None)
+    education = models.DateTimeField('学历', max_length=50, default=None) ##待改成char
     subject = models.CharField('专业', max_length=50, default=None)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None)
 

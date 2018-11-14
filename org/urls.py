@@ -8,9 +8,10 @@
 
 
 from django.urls import path
-from .views import home
+from . import views
 
 
 urlpatterns = [
-    path('<int:org_id>/', home),
+    path('<int:org_id>/', views.home),
+    path('post/', views.post),
 ]
