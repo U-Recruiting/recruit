@@ -45,24 +45,26 @@
                 <li><a href="{% url 'company' %}">公司</a></li>
                 <li><a href="jianli.html" rel="nofollow">我的简历</a></li>
             </ul>
-            {# 用户未登录 #}
-            <!--
-            <ul class="loginTop">
-            	<li><a href="/user/login/" >登录</a></li>
-            	<li>|</li>
-            	<li><a href="/user/register" >注册</a></li>
-            </ul>
-            -->
             <!-- 用户已登录-->
-            <div class="navheader_dropdown">
-                <botton class="navheader_bropbtn">欢迎回来，Ada <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
-                <div class="navheader_dropdown_content">
-                    <a>我的简历</a>
-                    <a>我的订阅</a>
-                    <a>职位反馈</a>
-                    <a href="{% url 'login' %}">退出</a>
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a>我的简历</a>
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'delivery' %}">我的投递</a>
+                        <a>职位反馈</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
         </div>
     </div>
     <!-- 搜索框-->
@@ -142,97 +144,97 @@
             <div id="content_bar">
                 <div id="sidebar">
                     <div class="mainNavs">
-                        {% for lable in lables_4%}
-                        <div class="menu_box">
-                            <div class="menu_main" >
-                                <h2>{{ lable.name}} <span>  </span></h2>
-                                <a href="">后端开发</a>
-                                <a href="">前端开发</a>
-                                <a href="">测试</a>
-                                <a href="">技术经理</a>
-                                <a href="">架构师</a>
-                            </div>
-                            <div class="menu_sub dn" id="menu_sub1">
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">后端开发</a>
-                                    </dt>
-                                    <dd>
-                                        <a href="" class="curr">Java</a>
-                                        <a href="" class="curr">C++</a>
-                                        <a href="" class="curr">PHP</a>
-                                        <a href="" class="curr">数据挖掘</a>
-                                        <a href="" class="curr">C</a>
-                                        <a href="">C#</a>
-                                        <a href="">.NET</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">移动开发</a>
-                                    </dt>
-                                    <dd>
-                                        <a href="">HTML5</a>
-                                        <a href="" class="curr">Android</a>
-                                        <a href="" class="curr">iOS</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">前端开发</a></dt>
-                                    <dd>
-                                        <a href="">web前端</a>
-                                        <a href="">Flash</a>
-                                        <a href="">html5</a>
-                                        <a href="">JavaScript</a>
+                        {% for lable in lables_4 %}
+                            <div class="menu_box">
+                                <div class="menu_main">
+                                    <h2>{{ lable.name }} <span>  </span></h2>
+                                    <a href="">后端开发</a>
+                                    <a href="">前端开发</a>
+                                    <a href="">测试</a>
+                                    <a href="">技术经理</a>
+                                    <a href="">架构师</a>
+                                </div>
+                                <div class="menu_sub dn" id="menu_sub1">
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">后端开发</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="" class="curr">Java</a>
+                                            <a href="" class="curr">C++</a>
+                                            <a href="" class="curr">PHP</a>
+                                            <a href="" class="curr">数据挖掘</a>
+                                            <a href="" class="curr">C</a>
+                                            <a href="">C#</a>
+                                            <a href="">.NET</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">移动开发</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="">HTML5</a>
+                                            <a href="" class="curr">Android</a>
+                                            <a href="" class="curr">iOS</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">前端开发</a></dt>
+                                        <dd>
+                                            <a href="">web前端</a>
+                                            <a href="">Flash</a>
+                                            <a href="">html5</a>
+                                            <a href="">JavaScript</a>
 
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">测试</a>
-                                    </dt>
-                                    <dd>
-                                        <a href="">测试工程师</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">运维</a>
-                                    </dt>
-                                    <dd>
-                                        <a href="">运维工程师</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">DBA</a>
-                                    </dt>
-                                    <dd>
-                                        <a href="h">MySQL</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">
-                                            项目管理
-                                        </a>
-                                    </dt>
-                                    <dd>
-                                        <a href="" class="curr">项目经理</a>
-                                    </dd>
-                                </dl>
-                                <dl class="reset">
-                                    <dt>
-                                        <a href="">
-                                            高端职位
-                                        </a>
-                                    </dt>
-                                    <dd>
-                                        <a href="" class="curr">技术经理</a>
-                                    </dd>
-                                </dl>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">测试</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="">测试工程师</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">运维</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="">运维工程师</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">DBA</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="h">MySQL</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">
+                                                项目管理
+                                            </a>
+                                        </dt>
+                                        <dd>
+                                            <a href="" class="curr">项目经理</a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="reset">
+                                        <dt>
+                                            <a href="">
+                                                高端职位
+                                            </a>
+                                        </dt>
+                                        <dd>
+                                            <a href="" class="curr">技术经理</a>
+                                        </dd>
+                                    </dl>
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
 
                     </div>
@@ -243,8 +245,8 @@
                 </div>
 
 
-            <!--最新职位 -->
-                <div id="container_body" >
+                <!--最新职位 -->
+                <div id="container_body">
                     <ul class="hotabbing reset">
                         <li class="current">热门职位</li>
                         <li>最新职位</li>
@@ -567,7 +569,9 @@
             <div class="wrapper">
                 <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
                 <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
-                <div class="copyright">&copy;2013-2014 Lagou <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a></div>
+                <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
+                                                                href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+                </div>
             </div>
         </div>
 
