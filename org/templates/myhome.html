@@ -77,22 +77,22 @@
     </div><!-- end #header -->
     <div id="container">
         <div class="sidebar">
-            <a class="btn_create" href="create.html">发布新职位</a>
+            <a class="btn_create" href="{% url 'post_position' %}">发布新职位</a>
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>
-                <dd>
+                <dd class="current btm">
                     <a href="">待处理简历</a>
-                </dd>
-                <dd>
-                    <a href="canInterviewResumes.html">待定简历</a>
                 </dd>
                 <dd>
                     <a href="haveNoticeResumes.html">已通知面试简历</a>
                 </dd>
                 <dd>
+                    <a href="canInterviewResumes.html">待定简历</a>
+                </dd>
+                <dd>
                     <a href="haveRefuseResumes.html">不合适简历</a>
                 </dd>
-                <dd class="current btm">
+                <dd>
                     <a href="autoFilterResumes.html">自动过滤简历</a>
                     <span>1</span>
                 </dd>
@@ -112,7 +112,7 @@
                 <dt>
                 <h1>
                     <em></em>
-                    自动过滤简历 <span>（共1份）</span></h1>
+                    带处理简历 <span>（共1份）</span></h1>
                 </dt>
                 <dd>
                     <form action="autoFilterResumes.html" method="get" id="filterForm">
