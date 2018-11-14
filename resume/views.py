@@ -8,9 +8,12 @@ import os
 
 
 # Create your views here.
-
+#add添加测试
+# def myresume_test(request):
+#     return render(request, "myresume.html")
 
 def my_resume(request):
+
     current_user = request.user
 
     user_info = current_user.userinfo_set.all().first()
@@ -23,7 +26,7 @@ def my_resume(request):
 
     hunting_intent = current_user.huntingintent_set.all().first()
 
-    return render(request, 'myresume_test.html', locals())
+    return render(request, 'myresume.html', locals())
 
 
 def edit_userinfo(request):

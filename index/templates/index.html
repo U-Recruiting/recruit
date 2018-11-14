@@ -43,7 +43,7 @@
             <ul class="reset" id="navheader">
                 <li class="current"><a href="/">首页</a></li>
                 <li><a href="{% url 'company' %}">公司</a></li>
-                <li><a href="jianli.html" rel="nofollow">我的简历</a></li>
+                <li><a href="{% url 'myresume' %}" >我的简历</a></li>
             </ul>
             <!-- 用户已登录-->
             {% if logined %}
@@ -51,7 +51,7 @@
                     <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
                         <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
                     <div class="navheader_dropdown_content">
-                        <a>我的简历</a>
+                        <a href="{% url 'myresume' %}">我的简历</a>
                         <a href="{% url 'mycollection' %}">我的收藏</a>
                         <a href="{% url 'delivery' %}">我的投递</a>
                         <a>职位反馈</a>
@@ -255,7 +255,8 @@
                     </ul>
                     <div id="hotList" style="height: 80%">
                         <ul class="hot_pos reset">
-                            <li class="clearfix">
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">数据分析师</a>&nbsp;
@@ -279,8 +280,9 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
-
-                            <li class="clearfix">
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
@@ -304,7 +306,9 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
-                            <li class="clearfix">
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">手机游戏运营</a>&nbsp;
@@ -328,7 +332,9 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
-                            <li class="odd clearfix">
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">Java工程师</a>&nbsp;
@@ -352,7 +358,9 @@
                                 </div>
 
                             </li>
-                            <li class="odd clearfix">
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">产品经理</a>&nbsp;
@@ -376,7 +384,9 @@
                                 </div>
 
                             </li>
-                            <li class="odd clearfix">
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
+                            <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
                                         <a href="h/jobs/147822.html" target="_blank">Python开发工程师</a>&nbsp;
@@ -401,8 +411,10 @@
                                 </div>
 
                             </li>
+                            </div>
                         </ul>
                         <ul class="hot_pos hot_posHotPosition reset" style="display:none;">
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -427,6 +439,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -451,6 +465,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -475,6 +491,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -499,6 +517,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -523,6 +543,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -547,6 +569,7 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
                         </ul>
                     </div>
                     <div class="clear"></div>

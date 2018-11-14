@@ -27,6 +27,8 @@ urlpatterns = [
     path('shoot/', include('shoot.urls')),
     path('mycenter/', include('mycenter.urls')),
 
-    path('resume/', include('resume.urls'))
+    path('resume/', include('resume.urls')),
+
+
 
 ]

@@ -12,6 +12,8 @@ from . import views
 
 urlpatterns = [
     path('myresume', views.my_resume, name='myresume'),
+    # # juanjuan ada test
+    # path('myresume_test',views.myresume_test,name='myresume_test'),
     path('edit_userinfo', views.edit_userinfo, name='edit_userinfo'),
     path('edit_workexp', views.edit_workexp, name='edit_workexp'),
     path('edit_projectexp', views.edit_projectexp, name='edit_projectexp'),
