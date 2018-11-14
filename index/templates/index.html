@@ -51,7 +51,7 @@
                     <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
                         <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
                     <div class="navheader_dropdown_content">
-                        <a>我的简历</a>
+                        <a href="{% url 'myresume' %}">我的简历</a>
                         <a href="{% url 'mycollection' %}">我的收藏</a>
                         <a href="{% url 'delivery' %}">我的投递</a>
                         <a>职位反馈</a>
