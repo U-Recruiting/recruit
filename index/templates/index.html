@@ -43,7 +43,7 @@
             <ul class="reset" id="navheader">
                 <li class="current"><a href="/">首页</a></li>
                 <li><a href="{% url 'company' %}">公司</a></li>
-                <li><a href="jianli.html" rel="nofollow">我的简历</a></li>
+                <li><a href="{% url 'myresume' %}" >我的简历</a></li>
             </ul>
             <!-- 用户已登录-->
             {% if logined %}
@@ -255,6 +255,7 @@
                     </ul>
                     <div id="hotList" style="height: 80%">
                         <ul class="hot_pos reset">
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -279,7 +280,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
-
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -304,6 +306,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -328,6 +332,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -352,6 +358,8 @@
                                 </div>
 
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -376,6 +384,8 @@
                                 </div>
 
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -401,8 +411,10 @@
                                 </div>
 
                             </li>
+                            </div>
                         </ul>
                         <ul class="hot_pos hot_posHotPosition reset" style="display:none;">
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -427,6 +439,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -451,6 +465,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -475,6 +491,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -499,6 +517,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -523,6 +543,8 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
+                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="odd clearfix">
                                 <div class="hot_pos_m">
                                     <div class="mb10">
@@ -547,6 +569,7 @@
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
+                            </div>
                         </ul>
                     </div>
                     <div class="clear"></div>

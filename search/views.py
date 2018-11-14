@@ -6,6 +6,7 @@ from urllib.parse import unquote
 
 
 def searchView(request, page):
+
     if request.method == 'GET':
 
         kword = request.session.get('search_input', '')
@@ -70,4 +71,5 @@ def searchView(request, page):
         return redirect('/search/1')
 
 def companyView(request):
-    return render(request,'companylist.html')
+    current_user = request.user
+    return render(request,'companylist.html',locals())
