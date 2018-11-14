@@ -79,13 +79,7 @@ ul.hot_pos i{width: 12px;height: 14px;background:url(../imgs/hot.png) left top n
 .hot_pos a.wb{font-size:14px;color:#777;}
 .hot_pos a.wb:hover{color:#555;}
 
-.hot_pos_m{float:left;width:310px;}
-.hot_pos_m a{ text-decoration:none; font-weight: bold}
-.hot_pos_r{float:left;width:338px;margin-top: 5px; }
-.hot_pos_r .mb10{margin-bottom: 2px}
-.hot_pos_r .recompany{margin-right:80px;}
-.hot_pos_r a{text-decoration:none;font-size: 14px;color: #ff9a10;}
-.hot_pos_r a span{ color:#F5B414; margin:0;}
+
 
 .companyTags li{font-size:12px;float:left; padding:0 5px; background:#fff; border:1px solid #a9a9a9;color:#a9a9a9;margin:5px 15px 0 0; line-height:18px;}
 #backtop{display:none;background:url(../imgs/backtop.png) left top no-repeat;width:28px;height:64px;position:fixed;bottom:80px;margin-left:1200px; cursor:pointer;}

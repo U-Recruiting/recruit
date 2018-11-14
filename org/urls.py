@@ -8,10 +8,13 @@
 
 
 from django.urls import path
+from .views import home
 from . import views
 
-
 urlpatterns = [
-    path('<int:org_id>/', views.home),
-    path('post/', views.post),
+    path('<int:org_id>/', home),
+    path('register01/',views.register01),
+    path('register02/',views.register02),
+    path('myhome/',views.myhome),
+    path('home01/',views.home01),
 ]
