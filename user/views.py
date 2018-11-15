@@ -13,8 +13,11 @@ from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 
-def test(request):
+def reset(request):
     return render(request,'reset.html')
+
+def email_verify(request):
+    return render(request,'email_verify.html')
 
 
 # 用户登录

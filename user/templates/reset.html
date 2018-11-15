@@ -45,9 +45,10 @@ var youdao_conv_id = 271546;
     	<input type="hidden" id="resubmitToken" value="" />
      	<div class="find_psw">
         	<img src="{% static 'imgs/psw_step1.png' %}" width="369" height="56" alt="找回密码第一步" />
-            <form id="pswForm" action="http://www.lagou.com/rs.html" method="post">
+{#            <form id="pswForm" action="http://www.lagou.com/rs.html" method="post">#}
+                <form id="pswForm"  action="{% url 'email_verify' %}" method="post">
            		<input type="text" name="email" id="email" tabindex="1" value="" placeholder="请输入注册时使用的邮箱地址" />
-                                <input type="submit" id="submitLogin" value="找回密码" />
+                                <input type="submit" id="submitLogin"  value="找回密码" />
             </form>
         </div>
     </div>
