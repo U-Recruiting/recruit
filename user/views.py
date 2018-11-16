@@ -12,12 +12,18 @@ from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 
-
+#用户密码重置
 def reset(request):
     return render(request,'reset.html')
-
+#邮箱验证
 def email_verify(request):
-    return render(request,'email_verify.html')
+    return render(request,'email_verify_test3.html')
+#重置密码
+def updatepwd(request):
+    return render(request,'updatepwd.html')
+#淘职用户协议
+def privacy(request):
+    return render(request,'privacy.html')
 
 
 # 用户登录
@@ -59,11 +65,10 @@ def registerView(request):
 
     if request.method == 'POST':
         role_type = int(request.POST.get('type', ''))+1
-
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
         if MyUser.objects.filter(email=email):
-            tips = '用户已存在'
+            tips = '用户已存在,请直接登录！'
         else:
             if not request.session.get('verification_code', ''):
                 tips = '验证码已发送'

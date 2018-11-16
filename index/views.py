@@ -28,6 +28,9 @@ def index(request):
     else:
         logined = False
     return render(request, 'index.html', locals())
+#返回关于我们界面
+def aboutus(request):
+    return render(request,'about.html')
 
 
 
