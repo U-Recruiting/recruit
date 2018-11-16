@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 import datetime
-from index.models import PositionInfo
+from PIL import Image
+from index.models import PositionInfo, OrgInfo
+import os
 
 # Create your views here.
 
@@ -13,50 +16,48 @@ def home(request):
 
 
 def register01(request):
-
-    return render(request, 'register01.html')
+    user = request.user
+    if request.method == 'POST':
+        main_page = request.POST.get('main_page', '')
+        company_name = request.POST.get('company_name', '')
+        company_license = request.FILES.get('company_lincese', '')
+        orginfo = OrgInfo(url=main_page, name=company_name, user_id=user.id)
+        orginfo.save()
+        licese_path = os.path.join(settings.BASE_DIR, 'org_auth/static/license/' + str(orginfo.id)+'.jpg')
+        Image.open(company_license).save(licese_path)
+        OrgInfo.objects.filter(user_id=user.id).update(lincese = licese_path)
+        return redirect('/org_auth/register02')
+    return HttpResponse('success')
 
 
 def register02(request):
     return render(request, 'register02.html')
 
 
-def myhome(request):
-    return render(request, 'myhome.html')
-
-
-def home01(request):
-    return render(request, 'home.html')
-
-
-def post_position(request):
+def conplete_orginfo(request):
     user = request.user
-    # org_info = user.orginfo_set.all()[0]
 
     if request.method == 'POST':
-        type = request.POST.get('type','')
-        name = request.POST.get('name','')
-        department = request.POST.get('department','')
-        job_catagory = request.POST.get('job_catagory','')
-        start_salary = request.POST.get('start_salary','')
-        end_salary = request.POST.get('end_salary','')
-        city = request.POST.get('city','')
-        distinct = request.POST.get('distinct','')
-        address = request.POST.get('address','')
-        work_exp = request.POST.get('tywork_exppe','')
-        edu_exp = request.POST.get('edu_exp','')
-        tags = request.POST.get('tags','')
-        desc = request.POST.get('desc','')
-        positionAdvantage = request.POST.get('positionAdvantage','')
-        subwayline = request.POST.get('subwayline','')
-        linestaion = request.POST.get('subwalinestaionyline','')
-        create_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        position = PositionInfo(type=type,name=name,department=department,job_catagory=job_catagory,
-                                start_salary=start_salary,end_salary=end_salary,city=city,distinct=distinct,
-                                address=address,work_exp=work_exp,edu_exp=edu_exp,tags=tags,
-                                desc=desc,positionAdvantage=positionAdvantage,subwayline=subwayline,
-                                create_datetime=create_datetime)
-        position.save()
-        print(city)
+        company_name = request.POST.get('company_name', '')
+        logo = request.FILES.get('logo', '')
+        company_email = request.POST.get('company_email', '')
+        city = request.POST.get('city', '')
+        type = request.POST.get('type', '')
+        phase = request.POST.get('phse', '')
+        scale = request.POST.get('scale', '')
+        tages = request.POST.get('tages', '')
+        phone = request.POST.get('phone', '')
+        desc = request.POST.get('desc', '')
+        createTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        orginfo = user.orginfo_set.all().first()
+        logo_path = os.path.join(settings.BASE_DIR, 'org_auth/static/logo'+orginfo.id+'.jpg')
+        OrgInfo.objects.filter(user_id=user.id).update(name=company_name, avatar=logo_path,
+                                                       type=type, phase=phase, desc=desc, scale=scale,
+                                                       phone=phone, city=city, company_email=company_email,
+                                                       tages=tages,createTime=createTime)
 
-    return render(request, 'post.html', locals())
+        return redirect('/org')
+    return render(request, 'home.html', locals())
+
+def home01(request):
+    return render(request, 'home.html') ##完善公司信息

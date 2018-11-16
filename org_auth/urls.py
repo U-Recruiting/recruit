@@ -12,8 +12,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
-    path('register01/',views.register01),
-    path('register02/',views.register02),
-    path('myhome/',views.myhome),
-    path('home01/',views.home01),
+    path('register01/',views.register01, name='register01'),
+    path('register02/',views.register02, name='register02'),
+    path('complete_orginfo', views.conplete_orginfo, name='complete_orginfo')
 ]
