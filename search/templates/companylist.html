@@ -32,7 +32,9 @@
             <ul class="reset" id="navheader">
                 <li ><a href="/">首页</a></li>
                 <li class="current"><a href="{% url 'company' %}">公司</a></li>
+                {% if logined%}
                 <li><a href="{% url 'myresume' %}" >我的简历</a></li>
+                {% endif %}
             </ul>
             {% if current_user %}
                 <div class="navheader_dropdown">

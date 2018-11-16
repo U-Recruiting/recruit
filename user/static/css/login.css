@@ -13,9 +13,10 @@
 .login_box .typeBtn:hover{background:#D69700;}
 .login_box .tips{color: red; margin-bottom: 20px}
 
+
 #loginForm{width:360px; margin:0; border-right:1px dashed #999; float:left;}
 #loginForm a{color:#F4A002; }
-#loginForm input#email{width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white}
+#loginForm input#phone{width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white}
 #loginForm input#password{width:296px;font-size:16px; color:#777;  border:1px solid #f4c232;background-color: white}
 #loginForm .verification{width:296px;clear: both}
 #loginForm .verification input#verificationCode{width:180px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white; float: left}
@@ -24,7 +25,62 @@
 #loginForm .fr{color:#777; margin-right:45px;}
 #loginForm .fr:hover{color:#F4A002;}
 #loginForm label{vertical-align:top;}
-/**add nancy**/
+
+/*登录页选择密码登录，还是手机验证码登录*/
+
+#loginForm .loginheader_dropdown {
+
+    clear: both;
+    margin-left: 3px;
+    margin-bottom: 20px;
+    width: 154px;
+}
+
+
+#loginForm .loginheader_bropbtn {
+
+
+    float: left;
+    display:inline-block;
+    font-size:16px;
+    width: 130px;
+    height: 32px;
+    padding:0px 10px;
+    color: #F4A002;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    border-bottom: 2px solid #F4A002;
+    margin-bottom: 20px;
+}
+
+#loginForm .loginheader_bropbtn_phone{
+    display:inline-block;
+    float: right;
+    font-size:16px;
+    width: 130px;
+    height: 32px;
+    padding: 10px;
+    color: #F4A002;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    border-bottom: 2px solid #F4A002;
+
+}
+
+#loginForm .loginheader_dropdown_content {
+
+    /*position: absolute;*/
+    margin-top: 20px;
+}
+
+
+#loginForm .loginheader_dropdown:hover .loginheader_bropbtn {
+    font-weight: bold;
+}
+
+/**add **/
 .registerAgree{ *height:36px;}
 #loginForm input[type="checkbox"]{margin-bottom:20px;border:none;background:none}
 #loginForm input[type="text"]
@@ -44,3 +100,16 @@
 .register_radio li em{ background:url(../imgs/s_choose.png) no-repeat; width:31px; height:32px; position:absolute; right:-1px; top:-1px;}
 .register_radio li input[type="radio"]{cursor:pointer;position:absolute;left:-2px;top:-2px;margin:0;width:152px;height:46px;filter:alpha(Opacity=0);-moz-opacity:0;opacity: 0; }
 .register_radio input[type="radio"]{display:block;}
+
+
+.login_radio{list-style:none; margin:0 0 20px 0; padding:0;}
+.login_radio li{width:148px; height:42px; font-size:18px; color: #f48c1b; text-align:center; line-height:42px;float:left;  margin:15px 11px 0 0; cursor:pointer; position:relative;}
+.login_radio li:hover{border-bottom:2px solid #f48c1b;}
+.login_radio li.current{border-bottom:2px solid #f48c1b;}
+
+.login_radio li em{background:url(../imgs/l_choose.png) no-repeat;width:31px; height:32px; position:absolute; right:-1px; top:-1px;}
+.login_radio li input[type="radio"]{cursor:pointer;position:absolute;left:-2px;top:-2px;margin:0;width:152px;height:46px;filter:alpha(Opacity=0);-moz-opacity:0;opacity: 0; }
+.login_radio input[type="radio"]{display:block;}
+
+
+
