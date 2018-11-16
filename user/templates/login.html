@@ -17,10 +17,11 @@
 <body id = "login_container">
     <div class="login_wrapper">
         <div class="login_header">
+            <li class ></li>
             <a href="/"><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘" /></a>
         </div>
         <div class="login_box">
-            <form id="loginForm" class="form" action="{% url 'login' %}" method="post">
+            <form id="loginForm" class="form" action="{{ link }}" method="post">
 
                 {% csrf_token %}
                  {% if tips %}

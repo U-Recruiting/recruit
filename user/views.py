@@ -8,17 +8,27 @@ import random
 import datetime
 from .models import MyUser, Role
 from django.contrib.auth import login, logout, authenticate
-
-
+from PIL import Image
+import os
+import random
 # Create your views here.
 
 
 def test(request):
-    return render(request,'reset.html')
+    index = chr(random.randint(97,106))
+    path = os.path.join(settings.BASE_DIR, 'static/avatar/' + str(index)+'.jpg')
+    user_path = os.path.join(settings.BASE_DIR, 'resume/static/avatar/'+str(1)+'.jpg')
+    img = Image.open(path)
+    img.save(user_path)
+    return HttpResponse('test')
 
 
 # 用户登录
 def loginView(request):
+    next = request.GET.get('next','')
+    if next:
+        link = "/user/login/?next="+next
+    print(next)
     remembered_email = request.COOKIES.get('remember_email', '')
     if remembered_email:
         checked = 'checked'
@@ -31,9 +41,13 @@ def loginView(request):
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
-                    url = '/org/'+str(user.id)
+                    url = '/org/'
                 elif user.role.name == 'user':
-                    url = '/'
+                    if next:
+                        url = next
+                    else:
+                        url = '/'
+                    print(url)
                 r = redirect(url)  ##应聘者进入index, 招聘者进入org/position
                 if remembered_email:
                     if not remerber:
@@ -122,7 +136,7 @@ def setpasswordView_1(request):
             dj_ps = make_password(new_password, None, 'pbkdf2_sha256')
             user.password = dj_ps
             user.save()
-    return render(request, 'user', locals())
+    return render(request, 'user.html', locals())
 
 
 # 用户注销，退出登录

@@ -16,5 +16,5 @@ urlpatterns = [
 
 
 
-    #path('test', views.test, name='test')
+    path('test', views.test, name='test')
 ]

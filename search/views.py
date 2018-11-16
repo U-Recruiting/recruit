@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from index.models import *
+from django.contrib.auth.decorators import login_required
 from urllib.parse import unquote
 
 
@@ -69,6 +70,7 @@ def searchView(request, page):
         # 处理POST请求，并重定向搜索页面。
         request.session['search_input'] = request.POST.get('search_input', '')
         return redirect('/search/1')
+
 
 def companyView(request):
     current_user = request.user

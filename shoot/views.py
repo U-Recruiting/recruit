@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from index.models import PositionInfo
+from index.models import PositionInfo, PositionResumeStatus
+from user.models import MyUser
 # Create your views here.
 
 
@@ -23,13 +24,18 @@ def shoot(request, position_id):
         # 所以简历对应岗位信息汇总
         position_resumed += positions
     # 当前用户
-    user = request.user
+    # user = request.user
+    user = MyUser.objects.get(email='ronnik@163.com')
 
     # 获取用户简历
-    resume = request.user.resume_set.first()
+    resume = user.resume_set.first()
 
 
     # 填入岗位信息表（多对多）
     position.resume.add(resume)
+
+    prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
+    if not prs:
+        PositionResumeStatus(position_id=position.id, resume_id=resume.id,status='received').save()
 
     return render(request, 'success.html', locals())
