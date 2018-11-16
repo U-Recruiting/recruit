@@ -55,7 +55,7 @@
                 <label class="fl" for="remember">
                     <input type="checkbox" id="remember" {{ checked }} name="autoLogin" /> 记住我
                 </label>
-                <a href="{% url 'reset' %}" class="fr" target="_blank">忘记密码？</a>
+                <a href="{% url 'setpassword' %}" class="fr" target="_blank">忘记密码？</a>
                 <button type="submit" class="submitLogin">登 &nbsp; &nbsp; 录</button>
 
                 <input type="hidden" id="callback" name="callback" value=""/>

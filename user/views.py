@@ -33,7 +33,7 @@ def loginView(request):
     if remembered_email:
         checked = 'checked'
     if request.method == 'POST':
-        email = request.POST.get('email', '')
+        email = request.POST.get('phone', '')
         password = request.POST.get('password', '')
         remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=email) | Q(email=email)):
