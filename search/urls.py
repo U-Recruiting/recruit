@@ -11,6 +11,7 @@ from . import views
 
 urlpatterns = [
     path('<int:page>', views.searchView, name='search'),
-    path('company',views.companyView,name = 'company')
+    path('company',views.companyView,name = 'company'),
+    path('jobinfo',views.jobinfoView,name = 'jobinfo')
 ]
 

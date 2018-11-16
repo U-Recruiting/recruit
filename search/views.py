@@ -9,6 +9,7 @@ def searchView(request, page):
 
     if request.method == 'GET':
 
+
         kword = request.session.get('search_input', '')
         print(kword)
 
@@ -73,3 +74,10 @@ def searchView(request, page):
 def companyView(request):
     current_user = request.user
     return render(request,'companylist.html',locals())
+
+# 职位详情页
+def jobinfoView(request):
+    return render(request, 'jobinfo.html')
+
+
+
