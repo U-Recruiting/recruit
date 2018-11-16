@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from index.models import *
 from PIL import Image
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import json
 import os
@@ -12,7 +13,15 @@ import os
 # def myresume_test(request):
 #     return render(request, "myresume.html")
 
+@login_required
 def my_resume(request):
+
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
 
     current_user = request.user
 
@@ -34,30 +43,40 @@ def edit_userinfo(request):
     userinfo = user.userinfo_set.all()
     if request.method == 'POST':
         name = request.POST.get('name', '')
-        # birthday = request.POST.get('birthdayme', '')
         sex = request.POST.get('sex', '')
-        print(sex)
+        education = request.POST.get('education', '')
+        work_years = request.POST.get('work_years', '')
+        mobile = request.POST.get('mobile', '')
+        email = request.POST.get('email', '')
+        status = request.POST.get('status', '')
         city = request.POST.get('city', '')
-        phone = request.POST.get('phone', '')
-
         if name:
             userinfo.update(name=name)
-        # if birthday:
-        #     userinfo.update(birthday=birthday)
         if sex:
             userinfo.update(sex=sex)
+        if education:
+            userinfo.update(education=education)
+        if work_years:
+            userinfo.update(work_years=work_years)
+        if email:
+            request.POST.get('email', '')
+        if mobile:
+            user.mobile = mobile
+        if status:
+            request.POST.get('status', )
         if city:
             userinfo.update(city=city)
-        if phone:
-            user.mobile = phone
         user.save()
 
         resp = {}
         resp['name'] = userinfo[0].name
-        resp['birthday'] = userinfo[0].birthday
         resp['sex'] = userinfo[0].sex
+        resp['education'] = userinfo[0].education
+        resp['work_years'] = userinfo[0].work_years
+        resp['email'] = userinfo[0].email
+        resp['mobile'] = userinfo[0].mobile
+        resp['status'] = userinfo[0].status
         resp['city'] = userinfo[0].city
-        resp['phone'] = user.mobile
 
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
@@ -116,6 +135,7 @@ def edit_projectexp(request):
 
     if request.method == 'POST':
         name = request.POST.get('name', '')
+        position_name = request.POST.get('position_name')
         start_date = request.POST.get('start_date', '')
         end_date = request.POST.get('end_date', '')
         url = request.POST.get('url', '')
@@ -129,6 +149,8 @@ def edit_projectexp(request):
             project_exp.update(end_date=end_date)
         if url:
             project_exp.update(url=url)
+        if position_name:
+            project_exp.update(position_name=position_name)
         if description:
             project_exp.update(description=description)
 
@@ -137,6 +159,7 @@ def edit_projectexp(request):
         resp['start_date'] = project_exp[0].start_date
         resp['end_date'] = project_exp[0].end_date
         resp['url'] = project_exp[0].url
+        resp['position_name'] = project_exp[0].position_name
         resp['description'] = project_exp[0].description
 
     return HttpResponse(json.dumps(resp), content_type="application/json")
@@ -179,11 +202,10 @@ def edit_huntingintent(request):
     huntingintent_exp = user.huntingintent_set.all()
 
     if request.method == 'POST':
-        position = request.POST.get('school', '')
-        position_type = request.POST.get('school', '')
-        city = request.POST.get('school', '')
-        satrt_salary = request.POST.get('school', '')
-        end_salary = request.POST.get('school', '')
+        city = request.POST.get('city', '')
+        position = request.POST.get('position', '')
+        position_type = request.POST.get('position_type', '')
+        salary = request.POST.get('salary', '')
 
         if position:
             huntingintent_exp.update(position=position)
@@ -191,17 +213,24 @@ def edit_huntingintent(request):
             huntingintent_exp.update(position_type=position)
         if city:
             huntingintent_exp.update(city=city)
-        if satrt_salary:
-            huntingintent_exp.update(satrt_salary=satrt_salary)
-        if end_salary:
-            huntingintent_exp.update(subject=end_salary)
-
+        if salary:
+            split_salary = salary.split('-')
+            if len(split_salary) == 2:
+                huntingintent_exp.update(satrt_salary=salary[0])
+                huntingintent_exp.update(end_salary=salary[1])
+            else:
+                huntingintent_exp.update(satrt_salary='')
+                huntingintent_exp.update(end_salary=salary)
         resp = {}
         resp['position'] = huntingintent_exp[0].position
         resp['position_type'] = huntingintent_exp[0].position_type
         resp['city'] = huntingintent_exp[0].city
-        resp['satrt_salary'] = huntingintent_exp[0].satrt_salary
-        resp['end_salary'] = huntingintent_exp[0].end_salary
+        start_salary = huntingintent_exp[0].satrt_salary
+        end_salary = huntingintent_exp[0].end_salary
+        if start_salary:
+            resp['salary'] = start_salary+'-'+end_salary
+        else:
+            resp['salary'] = end_salary
 
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
@@ -210,11 +239,10 @@ def edit_avatar(request):
     user = request.user
     userinfo = user.userinfo_set.all()
     if request.method == 'POST':
-        avatar = request.FILES.get('avatar','')
-        path = os.path.join(settings.BASE_DIR, 'static/avatar/'+str(user.id)+'.jpg')
+        avatar = request.FILES.get('avatar', '')
+        path = os.path.join(settings.BASE_DIR, 'resume/static/avatar/'+str(user.id)+'.jpg')
         img = Image.open(avatar)
         img.save(path)
-        print(img)
     img_path = 'avadar/'+str(user.id)+'.jpg'
 
     return render(request, 'edit_avatar.html', locals())

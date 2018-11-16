@@ -8,25 +8,45 @@ import random
 import datetime
 from .models import MyUser, Role
 from django.contrib.auth import login, logout, authenticate
-
-
+from PIL import Image
+import os
+import random
 # Create your views here.
 
-
+#用户密码重置
 def reset(request):
     return render(request,'reset.html')
-
+#邮箱验证
 def email_verify(request):
-    return render(request,'email_verify.html')
+    return render(request,'email_verify_test3.html')
+#重置密码
+def updatepwd(request):
+    return render(request,'updatepwd.html')
+#淘职用户协议
+def privacy(request):
+    return render(request,'privacy.html')
+
+def test(request):
+    index = chr(random.randint(97,106))
+    path = os.path.join(settings.BASE_DIR, 'static/avatar/' + str(index)+'.jpg')
+    user_path = os.path.join(settings.BASE_DIR, 'resume/static/avatar/'+str(1)+'.jpg')
+    img = Image.open(path)
+    img.save(user_path)
+    return HttpResponse('test')
+
 
 
 # 用户登录
 def loginView(request):
+    next = request.GET.get('next','')
+    if next:
+        link = "/user/login/?next="+next
+    print(next)
     remembered_email = request.COOKIES.get('remember_email', '')
     if remembered_email:
         checked = 'checked'
     if request.method == 'POST':
-        email = request.POST.get('email', '')
+        email = request.POST.get('phone', '')
         password = request.POST.get('password', '')
         remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=email) | Q(email=email)):
@@ -34,9 +54,13 @@ def loginView(request):
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
-                    url = '/org/'+str(user.id)
+                    url = '/org/'
                 elif user.role.name == 'user':
-                    url = '/'
+                    if next:
+                        url = next
+                    else:
+                        url = '/'
+                    print(url)
                 r = redirect(url)  ##应聘者进入index, 招聘者进入org/position
                 if remembered_email:
                     if not remerber:
@@ -59,11 +83,10 @@ def registerView(request):
 
     if request.method == 'POST':
         role_type = int(request.POST.get('type', ''))+1
-
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
         if MyUser.objects.filter(email=email):
-            tips = '用户已存在'
+            tips = '用户已存在,请直接登录！'
         else:
             if not request.session.get('verification_code', ''):
                 tips = '验证码已发送'
@@ -125,7 +148,7 @@ def setpasswordView_1(request):
             dj_ps = make_password(new_password, None, 'pbkdf2_sha256')
             user.password = dj_ps
             user.save()
-    return render(request, 'user', locals())
+    return render(request, 'user.html', locals())
 
 
 # 用户注销，退出登录

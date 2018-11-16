@@ -39,19 +39,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'index',
     'user',
+    'org_auth',
     'org',
     'position',
     'resume',
     'search',
     'shoot',
-    'mycenter'
+    'mycenter',
+    'reset_migrations'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -86,10 +88,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'PASSWORD': 'yaoye',
-        'HOST': 'localhost',
+        'PASSWORD': '1234.Com',
+        'HOST': '192.168.137.20',
         'PORT': '3306',
-        'NAME': 'recruit2',
+        'NAME': 'recruit5',
 
     }
 }
@@ -157,3 +159,7 @@ EMAIL_HOST_USER = '316043764@qq.com'
 # smtp服务密码
 EMAIL_HOST_PASSWORD = 'efkighmewsbobjah'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+## 登录url
+LOGIN_URL= '/user/login/'

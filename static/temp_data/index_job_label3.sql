@@ -20,21 +20,7 @@ SET time_zone = "+00:00";
 -- Database: `recruit4`
 --
 
--- --------------------------------------------------------
 
---
--- 表的结构 `index_job_label3`
---
-
-CREATE TABLE `index_job_label3` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `parent_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `index_job_label3`
---
 
 INSERT INTO `index_job_label3` (`id`, `name`, `parent_id`) VALUES
 (1, '数据库', 1),
@@ -164,37 +150,3 @@ INSERT INTO `index_job_label3` (`id`, `name`, `parent_id`) VALUES
 (125, '能源', 38),
 (126, '环保', 38),
 (127, '志愿者', 39);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `index_job_label3`
---
-ALTER TABLE `index_job_label3`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `index_job_label3_parent_id_002771a7_fk_index_job_label2_id` (`parent_id`);
-
---
--- 在导出的表使用AUTO_INCREMENT
---
-
---
--- 使用表AUTO_INCREMENT `index_job_label3`
---
-ALTER TABLE `index_job_label3`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
---
--- 限制导出的表
---
-
---
--- 限制表 `index_job_label3`
---
-ALTER TABLE `index_job_label3`
-  ADD CONSTRAINT `index_job_label3_parent_id_002771a7_fk_index_job_label2_id` FOREIGN KEY (`parent_id`) REFERENCES `index_job_label2` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

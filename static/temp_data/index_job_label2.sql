@@ -24,17 +24,7 @@ SET time_zone = "+00:00";
 
 --
 -- 表的结构 `index_job_label2`
---
 
-CREATE TABLE `index_job_label2` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `parent_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `index_job_label2`
---
 
 INSERT INTO `index_job_label2` (`id`, `name`, `parent_id`) VALUES
 (1, '软件', 1),
@@ -77,36 +67,3 @@ INSERT INTO `index_job_label2` (`id`, `name`, `parent_id`) VALUES
 (38, '能源环保', 9),
 (39, 'NGO公益', 9);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `index_job_label2`
---
-ALTER TABLE `index_job_label2`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `index_job_label2_parent_id_86d2ad3c_fk_index_job_label1_id` (`parent_id`);
-
---
--- 在导出的表使用AUTO_INCREMENT
---
-
---
--- 使用表AUTO_INCREMENT `index_job_label2`
---
-ALTER TABLE `index_job_label2`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
---
--- 限制导出的表
---
-
---
--- 限制表 `index_job_label2`
---
-ALTER TABLE `index_job_label2`
-  ADD CONSTRAINT `index_job_label2_parent_id_86d2ad3c_fk_index_job_label1_id` FOREIGN KEY (`parent_id`) REFERENCES `index_job_label1` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
