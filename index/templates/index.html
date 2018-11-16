@@ -43,7 +43,9 @@
             <ul class="reset" id="navheader">
                 <li class="current"><a href="/">首页</a></li>
                 <li><a href="{% url 'company' %}">公司</a></li>
+                {% if logined%}
                 <li><a href="{% url 'myresume' %}" >我的简历</a></li>
+                {% endif %}
             </ul>
             <!-- 用户已登录-->
             {% if logined %}
@@ -245,11 +247,10 @@
                 </div>
 
 
-                <!--最新职位 -->
+                <!--热门职位 -->
                 <div id="container_body">
                     <ul class="hotabbing reset">
                         <li class="current">热门职位</li>
-                        <li>最新职位</li>
                         <div><a href="list.html" class="btn fr" target="_blank" style="margin-top: 0px;height: 28px">查看更多</a>
                         </div>
                     </ul>
@@ -363,21 +364,22 @@
                             <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">产品经理</a>&nbsp;
+                                        <a href="h/jobs/147822.html" target="_blank">Python工程师</a>&nbsp;
                                         <span class="c9">[1天前发布]</span>
                                         <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">10k-15k</span>
+                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
                                     </div>
-                                    <span><em class="c7">经验1-3年\硕士</em></span>
+                                    <span><em class="c7">经验3-5年\本科</em></span>
                                     <br/>
                                     <div class="hot_pos_r">
                                         <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">百度</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="h/c/5232.html" target="_blank">联通</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <span><em class="c7">领域：</em> 云计算\大数据</span>
                                         </div>
                                         <ul class="companyTags reset">
-                                            <li>工作环境好</li>
+                                            <li>五险一金</li>
                                             <li>福利好</li>
+
                                         </ul>
                                     </div>
                                     <!-- <a  class="wb">分享到微博</a> -->
@@ -389,7 +391,7 @@
                             <li class="odd clearfix" >
                                 <div class="hot_pos_m">
                                     <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">Python开发工程师</a>&nbsp;
+                                        <a href="h/jobs/147822.html" target="_blank">Python工程师</a>&nbsp;
                                         <span class="c9">[1天前发布]</span>
                                         <span class="c9"
                                               style="float: right;margin-right: 10px;color: red">15k-20k</span>
@@ -413,7 +415,19 @@
                             </li>
                             </div>
                         </ul>
-                        <ul class="hot_pos hot_posHotPosition reset" style="display:none;">
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+                 <!--最新职位 -->
+                <div id="container_new_body">
+                    <ul class="hotabbing reset">
+                        <li class="current">最新职位</li>
+                        <div><a href="list.html" class="btn fr" target="_blank" style="margin-top: 0px;height: 28px">查看更多</a>
+                        </div>
+                    </ul>
+                    <div id="hotList" style="height: 80%">
+                        <ul class="hot_pos hot_posHotPosition reset">
                             <div class="hot_pos_box" style="margin: 10px 30px;float: left">
                             <li class="clearfix">
                                 <div class="hot_pos_m">
@@ -588,15 +602,7 @@
 
         </div>
 
-        <div id="index_footer">
-            <div class="wrapper">
-                <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
-                <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
-                <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
-                                                                href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
-                </div>
-            </div>
-        </div>
+
 
     </div>
     <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
@@ -646,7 +652,14 @@
         CallCenter.init(url);
     </script>
 </div>
-
+<div id="footer" style="position: relative; top:50px">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+        <div class="copyright">&copy;2013-2014 Lagou <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+        </div>
+    </div>
+</div>
 
 </body>
 
