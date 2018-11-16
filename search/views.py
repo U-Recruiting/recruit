@@ -10,7 +10,6 @@ def searchView(request, page):
 
     if request.method == 'GET':
 
-
         kword = request.session.get('search_input', '')
         print(kword)
 
