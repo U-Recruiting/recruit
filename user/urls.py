@@ -16,8 +16,5 @@ urlpatterns = [
     path('email_verify/',views.email_verify,name='email_verify'),
     path('privacy/',views.privacy,name='privacy'),
     path('updatepwd/',views.updatepwd,name='updatepwd'),
-
-
-
-    #path('test', views.test, name='test')
+    path('test', views.test, name='test')
 ]
