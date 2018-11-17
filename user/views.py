@@ -77,7 +77,7 @@ def loginView(request):
                         if user.complete == 'yes': ## 公司信息完善
                             url = '/org/'
                         else:
-                            url = '/org/complete_org_info'
+                            url = '/org_auth/complete_orginfo'
                     else:
                         url = '/org_auth/register01'
                 elif user.role.name == 'user':

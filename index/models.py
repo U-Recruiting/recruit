@@ -76,7 +76,7 @@ class OrgInfo(models.Model):
     authed = models.CharField('已经认证', max_length=20, default=None, null=True)
     name = models.CharField('公司名称', max_length=20, default=None, null=True)
     avatar = models.CharField('公司图标', max_length=50,default=None, null=True)
-    lincese = models.CharField('营业执照', max_length=50, default=None, null=True)
+    lincese = models.CharField('营业执照', max_length=500, default=None, null=True)
     type = models.CharField('公司类型', max_length=20, default=None, null=True)
     phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
     desc = models.CharField('公司描述', max_length=500, default=None, null=True)
