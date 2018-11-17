@@ -8,6 +8,12 @@ from urllib.parse import unquote
 
 def searchView(request, page):
 
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
     if request.method == 'GET':
 
 
@@ -74,12 +80,23 @@ def searchView(request, page):
 
 
 def companyView(request):
-    current_user = request.user
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
     return render(request,'companylist.html',locals())
 
 # 职位详情页
 def jobinfoView(request):
-    return render(request, 'jobinfo.html')
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    return render(request, 'jobinfo.html',locals())
 
 
 

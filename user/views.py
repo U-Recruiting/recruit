@@ -21,13 +21,16 @@ def reset(request):
     return render(request,'reset.html')
 #邮箱验证
 def email_verify(request):
-    return render(request,'email_verify_test3.html')
+    return render(request, 'email_verify.html')
 #重置密码
 def updatepwd(request):
     return render(request,'updatepwd.html')
 #淘职用户协议
 def privacy(request):
     return render(request,'privacy.html')
+#用户基本信息
+def basic_information(request):
+    return render(request,'basic_information.html')
 
 def test(request):
     index = chr(random.randint(97,106))
