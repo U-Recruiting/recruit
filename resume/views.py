@@ -246,3 +246,34 @@ def edit_avatar(request):
     img_path = 'avadar/'+str(user.id)+'.jpg'
 
     return render(request, 'edit_avatar.html', locals())
+
+# 我收藏的职位
+def mycollection(request):
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    return  render(request, 'myjob_collection.html', locals())
+
+# 我投递的职位
+def mydelivery(request):
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    return  render(request,'myjob_delivery.html',locals())
+
+
+# 我订阅的职位
+def mysubscribe(request):
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    return  render(request,'myjob_subscribe.html',locals())

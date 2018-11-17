@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'search',
     'shoot',
     'mycenter',
-    'reset_migrations'
+    # 'reset_migrations'
 ]
 
 MIDDLEWARE = [

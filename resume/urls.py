@@ -21,4 +21,8 @@ urlpatterns = [
     path('edit_huntingintent', views.edit_huntingintent, name='edit_huntingintent'),
     path('edit_avatar', views.edit_avatar, name='edit_avatar'),
 
+    path('mycollection',views.mycollection,name='mycollection'),
+    path('mydelivery',views.mydelivery,name='mydelivery'),
+    path('mysubscribe',views.mysubscribe,name='mysubscribe'),
+
 ]
