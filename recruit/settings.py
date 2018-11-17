@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '1x%d%t*^d45-7qbm@fq9m1ra_)3ow8dn+%6)%)=#rd&tg3^f(n'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -47,7 +45,7 @@ INSTALLED_APPS = [
     'shoot',
     'mycenter',
 
-    #'reset_migrations'
+    # 'reset_migrations'
 
     # 'reset_migrations'
 
@@ -84,7 +82,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'recruit.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -118,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -132,7 +128,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -143,11 +138,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'index/static'),
     os.path.join(BASE_DIR, 'resume/static'),
     os.path.join(BASE_DIR, 'search/static'),
+    os.path.join(BASE_DIR, 'org/static'),
 ]
 
 ## 自定义用户表
 AUTH_USER_MODEL = 'user.MyUser'
-
 
 ######### 邮件配置信息 #####
 EMAIL_USE_SSL = True
@@ -165,6 +160,5 @@ EMAIL_HOST_USER = '316043764@qq.com'
 EMAIL_HOST_PASSWORD = 'efkighmewsbobjah'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
 ## 登录url
-LOGIN_URL= '/user/login/'
+LOGIN_URL = '/user/login/'

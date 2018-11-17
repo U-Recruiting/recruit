@@ -57,7 +57,7 @@
                     <span class="red" id="noticeDot-0"></span>
                     <i></i>
                 </dt>
-                <dd style="display: none;"><a href="/org_index/positions">我发布的职位</a></dd>
+                <dd style="display: none;"><a href="/org/positions">我发布的职位</a></dd>
                 <dd style="display: none;"><a id="received" onclick="skip(this)">我收到的简历</a></dd>
                 <dd class="btm" style="display: none;"><a href="/org_index/myhome/{{ org_id }}">我的公司主页</a></dd>
                 <dd style="display: none;"><a href="accountBind/{{ org_id }}">帐号设置</a></dd>
@@ -73,32 +73,32 @@
     </div><!-- end #header -->
     <div id="container">
         <div class="sidebar">
-            <a class="btn_create" href="/org_index/create">发布新职位</a>
+            <a class="btn_create" href="/org/create">发布新职位</a>
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>
                 <dd class="current" id="dd_received">
-                    <a href="/org_index/resumes/">待处理简历</a>
+                    <a href="/org/resumes/">待处理简历</a>
                 </dd>
                 <dd class="btm" id="dd_notified">
-                    <a href="/org_index/resumes/">已通知面试</a>
+                    <a href="/org/resumes/">已通知面试</a>
                 </dd>
                 <dd class="btm" id="dd_passed">
-                    <a href="/org_index/resumes/">已录用简历</a>
+                    <a href="/org/resumes/">已录用简历</a>
                 </dd>
                 <dd class="btm" id="dd_refused">
-                    <a href="/org_index/resumes/">不合适简历</a>
+                    <a href="/org/resumes/">不合适简历</a>
                 </dd>
                 <dd class="btm" id="dd_filtered">
-                    <a href="/org_index/resumes/">自动过滤简历</a>
+                    <a href="/org/resumes/">已过滤简历</a>
                 </dd>
             </dl>
             <dl class="company_center_aside">
                 <dt>我发布的职位</dt>
-                <dd class="current">
-                    <a href="">有效职位</a>
+                <dd id="dd_valid" class="current">
+                    <a id="valid_positions">有效职位</a>
                 </dd>
-                <dd>
-                    <a href="">已下线职位</a>
+                <dd id="dd_invalid">
+                    <a id="invalid_positions">已下线职位</a>
                 </dd>
             </dl>
         </div><!-- end .sidebar -->
@@ -107,7 +107,7 @@
                 <dt>
                     <h1>
                         <em></em>
-                        有效职位 <span>（共<i style="color:#fff;font-style:normal" id="positionNumber">1</i>个）</span></h1>
+                        <span id="item_title" style="font-size: 25px;">有效职位</span></h1>
                 </dt>
                 <dd>
                     <form id="searchForm">
@@ -200,6 +200,36 @@
         }
     };
     CallCenter.init(url);
+    $(function () {
+        $('#dd_valid').click(function () {
+            remove()
+            $('#item_title').text('有效职位');
+            $('#dd_valid').addClass('current');
+            $.post(
+                "{% url 'get_html' %}",
+                {html: "received"},
+                function (response) {
+                    $('#form_container').html(response)
+                }
+            );
+        });
+        $('#dd_invalid').click(function () {
+            remove();
+            $('#item_title').text('已下线职位');
+            $('#dd_invalid').addClass('current');
+            $.post(
+                "{% url 'get_html' %}",
+                {html: "received"},
+                function (response) {
+                    $('#form_container').html(response)
+                }
+            );
+        });
+        function remove() {
+            $('#dd_valid').removeClass('current');
+            $('#dd_invalid').removeClass('current');
+        }
+    })
 </script>
 
 <div id="cboxOverlay" style="display: none;"></div>
