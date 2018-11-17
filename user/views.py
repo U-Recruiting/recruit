@@ -40,37 +40,56 @@ def test(request):
 
 # 用户登录
 def loginView(request):
-    next = request.GET.get('next','')
+    next = request.GET.get('next', '')
     if next:
         link = "/user/login/?next="+next
+    else:
+        link = "/user/login/"
     print(next)
     remembered_email = request.COOKIES.get('remember_email', '')
     if remembered_email:
         checked = 'checked'
     if request.method == 'POST':
-        email = request.POST.get('phone', '')
+        account = request.POST.get('account', '')
         password = request.POST.get('password', '')
+        phone = request.POST.get('phone', '')
+        code_password = request.POST.get('code_password', '')
         remerber = request.POST.get('autoLogin', None)
-        if MyUser.objects.filter(Q(mobile=email) | Q(email=email)):
-            user = MyUser.objects.filter(Q(mobile=email) | Q(email=email)).first()
-            if check_password(password, user.password):
+        if account:
+            login_name = account
+            login_password = password
+        elif phone:
+            login_name = phone
+            login_password = code_password
+        print(phone)
+        if MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)):
+            user = MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)).first()
+            print(user)
+            if check_password(login_password, user.code_password) or check_password(login_password, user.password):
+                print('pass')
                 login(request, user)
                 if user.role.name == 'org':
-                    url = '/org/'
+                    if user.is_active == 1:
+                        url = '/org/'
+                    else:
+                        url = '/org_auth/register01'
                 elif user.role.name == 'user':
                     if next:
                         url = next
                     else:
-                        url = '/'
+                        if user.is_active:
+                            url = '/'
+                        else:
+                            url = '/resume/myresume'
                     print(url)
-                r = redirect(url)  ##应聘者进入index, 招聘者进入org/position
+                r = redirect(url)   ##应聘者进入index, 招聘者进入org/position
                 if remembered_email:
                     if not remerber:
                         r.delete_cookie('remember_email')
                         request.session.set_expiry(0)
                 else:
                     if remerber:
-                        r.set_cookie('remember_email', email)
+                        r.set_cookie('remember_email', account)
                 return r
             else:
                 tips = '密码错误，请重新输入！'
@@ -84,19 +103,19 @@ def registerView(request):
 
     if request.method == 'POST':
         role_type = int(request.POST.get('type', ''))+1
-        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
         verification_code = request.POST.get('verificationCode', '')
-        if MyUser.objects.filter(email=email):
+        if MyUser.objects.filter(email=phone): #测试
             tips = '用户已存在,请直接登录！'
         else:
             if verification_code == request.session.get('verification_code'):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
-                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password='',
-                                                  is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
+                user = MyUser.objects.create_user(username='', first_name='', last_name='', email=phone, password='',code_password='',
+                                                  is_superuser=0,is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
                 user.save()
                 if user.role == 1:
-                    return redirect('/')
+                    return redirect('/resume/myresume')
                 elif user.role == 2:
                     return redirect('/org_auth/register01')
             else:
@@ -107,15 +126,14 @@ def registerView(request):
 
 def get_verification_code(request):
     if request.method == 'POST':
-        # email = request.POST.get('email', '')
         phone = request.POST.get('phone', '')
         verification_code = str(random.randint(100000, 999999))
         request.session['verification_code'] = verification_code
         from_email = settings.DEFAULT_FROM_EMAIL
-        # send_mail('用户注册', verification_code, from_email, [email])
-        text = '您的验证码是：'+verification_code+'。请不要把验证码泄露给其他人。'
-        resp = utils.send_sms(text=text, mobile=phone)
-        print(resp.decode('utf-8'))
+        send_mail('用户注册', verification_code, from_email, [phone]) # 先用email发送
+        # text = '您的验证码是：'+verification_code+'。请不要把验证码泄露给其他人。'
+        # resp = utils.send_sms(text=text, mobile=phone)
+        # print(resp.decode('utf-8'))
         data = {'message': 'success'}
         return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
     return HttpResponse('get method')
