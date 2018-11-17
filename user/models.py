@@ -10,7 +10,7 @@ class Role(models.Model):
 class MyUser(AbstractUser):
     mobile = models.CharField('手机号码', max_length=11,null=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE,default=None)
-    code_password = models.CharField('验证码密码', max_length=100, default=None, null=True)
+    # code_password = models.CharField('验证码密码', max_length=100, default=None, null=True)
     # role = models.CharField('角色', max_length=20,default=None, null=True)
 
     def __str__(self):

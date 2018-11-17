@@ -156,16 +156,39 @@
             <div class="content_r" style="margin-top: 50px">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的职位管理</h2>
-                    <a href="{% url 'mycollection' %}">我收藏的职位</a>
+                    <a href="{% url 'mycollection' %}">我的收藏</a>
                     <br>
-                    <a href="{% url 'mysubscribe' %}">我订阅的职位</a>
+                    <a href="{% url 'mysubscribe' %}">我的订阅</a>
                     <br>
-                    <a href="{% url 'mydelivery' %}">我投递的职位</a>
+                    <a href="{% url 'mydelivery' %}">我的投递</a>
                 </div><!--end #myInfo-->
-                <!--<div class="greybg qrcode mt20">-->
-                <!--<img width="242" height="242" alt="微信公众号二维码" src="style/images/">-->
-                <!--<span class="c7">扫描二维码，微信轻松搜工作</span>-->
-                <!--</div>-->
+                <div class="mycenterR" id="myRecommend">
+                    <h2>猜你喜欢 <i>匹配度</i></h2>
+                    <ul class="reset">
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">广州百田</span>
+                                <em>92%</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">短讯神州</span>
+                                <em>92%</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">爱拍</span>
+                                <em>89%</em>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>
+                </div><!--end #myRecommend-->
             </div>
         </div>
         <script src="style/js/collections.min.js"></script>

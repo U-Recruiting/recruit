@@ -24,5 +24,6 @@ urlpatterns = [
     path('mycollection',views.mycollection,name='mycollection'),
     path('mydelivery',views.mydelivery,name='mydelivery'),
     path('mysubscribe',views.mysubscribe,name='mysubscribe'),
+    path('myrecommand',views.myrecommand,name = 'myrecommand'),
 
 ]

@@ -277,3 +277,13 @@ def mysubscribe(request):
     else:
         logined = False
     return  render(request,'myjob_subscribe.html',locals())
+
+# 我的推荐
+def myrecommand(request):
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    return  render(request,'myjob_recommand.html',locals())
