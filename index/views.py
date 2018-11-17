@@ -11,10 +11,10 @@ def index(request):
 
     #标签1，2，3
 
-    lables = Job_Label1.objects.all()
-    lables_4 =[]
-    for index in range(4):
-         lables_4.append(lables[index])
+    lables = Job_Label1.objects.all()[:4]
+    # lables_4 =[]
+    # for index in range(4):
+    #      lables_4.append(lables[index])
     hot_position_3 = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[:3]
     hot_position_6 = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[3:6]
 
