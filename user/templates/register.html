@@ -15,137 +15,158 @@
     <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
 
 </head>
-<body id ="login_container">
-    <div class="login_wrapper">
-        <div class="login_header">
-            <a href=""><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘" /></a>
-        </div>
-        <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27" />
-        <div class="login_box">
+<body id="login_container">
+<div class="login_wrapper">
+    <div class="login_header">
+        <a href=""><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘"/></a>
+    </div>
+    <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27"/>
+    <div class="login_box">
 
-            <form id="loginForm" class="form" action="{% url 'register' %}" method="post">
-                {% csrf_token %}
-                <ul class="register_radio clearfix">
-		            <li>
-		            	找工作
-		              	<input type="radio" value="0" name="type" />
-		            </li>
-		            <li>
-                        招人
-		              	<input type="radio" value="1" name="type" />
-		            </li>
-		        </ul>
-                  {% if tips %}
+        <form id="loginForm" class="form" action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <ul class="register_radio clearfix">
+                <li>
+                    找工作
+                    <input type="radio" value="0" name="type" class="shenchen"/>
+                </li>
+                <li>
+                    招人
+                    <input type="radio" value="1" name="type" class="shenchen"/>
+                </li>
+            </ul>
+            <span class="error" style="display:none;" id="beError"></span>
+            {% if tips %}
                 <div class="tips">{{ tips }}</div>
-                  {% endif %}
-                <input type="text" id="phone" name="phone" tabindex="1" style="width:296px;font-size:16px;" value="{{ username }}" placeholder="请输入常用手机号" />
+            {% endif %}
+            <input type="text" id="phone" name="phone" tabindex="1" style="width:296px;font-size:16px;"
+                   value="{{ username }}" placeholder="请输入常用手机号"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            <div class="verification">
+                <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码"/>
+                <input type="button" value="获取验证码" id="code_button" class="Code"></input>
+            </div>
+            <div style="clear: both" class="verification2">
                 <span class="error" style="display:none;" id="beError"></span>
-                <div class="verification">
-                    <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码" />
-                    <button type="submit" class="Code">获取验证码</button>
-                </div>
-
-                <label class="fl registerAgree" for="checkbox">
-            		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《用户协议》</a>
-           		</label>
-                <button type="botton"  class="submitLogin">注 &nbsp; &nbsp; 册</button>
-
-                <input type="hidden" id="callback" name="callback" value=""/>
-                <input type="hidden" id="authType" name="authType" value=""/>
-                <input type="hidden" id="signature" name="signature" value=""/>
-                <input type="hidden" id="timestamp" name="timestamp" value=""/>
-
-            </form>
-            <div class="login_right">
-                <div>已有帐号</div>
-            	<a  href="/user/login"  class="registor_now">直接登录</a>
             </div>
 
+
+            <label class="fl registerAgree" for="checkbox">
+                <input type="checkbox" id="checkbox" name="checkbox" checked class="checkbox valid"/>我已阅读并同意<a
+                    href="h/privacy.html" target="_blank">《用户协议》</a>
+            </label>
+            <button type="botton" class="submitLogin">注 &nbsp; &nbsp; 册</button>
+
+            <input type="hidden" id="callback" name="callback" value=""/>
+            <input type="hidden" id="authType" name="authType" value=""/>
+            <input type="hidden" id="signature" name="signature" value=""/>
+            <input type="hidden" id="timestamp" name="timestamp" value=""/>
+
+        </form>
+        <div class="login_right">
+            <div>已有帐号</div>
+            <a href="/user/login" class="registor_now">直接登录</a>
         </div>
+
     </div>
-    <script type="text/javascript">
-        $(document).ready(function(e) {
-    	$('.register_radio li input').click(function(e){
-    		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
-    	});
+</div>
 
-    	$('#phone').focus(function(){
-    		$('#beError').hide();
-    	});
-    	//验证表单
-	    	 $("#loginForm").validate({
-	    	        rules: {
-	    	        	type:{
-	    	        		required: true
-	    	        	},
-			    	   	phone: {
-			    	    	required: true,
-			    	    	phone: true
-			    	   	},
+<script>
+    $(document).ready(function () {
 
-			    	   	checkbox:{required:true}
-			    	},
-			    	messages: {
-			    		type:{
-	    	        		required:"请选择使用淘职的目的"
-	    	        	},
-			    	 	phone: {
-			    	    	required: "请输入手机号",
-			    	    	phone: "请输入有效的手机号"
-			    	   	},
-			    	   	checkbox: {
-			    	    	required: "请接受用户协议"
-			    	   	}
-			    	},
-			    	errorPlacement:function(label, element){/*
-			    		if(element.attr("type") == "radio"){
-			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
-			    		}else if(element.attr("type") == "checkbox"){
-			    			label.inserresult.contenttAfter($(element).parent()).css('clear','left');
-			    		}else{
-			    			label.insertAfter(element);
-			    		} */
-			    		/*modify nancy*/
-			    		if(element.attr("type") == "radio"){
-			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
-			    		}else if(element.attr("type") == "checkbox"){
-			    			label.insertAfter($(element).parent()).css('clear','left');
-			    		}else{
-			    			label.insertAfter(element);
-			    		};
-			    	},
-			    	submitHandler:function(form){
-			    		var type =$('input[type="radio"]:checked',form).val();
-			    		var phone =$('#phone').val();
-			    		var verificationCode =$('#verificationCode').val();
-			    		var resubmitToken = $('#resubmitToken').val();
+        $("#code_button").click(function () {
+            {#error_mobile = check_mobile();#}
+            error_mobile = false;
+            if (!error_mobile) {
+                RemainTime();
+                $.ajax({
+                    url: "{% url 'get_verification_code' %}",
+                    type: 'post',
+                    data: {
+                        phone :$('#phone').val()
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        alert(data)
+                    }
+                });
+            }
+        });
 
-			    		var callback = $('#callback').val();
-			    		var authType = $('#authType').val();
-			    		var signature = $('#signature').val();
-			    		var timestamp = $('#timestamp').val();
+        $('.submitLogin').click(
+            function () {
+                var radio = $('input:radio[name="type"]:checked').val();
+                var phone = $('#phone').val();
+                var code = $('#verificationCode').val();
+                if (!radio) {
+                    $('.register_radio').next().html('请选择目的');
+                    $('.register_radio').next().show();
 
-			    		$(form).find(":submit").attr("disabled", true);
+                }
+                if (!phone) {
+                    $('#phone').next().html('请输入电话号码');
+                    $('#phone').next().show()
 
-			            $.ajax({
-			            	type:'POST',
-			            	data: {phone:phone,password:password,type:type,resubmitToken:resubmitToken, callback:callback, authType:authType, signature:signature, timestamp:timestamp},
-			            	url:ctx+'/user/register.json',
-			            	dataType:'json'
-			            }).done(function(result) {
-		            		$('#resubmitToken').val(result.resubmitToken);
-			            	if(result.success){
-			            		window.location.href=result.content;
-			            	}else{
-								$('#beError').text(result.msg).show();
-			            	}
-			            	$(form).find(":submit").attr("disabled", false);
-			            });
-			        }
-	    	});
+                }
+
+                error_mobile = check_mobile()
+                if (!code) {
+                    $('.verification2').children('span').html('请输入验证码');
+                    $('.verification2').children('span').show()
+
+                }
+                if (!radio | !phone | !code | error_mobile) {
+                    return false;
+                }
+            }
+        );
+
+        $('.register_radio li input').click(function (e) {
+            $(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+        });
+
     });
 
-    </script>
+
+    var iTime = 60;
+    sTime = '';
+
+    function RemainTime() {
+        if (iTime == 0) {
+            document.getElementById('code_button').disabled = false;
+            sTime = "获取验证码";
+            iTime = 60;
+            document.getElementById('code_button').value = sTime;
+            return;
+        } else {
+            document.getElementById('code_button').disabled = true;
+            sTime = "重新发送(" + iTime + ")";
+            iTime--;
+        }
+        setTimeout(function () {
+            RemainTime()
+        }, 1000)
+        document.getElementById('code_button').value = sTime;
+    }
+
+    function check_mobile() {
+
+        var re = /^1[345678]\d{9}$/; //校验手机号
+
+        if (re.test($('#phone').val())) {
+            $('#phone').next().hide();
+            error_mobile = false;
+        }
+        else {
+            $('#phone').next().html('你输入的手机格式不正确');
+            $('#phone').next().show();
+            error_mobile = true;
+        }
+        return error_mobile
+    }
+
+
+</script>
 
 </body>
 </html>

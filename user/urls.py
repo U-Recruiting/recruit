@@ -9,6 +9,7 @@ from . import views
 urlpatterns = [
 
     path('register/', views.registerView, name='register'),
+    path('get_verification_code/', views.get_verification_code, name='get_verification_code'),
     path('login/', views.loginView, name='login'),
     path('logout/', views.logoutView, name='logout'),
     path('setpassword/', views.setpasswordView, name='setpassword'),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('email_verify/',views.email_verify,name='email_verify'),
     path('privacy/',views.privacy,name='privacy'),
     path('updatepwd/',views.updatepwd,name='updatepwd'),
+    path('changepwd/', views.changepwd, name='changepwd'),
     path('test', views.test, name='test')
 ]

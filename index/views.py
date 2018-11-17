@@ -21,12 +21,12 @@ def index(request):
     latest = PositionInfo.objects.order_by('-create_datetime').all()[:10]
     print("latest:",latest)
 
-    user = request.user
-    if user.is_active:
-        logined = True
-        user_real_name = user.userinfo_set.all().first().name
-    else:
-        logined = False
+    # user = request.user
+    # if user.is_active:
+    #     logined = True
+    #     user_real_name = user.userinfo_set.all().first().name
+    # else:
+    #     logined = False
     return render(request, 'index.html', locals())
 #返回关于我们界面
 def aboutus(request):

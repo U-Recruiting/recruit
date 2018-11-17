@@ -5,12 +5,14 @@ from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+import json
 import datetime
 from .models import MyUser, Role
 from django.contrib.auth import login, logout, authenticate
 from PIL import Image
 import os
 import random
+from . import utils
 # Create your views here.
 
 #用户密码重置
@@ -77,7 +79,6 @@ def loginView(request):
     return render(request, 'login.html', locals())
 
 
-
 # 用户注册
 def registerView(request):
 
@@ -88,25 +89,36 @@ def registerView(request):
         if MyUser.objects.filter(email=email):
             tips = '用户已存在,请直接登录！'
         else:
-            if not request.session.get('verification_code', ''):
-                tips = '验证码已发送'
-                username = email
-                verification_code = str(random.randint(100000, 999999))
-                request.session['verification_code'] = verification_code
-                from_email = settings.DEFAULT_FROM_EMAIL
-                send_mail('用户注册', verification_code, from_email, [email])
-            elif verification_code == request.session.get('verification_code'):
+            if verification_code == request.session.get('verification_code'):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
-                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=verification_code,
+                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password='',
                                                   is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
                 user.save()
-                return redirect('/org/register01')
+                if user.role == 1:
+                    return redirect('/')
+                elif user.role == 2:
+                    return redirect('/org_auth/register01')
             else:
                 tips = '验证码错误, 请重新获取'
                 del request.session['verification_code']
     return render(request, 'register.html', locals())
 
+
+def get_verification_code(request):
+    if request.method == 'POST':
+        # email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        verification_code = str(random.randint(100000, 999999))
+        request.session['verification_code'] = verification_code
+        from_email = settings.DEFAULT_FROM_EMAIL
+        # send_mail('用户注册', verification_code, from_email, [email])
+        text = '您的验证码是：'+verification_code+'。请不要把验证码泄露给其他人。'
+        resp = utils.send_sms(text=text, mobile=phone)
+        print(resp.decode('utf-8'))
+        data = {'message': 'success'}
+        return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
+    return HttpResponse('get method')
 
 # 修改密码
 def setpasswordView(request):
@@ -135,19 +147,21 @@ def setpasswordView(request):
 from django.contrib.auth.hashers import make_password
 
 
-def setpasswordView_1(request):
+def changepwd(request):
+
+    user = request.user
     if request.method == 'POST':
-        username = request.POST.get('username', '')
         old_password = request.POST.get('password', '')
         new_password = request.POST.get('new_password', '')
-        # 判断用户是否存在
-        user = MyUser.objects.filter(username=username)
-        if MyUser.objects.filter(username=username):
-            user = authenticate(username=username, password=old_password)
-            # 密码加密处理并保存到数据库
-            dj_ps = make_password(new_password, None, 'pbkdf2_sha256')
-            user.password = dj_ps
+        old_password_sha = make_password(old_password, None, 'pbkdf2_sha256')
+        if old_password_sha == user.password:
+            new_password_sha = make_password(new_password, None, 'pbkdf2_sha256')
+            user.password = new_password_sha
             user.save()
+            tips = '修改密码成功'
+        else:
+            tips = '密码错误'
+
     return render(request, 'user.html', locals())
 
 
