@@ -138,6 +138,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'user/static'),
     os.path.join(BASE_DIR, 'index/static'),
+    os.path.join(BASE_DIR, 'resume/static'),
+    os.path.join(BASE_DIR, 'search/static'),
 ]
 
 ## 自定义用户表
