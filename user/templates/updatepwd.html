@@ -52,7 +52,7 @@
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/step1_html_aio.css' %}" />
+    <link rel="stylesheet" type="text/css" href="//www.lgstatic.com/passport/static/pkg/pc/page/findpassword/step1.html_aio_d5cb12d.css" />
 
 
 <script type="text/javascript">
@@ -76,18 +76,29 @@ var youdao_conv_id = 271546;
 
 <body id="login_bg">
 	<div class="login_wrapper">
-		<div class="login_header" style="float: left">
-        	<a href="/"><img src="{% static 'imgs/logo_white.png' %}" width="285" height="62" alt="淘职招聘" /></a>
+		<div class="login_header">
+        	<a href="/"><img src="{% static 'imgs/logo.png' %}" width="285" height="62" alt="淘职招聘" /></a>
             <div id="cloud_s"><img src="{% static 'imgs/cloud_s.png' %}" width="81" height="52" alt="cloud" /></div>
             <div id="cloud_m"><img src="{% static 'imgs/cloud_m.png' %}" width="136" height="95" alt="cloud" /></div>
         </div>
-        <section class="content_box" id="findPwd2">
-    <!-- 通过邮箱来找回密码 -->
-    <div class="findPwd">
-        <h5 class="change_way"><a rel="nofollow" href="/user/login/">返回登录</a><span class="separate">|</span></h5>
-        <form action="" method="">
-            <img src="{% static 'imgs/psw_step3.png' %}" style="margin: 0px 0px 30px 0px"/>
 
+    	<input type="hidden" id="resubmitToken" value="" />
+        <section class="content_box" id="findPwd2" style="margin-top: 50px;height: 200px;">
+            <img src="{% static 'imgs/psw_step3.png' %}" width="369" height="56" alt="找回密码第二步" style="position: absolute;left: 35px;top: 20px;" />
+{#            <h5 class="change_way" style="position: absolute;top: 290px;left: 175px"><a rel="nofollow" href="/user/login/">返回登录</a><span class="separate"></span></h5>#}
+            <!-- 通过邮箱来找回密码 -->
+    <div class="findPwd" style="position: absolute;width:400px;left: 20px;top: 100px">
+
+        <form action="" method="">
+{#            <div class="form_body" style="position: absolute;top: 20px">#}
+{#                <div class="input_item clearfix">#}
+{#                    <h3 class="reset_mail">密码重置邮件已发送至你的邮箱：<span class="des_mail">Alice@taozhi.com</span></h3>#}
+{#                    <p class="reset_tips">请在24小时内登录你的邮箱接收邮件,链接激活后可重置密码。</p>#}
+{#                </div>#}
+{#                <div class="input_item clearfix" style="display:block;" id="gotoVerify">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="登录邮箱查看" style="text-align: center;height: auto;background-color: #D69700" id="step2" >#}
+{#                </div>#}
+{#            </div>#}
             <div class="form_body" style="display:block">
                 <div class="input_item clearfix">
                     <input type="text" class="input input_white" name="" placeholder="请输入新密码" data-required="required" autocomplete="off" >
@@ -96,7 +107,7 @@ var youdao_conv_id = 271546;
                     <input type="text" class="input input_white" name="" placeholder="请再次输入新密码" data-required="required" autocomplete="off" >
                 </div>
                 <div class="input_item clearfix">
-                    <input type="button" class="btn btn_green btn_active btn_block" value="确定" id="step3" onclick="findByMail('step3')">
+                    <input type="button" class="btn btn_green btn_active btn_block" value="确定" id="step3" style="height: auto;background-color: #D69700" onclick="findByMail('step3')">
                 </div>
             </div>
         </form>
@@ -106,13 +117,13 @@ var youdao_conv_id = 271546;
 
 <input type="hidden" id="verifyStyle" style="display: none" value="nolagou"><!-- jquery lib --><!--拉勾UI框架 -->
 <!-- analytics js file -->
-<script type="text/javascript" src="{% static 'js/vendor_c7a7c93.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/step1_html_aio.js' %}"></script>
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/vendor_c7a7c93.js"></script>
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/pc/page/findpassword/step1.html_aio_2d366a5.js"></script>
 <script type="text/javascript">
     //login page
     require(['pc/page/findpassword/main']);
 </script>
-<script type="text/javascript" src="{% static 'js/lg-analytics_44f2da6.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/upload-oss.js' %}"></script>
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/lg-analytics_44f2da6.js"></script>
+<script type="text/javascript" src="https://passport.lagou.com/upload/oss.js"></script>
 </body>
 </html>

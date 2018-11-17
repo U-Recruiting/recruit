@@ -18,5 +18,6 @@ urlpatterns = [
     path('privacy/',views.privacy,name='privacy'),
     path('updatepwd/',views.updatepwd,name='updatepwd'),
     path('changepwd/', views.changepwd, name='changepwd'),
-    path('test', views.test, name='test')
+    path('test', views.test, name='test'),
+    path('basic_information/',views.basic_information,name='basic_information')
 ]
