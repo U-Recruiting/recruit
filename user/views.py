@@ -65,8 +65,8 @@ def loginView(request):
         if MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)):
             user = MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)).first()
             print(user)
-            # if check_password(login_password, user.code_password) or check_password(login_password, user.password):
-            if user:
+            if check_password(login_password, user.code_password) or check_password(login_password, user.password):
+            # if user:
                 print('pass')
                 login(request, user)
                 if user.role.name == 'org':
