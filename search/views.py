@@ -99,4 +99,14 @@ def jobinfoView(request):
     return render(request, 'jobinfo.html',locals())
 
 
-
+#查看更多
+def searchmoreView(request):
+    user = request.user
+    if user.is_active:
+        logined = True
+        user_real_name = user.userinfo_set.all().first().name
+    else:
+        logined = False
+    hot_position = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()
+    latest = PositionInfo.objects.order_by('-create_datetime').all()
+    return render(request,'searchcomlist.html',locals())

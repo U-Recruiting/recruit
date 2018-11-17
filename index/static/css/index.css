@@ -75,7 +75,7 @@ ul.hot_pos i{width: 12px;height: 14px;background:url(../imgs/hot.png) left top n
 .hot_pos .apply a:hover{color:#fff; }
 .hot_pos .apply a.sended{background:#bfbfbf;width:64px;text-align:center;}
 .hot_pos .odd{background:#fafafa;}
-.hot_pos a{font-size:16px; color:#333;}
+.hot_pos a{font-size:16px; color:#333; }
 .hot_pos a.btn{color:#fff;}
 .hot_pos a:hover{color:#ff9a10;}
 .hot_pos a.btn:hover{color:#fff;}

@@ -14,12 +14,14 @@ def index(request):
     lables_4 =[]
     for index in range(4):
          lables_4.append(lables[index])
-    hot_position = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[:10]
-    print("hot_position:",hot_position)
+    hot_position_3 = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[:3]
+    hot_position_6 = Dynamic_Position.objects.select_related('position_info').order_by('-dynamic_search').all()[3:6]
+
     hot_company = Dynamic_Org.objects.select_related('org_info').order_by('-dynamic_search').all()[:10]
-    print("hot_position:", hot_company)
-    latest = PositionInfo.objects.order_by('-create_datetime').all()[:10]
-    print("latest:",latest)
+
+
+    latest_3 = PositionInfo.objects.order_by('-create_datetime').all()[:3]
+    latest_6 = PositionInfo.objects.order_by('-create_datetime').all()[3:6]
 
     user = request.user
     if user.is_active:
@@ -28,6 +30,7 @@ def index(request):
     else:
         logined = False
     return render(request, 'index.html', locals())
+
 #返回关于我们界面
 def aboutus(request):
     return render(request,'about.html')
