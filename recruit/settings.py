@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'search',
     'shoot',
     'mycenter',
+
     #'reset_migrations'
+
+    # 'reset_migrations'
+
 ]
 
 MIDDLEWARE = [
@@ -91,8 +95,7 @@ DATABASES = {
         'PASSWORD': '1234.Com',
         'HOST': '192.168.137.20',
         'PORT': '3306',
-        'NAME': 'recruit',
-
+       'NAME': 'recruit',
     }
 }
 
@@ -138,6 +141,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'user/static'),
     os.path.join(BASE_DIR, 'index/static'),
+    os.path.join(BASE_DIR, 'resume/static'),
+    os.path.join(BASE_DIR, 'search/static'),
 ]
 
 ## 自定义用户表
