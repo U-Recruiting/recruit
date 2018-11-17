@@ -10,6 +10,7 @@ from .models import Job_Label1,Dynamic_Position,Dynamic_Org,PositionInfo
 def index(request):
 
     #标签1，2，3
+
     lables = Job_Label1.objects.all()
     lables_4 =[]
     for index in range(4):

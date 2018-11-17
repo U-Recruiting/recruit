@@ -4,7 +4,6 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
-import random
 import json
 import datetime
 from .models import MyUser, Role
@@ -12,6 +11,8 @@ from django.contrib.auth import login, logout, authenticate
 from PIL import Image
 import os
 import random
+from .models import MyUser
+from index.models import *
 from . import utils
 # Create your views here.
 
@@ -20,13 +21,16 @@ def reset(request):
     return render(request,'reset.html')
 #邮箱验证
 def email_verify(request):
-    return render(request,'email_verify_test3.html')
+    return render(request, 'email_verify.html')
 #重置密码
 def updatepwd(request):
     return render(request,'updatepwd.html')
 #淘职用户协议
 def privacy(request):
     return render(request,'privacy.html')
+#用户基本信息
+def basic_information(request):
+    return render(request,'basic_information.html')
 
 def test(request):
     index = chr(random.randint(97,106))
@@ -50,38 +54,40 @@ def loginView(request):
     if remembered_email:
         checked = 'checked'
     if request.method == 'POST':
-        account = request.POST.get('account', '')
-        password = request.POST.get('password', '')
-        phone = request.POST.get('phone', '')
-        code_password = request.POST.get('code_password', '')
+        account = request.POST.get('account', '') #可以为电话和邮箱
+        password = request.POST.get('password', '') #密码
+        email = request.POST.get('email', '') #邮箱
+        code_password = request.POST.get('code_password', '') #code 密码
         remerber = request.POST.get('autoLogin', None)
         if account:
             login_name = account
             login_password = password
-        elif phone:
-            login_name = phone
+        elif email:
+            login_name = email
             login_password = code_password
-        print(phone)
+        print(email)
         if MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)):
             user = MyUser.objects.filter(Q(mobile=login_name) | Q(email=login_name)).first()
             print(user)
-            if check_password(login_password, user.code_password) or check_password(login_password, user.password):
-            # if user:
+            if check_password(login_password, user.password) or request.session.get('verification_code' '') == code_password:
                 print('pass')
                 login(request, user)
                 if user.role.name == 'org':
-                    if user.is_active == 1:
-                        url = '/org/'
+                    if user.orginfo_set.all().first().authed == 'yes': ##公司执照认证
+                        if user.complete == 'yes': ## 公司信息完善
+                            url = '/org/'
+                        else:
+                            url = '/org_auth/complete_orginfo'
                     else:
                         url = '/org_auth/register01'
                 elif user.role.name == 'user':
                     if next:
                         url = next
                     else:
-                        if user.is_active:
+                        if user.complete == 'yes':
                             url = '/'
                         else:
-                            url = '/resume/myresume'
+                            url = '/user/complte_user_info'
                     print(url)
                 r = redirect(url)   ##应聘者进入index, 招聘者进入org/position
                 if remembered_email:
@@ -104,20 +110,21 @@ def registerView(request):
 
     if request.method == 'POST':
         role_type = int(request.POST.get('type', ''))+1
-        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
-        if MyUser.objects.filter(email=phone): #测试
+        if MyUser.objects.filter(email=email): #测试
             tips = '用户已存在,请直接登录！'
         else:
             if verification_code == request.session.get('verification_code'):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
-                user = MyUser.objects.create_user(username='', first_name='', last_name='', email=phone, password='',code_password='',
-                                                  is_superuser=0,is_active=0, is_staff=0, date_joined=date_joined, mobile='', role_id=role.id)
-                user.save()
-                if user.role == 1:
-                    return redirect('/resume/myresume')
-                elif user.role == 2:
+                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password='',
+                                                  is_superuser=0,is_active=1, is_staff=0, date_joined=date_joined, mobile='',complete='no', role_id=role.id)
+
+                login(request, user)
+                if user.role_id == 1:
+                    return redirect('/user/complte_user_info')
+                elif user.role_id == 2:
                     return redirect('/org_auth/register01')
             else:
                 tips = '验证码错误, 请重新获取'
@@ -127,17 +134,22 @@ def registerView(request):
 
 def get_verification_code(request):
     if request.method == 'POST':
-        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        print(email)
+        login_register = request.POST.get('login_register', '')
+        print(login_register)
         verification_code = str(random.randint(100000, 999999))
+        print(verification_code)
         request.session['verification_code'] = verification_code
         from_email = settings.DEFAULT_FROM_EMAIL
-        send_mail('用户注册', verification_code, from_email, [phone]) # 先用email发送
+        send_mail(login_register, verification_code, from_email, [email]) # 先用email发送
         # text = '您的验证码是：'+verification_code+'。请不要把验证码泄露给其他人。'
         # resp = utils.send_sms(text=text, mobile=phone)
         # print(resp.decode('utf-8'))
         data = {'message': 'success'}
         return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
     return HttpResponse('get method')
+
 
 # 修改密码
 def setpasswordView(request):
@@ -188,3 +200,23 @@ def changepwd(request):
 def logoutView(request):
     logout(request)
     return redirect('/')
+
+
+def complte_user_info(request):
+
+    user = request.user
+    print(user)
+    logined = True
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        phone = request.POST.get('phone', '')
+        user.mobile = phone
+        user.complete = 'yes'
+        user.save()
+        UserInfo.objects.create(name=username, user_id=user.id)
+
+        user_real_name = username
+        print(logined)
+        print(user_real_name)
+        return redirect('/')
+    return render(request, 'userinfo_test.html', locals())

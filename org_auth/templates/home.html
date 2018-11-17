@@ -78,12 +78,16 @@
         </div>
     </div><!-- end #header -->
     <div id="container">
+        <div style="" id="stepTip">
+            <a></a>
+            <img width="803" height="59" src="{% static 'imgs/tiponce.jpg' %}">
+        </div>
         <div class="content_mid">
             <dl class="c_section c_section_mid">
                 <dd>
                     <form method="post" action='' id="stepForm">
                         <h3>公司全称</h3>
-                        <input type="text" placeholder="请输入公司名称" value='' name='' id=''>
+                        <input type="text" placeholder="请输入公司名称" value='' name='company_name' id=''>
 
 
                         <h3>公司LOGO</h3> <!--非必填改必填-->
@@ -92,27 +96,27 @@
                                 <div style="background-color: rgb(147, 183, 187);">
                                     <span>上传公司LOGO</span>
                                     <br>
-                                    尺寸：380*220px 大小：小于5M
+{#                                    尺寸：380*220px 大小：小于5M#}
                                 </div>
                             </div>
                             <div id="productShow0" class="product_upload dn productShow">
                                 {#                                <img width="380" height="220" src="">#}
-                                <span>更换产品图片<br>380*220px 小于5M</span>
+{#                                <span>更换产品图片<br>380*220px 小于5M</span>#}
                             </div>
                             <input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-                                   onchange="img_check(this,'http://www.lagou.com/c/upload.json',380,220,5,'myfiles0','myfiles0_error','productNo0','productShow0','type0','productInfos0');"
+{#                                   onchange="img_check(this,'http://www.lagou.com/c/upload.json',380,220,5,'myfiles0','myfiles0_error','productNo0','productShow0','type0','productInfos0');"#}
                                    name="myfiles" id="myfiles0">
-                            <input type="hidden" value="3" name="productInfos[0].type" id="type0">
-                            <input type="hidden" name="productInfos[0].productPicUrl" id="productInfos0">
+{#                            <input type="hidden" value="3" name="productInfos[0].type" id="type0">#}
+{#                            <input type="hidden" name="productInfos[0].productPicUrl" id="productInfos0">#}
                         </div>
-                        <span style="display:none;" id="myfiles0_error" class="error"></span>
+{#                        <span style="display:none;" id="myfiles0_error" class="error"></span>#}
 
 
-                        <h3>公司邮箱</h3>
-                        <input type="text" placeholder="请输入公司邮箱" value="" name="" id="">
+{#                        <h3>公司邮箱</h3>#}
+{#                        <input type="text" placeholder="请输入公司邮箱" value="" name="company_email" id="">#}
 
                         <h3>所在城市</h3>
-                        <input type="text" placeholder="请输入工作城市，如：北京" name="" id="">
+                        <input type="text" placeholder="请输入工作城市，如：北京" name="company_city" id="">
 
                         <h3>行业领域</h3>
                         <div>
@@ -156,9 +160,9 @@
                             </ul>
 
                             <input type="text" placeholder="请输入自定义标签" name="label" id="label">
-                            <input type="submit" value="贴上" id="add_label">
+                            <input type="submit" value="贴上" name = '' id="add_label">
                             <div class="clear"></div>
-                            <div id="box_labels">
+                            <div id="box_labels" >
                                 <dl>
                                     <dt>薪酬激励</dt>
                                     <dd>
@@ -213,16 +217,16 @@
                         </div>
                         <h3>公司简介</h3> <!--非必填-->
                         <div>
-                            <form method="post" action="http://www.lagou.com/c/saveProfile.json" id="infoForm">
-                                <input type="hidden" name="companyId" value="25927">
 
-                                <textarea placeholder="请分段详细描述公司简介、企业文化等" name="companyProfile"
-                                          id="companyProfile"></textarea>
-                                <div class="word_count">你还可以输入 <span>1000</span> 字</div>
-                                <div class="clear"></div>
-                            </form>
+                            <input type="hidden" name="companyId" value="25927">
+
+                            <textarea placeholder="请分段详细描述公司简介、企业文化等" name="desc"
+                                      id="companyProfile"></textarea>
+                            <div class="word_count">你还可以输入 <span>1000</span> 字</div>
+                            <div class="clear"></div>
+
                         </div>
-                        <input type="button" value="保存，完成" id="step1" class="btn_big fr">
+                        <button type="submit" id="step1" class="btn_big fr">保存，完成</button>
                     </form>
                 </dd>
             </dl>
@@ -328,16 +332,16 @@
         <a target="_blank" href="http://www.taozhi.com/af/zhaopin.html">互联网公司导航</a>
         <!--<a rel="nofollow" target="_blank" href="http://e.weibo.com/taozhi720">淘职微博</a>-->
         <!--<a rel="nofollow" href="javascript:void(0)" class="footer_qr">淘职微信<i></i></a>-->
-{#        <div class="copyright">&copy;2013-2014 Taozhi <a#}
-{#                href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action"#}
-{#                target="_blank">京ICP备14023790号-2</a></div>#}
+        {#        <div class="copyright">&copy;2013-2014 Taozhi <a#}
+        {#                href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action"#}
+        {#                target="_blank">京ICP备14023790号-2</a></div>#}
     </div>
 </div>
 
 <script>
-    $('#step1').on("click", function () {
-        location.href = "/org/myhome/"
-    });
+    {#    $('#step1').on("click", function () {#}
+    {#        location.href = "/org/"#}
+    {#    });#}
     $(function () {
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;

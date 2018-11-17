@@ -94,69 +94,72 @@
         </div>
     </div><!-- end #header -->
     <div id="container">
-
-        <div class="content_mid">
-            <dl class="c_section c_section_mid">
-                <dt>
-                <h2><em></em>申请公司认证</h2>
-                </dt>
-                <dd class="c_certify">
-                    <h4>申请公司认证的标准</h4>
-                    <ul>
-                        <li class="list1">公司主页
-                            <input type="text" placeholder="网站处于正常运行状态，且必须具有备案号" value='' name='url' id=''
-                                   style="font-size:15px;margin-top:0;height: 25px">
-                        </li>
-                        <li class="list2">公司名称
-                            <input type="text" placeholder="简称应为企业/产品简称，不可使用简易修饰性词语" value='' name='name' id=''
-                                   style="font-size:15px;margin-top:0;height: 25px">
-                        </li>
-                        {#                        <li class="list3">公司logo#}
-                        {#                            <div style="font-size:15px;margin-top:0;height: 25px"> 必须真实有效的体现公司形象</div>#}
-                        {#                            <div class="business_license">#}
-                        {#                                <div class="license_upload">#}
-                        {#                                    <div style="background-color: rgb(147, 183, 187);">#}
-                        {#                                        <span>上传公司LOGO</span>#}
-                        {#                                        <br>#}
-                        {#                                        支持jpg、png、gif、pdf格式，文件不超过10M#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                                <input type="file" name="businessLicenes" id="businessLicenes"#}
-                        {#                                       onchange="file_check(this,'http://www.lagou.com/cd/submitApproved.json',25927,this.id);">#}
-                        {#                                <input type="hidden" value="0" name="type" id="type">#}
-                        {#                            </div>#}
-                        {#                        </li>#}
-                        <li class="list4">
-                            公司的营业执照
-                            <div class="list4_child">
-                                <span>*</span>
-                                <div>
-                                    3.1请提供有效年检期内的《企业法人营业执照》副本<br>
-                                    3.2为保证信息安全，审核执照不提供预览功能，请谅解<br>
-                                    3.3该营业执照拉勾网只用作公司认证使用，请放心上传
-                                </div>
-                            </div>
-                            <div class="business_license">
-                                <div class="license_upload">
-                                    <div style="background-color: rgb(147, 183, 187);">
-                                        <span>上传公司营业执照副本</span>
-                                        <br>
-                                        支持jpg、png、gif、pdf格式，文件不超过10M
+        <form method="post" action="">
+            <div class="content_mid">
+                <dl class="c_section c_section_mid">
+                    <dt>
+                    <h2><em></em>申请公司认证</h2>
+                    </dt>
+                    <dd class="c_certify">
+                        <h4>申请公司认证的标准</h4>
+                        <ul>
+                            <li class="list1">公司主页
+                                <input type="text" placeholder="网站处于正常运行状态，且必须具有备案号" value='' name='main_page' id=''
+                                       style="font-size:15px;margin-top:0;height: 25px">
+                            </li>
+                            <li class="list2">公司名称
+                                <input type="text" placeholder="简称应为企业/产品简称，不可使用简易修饰性词语" value='' name='company_name' id=''
+                                       style="font-size:15px;margin-top:0;height: 25px">
+                            </li>
+                            {#                        <li class="list3">公司logo#}
+                            {#                            <div style="font-size:15px;margin-top:0;height: 25px"> 必须真实有效的体现公司形象</div>#}
+                            {#                            <div class="business_license">#}
+                            {#                                <div class="license_upload">#}
+                            {#                                    <div style="background-color: rgb(147, 183, 187);">#}
+                            {#                                        <span>上传公司LOGO</span>#}
+                            {#                                        <br>#}
+                            {#                                        支持jpg、png、gif、pdf格式，文件不超过10M#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                                <input type="file" name="businessLicenes" id="businessLicenes"#}
+                            {#                                       onchange="file_check(this,'http://www.lagou.com/cd/submitApproved.json',25927,this.id);">#}
+                            {#                                <input type="hidden" value="0" name="type" id="type">#}
+                            {#                            </div>#}
+                            {#                        </li>#}
+                            <li class="list4">
+                                公司的营业执照
+                                <div class="list4_child">
+                                    <span>*</span>
+                                    <div>
+                                        3.1请提供有效年检期内的《企业法人营业执照》副本<br>
+                                        3.2为保证信息安全，审核执照不提供预览功能，请谅解<br>
+                                        3.3该营业执照拉勾网只用作公司认证使用，请放心上传
                                     </div>
                                 </div>
+                                <div class="business_license">
+                                    <div class="license_upload">
+                                        <div style="background-color: rgb(147, 183, 187);">
+                                            <span>上传公司营业执照副本</span>
+                                            <br>
+                                            支持jpg、png、gif、pdf格式，文件不超过10M
+                                        </div>
+                                    </div>
 
 
-                                <input type="file" name="businessLicenes" id="businessLicenes"
-                                       onchange="file_check(this,'http://www.lagou.com/cd/submitApproved.json',25927,this.id);">
-                                <input type="hidden" value="0" name="type" id="type">
-                            </div>
-                        </li>
-                    </ul>
-                </dd>
-                <input type="button" value="保存，下一步" id="step1" class="btn_big fr">
-            </dl>
-        </div>
+                                    <input type="file" name="businessLicenes" id="businessLicenes"
+                                           onchange="file_check(this,'http://www.lagou.com/cd/submitApproved.json',25927,this.id);">
+                                    <input type="hidden" value="0" name="type" id="type">
+                                </div>
+                            </li>
+                        </ul>
+                        <button type="submit" id="step1" class="btn_big fr">保存，下一步</button>
 
+                    </dd>
+
+                </dl>
+
+            </div>
+        </form>
         <script src="{% static 'js/certification.min.js' %}" type="text/javascript"></script>
         <div class="clear"></div>
         <input type="hidden" value="" id="resubmitToken">
@@ -212,9 +215,9 @@
 </div>
 
 <script>
-    $('#step1').on("click", function () {
-        location.href = "/org/register02/"
-    });
+    {#    $('#step1').on("click", function () {#}
+    {#        location.href = "/org/register02/"#}
+    {#    });#}
     $(function () {
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;

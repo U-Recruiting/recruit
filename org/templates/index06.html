@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns:wb="http://open.weibo.com/wb">
 <head>
-    <script async="" src="/static/js/analytics.js"></script>
     <script type="text/javascript" async="" src="/static/js/conversion.js"></script>
     <script src="/static/js/allmobilize.min.js" charset="utf-8" id="allmobilize"></script>
     <style type="text/css"></style>
@@ -9,9 +8,9 @@
     <link media="handheld" rel="alternate">
     <!-- end 云适配 -->
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title>我发布的职位-招聘服务-拉勾网-最专业的互联网招聘平台</title>
+    <title>拉勾网-最专业的互联网招聘平台</title>
     <meta content="23635710066417756375" property="qc:admins">
-    <meta name="description" content="拉勾网是3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在拉勾网">
+    <meta name="description" content="拉勾网是3W旗下的互联网领域垂直招聘网站">
     <meta name="keywords"
           content="拉勾,拉勾网,拉勾招聘,拉钩, 拉钩网 ,互联网招聘,拉勾互联网招聘, 移动互联网招聘, 垂直互联网招聘, 微信招聘, 微博招聘, 拉勾官网, 拉勾百科,跳槽, 高薪职位, 互联网圈子, IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招">
     <meta content="QIQ6KC1oZ6" name="baidu-site-verification">
@@ -39,104 +38,179 @@
     <script src="/static/js/ajaxCross.json" charset="UTF-8"></script>
 </head>
 <body>
+<script src="http://tajs.qq.com/jiathis.php?uid=1626433&amp;dm=www.lagou.com" charset="utf-8"></script>
+<link href="/static/css/jiathis_share.css" rel="stylesheet" type="text/css">
+<iframe frameborder="0" style="position: fixed; display: none; opacity: 0;"></iframe>
+<div class="jiathis_style"
+     style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div>
+<div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div>
+<iframe frameborder="0" style="display: none;" src="http://v3.jiathis.com/code_mini/jiathis_utility.html"></iframe>
 <div id="body">
     <div id="header">
         <div class="wrapper">
-            <a class="logo" href="http://www.lagou.com/">
+            <a class="logo" href="index.html">
                 <img width="229" height="43" alt="拉勾招聘-专注互联网招聘" src="/static/img/logo.png">
             </a>
             <ul id="navheader" class="reset">
-                <li><a href="/">首页</a></li>
-                <li><a href="">我的公司</a></li>
-                <li><a href="">简历管理</a></li>
-                <li><a href="">发布职位</a></li>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="companylist.html">公司</a></li>
+                <li><a target="_blank" href="">论坛</a></li>
+                <li><a rel="nofollow" href="jianli.html">我的简历</a></li>
             </ul>
             <dl class="collapsible_menu">
                 <dt>
                     <span>jason&nbsp;</span>
-                    <span class="red" id="noticeDot-0"></span>
+                    <span class="red dn" id="noticeDot-0"></span>
                     <i></i>
                 </dt>
-                <dd style="display: none;"><a href="/org/positions">我发布的职位</a></dd>
-                <dd style="display: none;"><a id="received" onclick="skip(this)">我收到的简历</a></dd>
-                <dd class="btm" style="display: none;"><a href="/org_index/myhome/{{ org_id }}">我的公司主页</a></dd>
-                <dd style="display: none;"><a href="accountBind/{{ org_id }}">帐号设置</a></dd>
-                <dd class="logout" style="display: none;"><a rel="nofollow" href="/user/login">退出</a></dd>
+                <dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
+                <dd><a href="collections.html">我收藏的职位</a></dd>
+                <dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
+                <dd><a href="create_position.html">我要招人</a></dd>
+                <dd><a href="accountBind.html">帐号设置</a></dd>
+                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
             </dl>
-            <div id="noticeTip">
+            <div class="dn" id="noticeTip">
                 <span class="bot"></span>
                 <span class="top"></span>
-                <a target="_blank" href="delivery.html"><strong>1</strong>条新投递反馈</a>
+                <a target="_blank" href="delivery.html"><strong>0</strong>条新投递反馈</a>
                 <a class="closeNT" href="javascript:;"></a>
             </div>
         </div>
     </div><!-- end #header -->
     <div id="container">
+
         <div class="sidebar">
-            <a class="btn_create" href="/org/create">发布新职位</a>
+            <a class="btn_create" href="create">发布新职位</a>
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>
-                <dd class="current" id="dd_received">
-                    <a href="/org/resumes/">待处理简历</a>
+                <dd>
+                    <a href="">待处理简历</a>
+                    <span></span>
                 </dd>
-                <dd class="btm" id="dd_notified">
-                    <a href="/org/resumes/">已通知面试</a>
+                <dd>
+                    <a href="canInterviewResumes.html">待定简历</a>
                 </dd>
-                <dd class="btm" id="dd_passed">
-                    <a href="/org/resumes/">已录用简历</a>
+                <dd>
+                    <a href="haveNoticeResumes.html">已通知面试简历</a>
                 </dd>
-                <dd class="btm" id="dd_refused">
-                    <a href="/org/resumes/">不合适简历</a>
+                <dd>
+                    <a href="haveRefuseResumes.html">不合适简历</a>
                 </dd>
-                <dd class="btm" id="dd_filtered">
-                    <a href="/org/resumes/">已过滤简历</a>
+                <dd class="btm">
+                    <a href="autoFilterResumes.html">自动过滤简历</a>
+                    <span></span>
                 </dd>
             </dl>
             <dl class="company_center_aside">
                 <dt>我发布的职位</dt>
-                <dd id="dd_valid" class="current">
-                    <a id="valid_positions">有效职位</a>
+                <dd>
+                    <a href="positions.html">有效职位</a>
                 </dd>
-                <dd id="dd_invalid">
-                    <a id="invalid_positions">已下线职位</a>
+                <dd>
+                    <a href="positions.html">已下线职位</a>
                 </dd>
             </dl>
+            <div class="subscribe_side mt20">
+                <div class="f14">想收到更多更好的简历？</div>
+                <div class="f18 mb10">就用拉勾招聘加速助手</div>
+                <div>咨询：<a class="f16" href="mailto:jessica@lagou.com">jessica@lagou.com</a></div>
+                <div class="f18 ti2em">010-57286512</div>
+            </div>
+            <div class="subscribe_side mt20">
+                <div class="f14">加入互联网HR交流群</div>
+                <div class="f18 mb10">跟同行聊聊</div>
+                <div class="f24">338167634</div>
+            </div>
         </div><!-- end .sidebar -->
         <div class="content">
             <dl class="company_center_content">
                 <dt>
                     <h1>
                         <em></em>
-                        <span id="item_title" style="font-size: 25px;">有效职位</span></h1>
+                        发布新职位
+                    </h1>
                 </dt>
                 <dd>
-                    <form id="searchForm">
-                        <input type="hidden" value="Publish" name="type">
-                        <ul class="reset my_jobs">
-                            <li data-id="149594">
-                                <h3>
-                                    <a target="_blank" title="随便写" href="http://www.lagou.com/jobs/149594.html">随便写</a>
-                                    <span>[上海]</span>
-                                </h3>
-                                <span class="receivedResumeNo"><a
-                                        href="unHandleResumes.html?positionId=149594">应聘简历（1）</a></span>
-                                <div>兼职 / 1k-2k / 1-3年 / 硕士及以上</div>
-                                <div class="c9">发布时间： 2014-07-01 17:07:01</div>
-                                <div class="links">
-                                    <a class="job_refresh" href="javascript:void(0)">刷新<span>每个职位7天内只能刷新一次</span></a>
-                                    <a target="_blank" class="job_edit" href="create_position.html?positionId=149594">编辑</a>
-                                    <a class="job_offline" href="javascript:void(0)">下线</a>
-                                    <a class="job_del" href="javascript:void(0)">删除</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </form>
+                    <div class="ccc_tr">今日已发布 <span>1</span> 个职位 还可发布 <span>4</span> 个职位</div>
+                    <div class="publish_tip">
+                        <h2>恭喜你，职位发布成功！</h2>
+                        <a target="_blank" href="http://www.lagou.com/jobs/149594.html">预览职位</a><br>
+                        <a class="greylink" href="create_position.html">继续发布新职位</a><br>
+                        <a class="greylink" href="http://www.lagou.com/c/25927.html"> 进入我的公司主页</a><br>
+                        <div style="float:left;" class="invite_share">
+                            <!-- JiaThis Button BEGIN -->
+                            <div class="jiathis_style_32x32">
+                                <a class="jiathis_button_tsina" title="分享到新浪微博"><span
+                                        class="jiathis_txt jiathis_separator jtico jtico_tsina">分享到新浪微博</span></a>
+                            </div>
+                            <!-- JiaThis Button END -->
+                        </div>
+                    </div>
+                    <div class="weixin weixinSuc">
+                        <div class="qr">
+                            <img width="110" height="110" src="/static/img/d1f91afa15eb451eaef4d14dcb3b54ec_318969.jpg">
+                            <div>[仅限本人使用]</div>
+                        </div>
+                        <div class="qr_text">
+                            <h3>关注微信服务号，可随时获取接收简历的通知 </h3>
+                            关注方式：<br>
+                            <span>打开微信 </span> <img width="30" height="30" src="/static/img/wx1.png"><span> →发现 </span>
+                            <img width="31" height="30" src="/static/img/wx2.png"><span> →扫一扫左侧二维码</span><img width="78"
+                                                                                                              height="29"
+                                                                                                              src="/static/img/wx3.png">
+                        </div>
+                    </div>
                 </dd>
             </dl>
         </div><!-- end .content -->
-        <script src="/static/js/job_list.min.js" type="text/javascript"></script>
+        <style>
+            .jiathis_style_32x32 .jiathis_txt {
+                font-size: 14px !important;
+                text-decoration: underline !important;
+                padding-left: 0 !important;
+            }
+
+            .jiathis_style_32x32 .jiathis_separator {
+                margin: 0 !important;
+                line-height: 22px !important;
+            }
+
+            .jiathis_style_32x32 .jtico {
+                height: auto !important;
+                background: none;
+                line-height: 22px !important;q
+                padding-left: 0 !important;
+            }
+        </style>
+        <script type="text/javascript">
+            var jiathis_config = {
+                summary: "【公司名称随便写招聘随便写】我们公司正在招聘随便写，月薪1k-2k，如果你对这个职位感兴趣，请进入详情页投递简历：http://www.lagou.com/jobs/149594.html @拉勾网",
+                boldNum: 6,
+                title: "#拉勾网热招职位#",
+                url: "http://www.lagou.com/jobs/149594.html",
+                hideMore: !0,
+                appkey: {tsina: "3761453225"},
+                pic: "",
+                evt: {share: ""}
+            };
+            popQR();
+
+            function popQR() {
+                $.ajax({
+                    url: ctx + "/mycenter/showQRCode",
+                    type: "GET"
+                }).done(function (data) {
+                    if (data.success) {
+                        $('.weixinSuc .qr img').attr("src", data.content);
+                        $('.weixinSuc').removeClass('dn');
+                    }
+                });
+            }
+        </script>
+        <script charset="utf-8" src="/static/js/jia.js" type="text/javascript"></script>
         <div class="clear"></div>
-        <input type="hidden" value="74fb1ce14ebf4e2495270b0fbad64704" id="resubmitToken">
+        <input type="hidden" value="e0b2bdfab8ab466cb973d5ee5acc6adb" id="resubmitToken">
         <a rel="nofollow" title="回到顶部" id="backtop"></a>
     </div><!-- end #container -->
 </div><!-- end #body -->
@@ -154,10 +228,9 @@
 
 <script src="/static/js/core.min.js" type="text/javascript"></script>
 <script src="/static/js/popup.min.js" type="text/javascript"></script>
-<script src="/static/js/tongji.js" type="text/javascript"></script>
+
 <!--  -->
-<script src="/static/js/analytics01.js" type="text/javascript"></script>
-<script type="text/javascript" src="/static/js/h.js"></script>
+
 <script type="text/javascript">
     $(function () {
         $('#noticeDot-1').hide();
@@ -200,36 +273,6 @@
         }
     };
     CallCenter.init(url);
-    $(function () {
-        $('#dd_valid').click(function () {
-            remove()
-            $('#item_title').text('有效职位');
-            $('#dd_valid').addClass('current');
-            $.post(
-                "{% url 'get_html' %}",
-                {html: "received"},
-                function (response) {
-                    $('#form_container').html(response)
-                }
-            );
-        });
-        $('#dd_invalid').click(function () {
-            remove();
-            $('#item_title').text('已下线职位');
-            $('#dd_invalid').addClass('current');
-            $.post(
-                "{% url 'get_html' %}",
-                {html: "received"},
-                function (response) {
-                    $('#form_container').html(response)
-                }
-            );
-        });
-        function remove() {
-            $('#dd_valid').removeClass('current');
-            $('#dd_invalid').removeClass('current');
-        }
-    })
 </script>
 
 <div id="cboxOverlay" style="display: none;"></div>

@@ -6,6 +6,7 @@ import datetime
 from PIL import Image
 from index.models import PositionInfo, OrgInfo
 import os
+from user.models import MyUser
 
 # Create your views here.
 
@@ -16,25 +17,29 @@ def home(request):
 
 
 def register01(request):
-    user = request.user
+    # user = request.user
+    user = MyUser.objects.get(email='whoopsdog@163.com')
+
     if request.method == 'POST':
-        main_page = request.POST.get('main_page', '')
-        company_name = request.POST.get('company_name', '')
-        company_license = request.FILES.get('company_lincese', '')
-        orginfo = OrgInfo(url=main_page, name=company_name, user_id=user.id)
+        url = request.POST.get('url', '')
+        name = request.POST.get('name', '')
+        company_license = request.FILES.get('businessLicenes', '')
+        orginfo = OrgInfo(url=url, name=name, user_id=user.id)
         orginfo.save()
-        licese_path = os.path.join(settings.BASE_DIR, 'org_auth/static/license/' + str(orginfo.id)+'.jpg')
+
+        licese_path = os.path.join(settings.BASE_DIR, 'org_auth/static/license/' + str(orginfo.id) + '.jpg')
+
         Image.open(company_license).save(licese_path)
         OrgInfo.objects.filter(user_id=user.id).update(lincese = licese_path)
         return redirect('/org_auth/register02')
-    return HttpResponse('success')
+    return render(request, 'register01.html', locals())
 
 
 def register02(request):
     return render(request, 'register02.html')
 
 
-def conplete_orginfo(request):
+def complete_orginfo(request):
     user = request.user
 
     if request.method == 'POST':
@@ -58,6 +63,7 @@ def conplete_orginfo(request):
 
         return redirect('/org')
     return render(request, 'home.html', locals())
+    # return HttpResponse('aknfjkanfajk')
 
 def home01(request):
     return render(request, 'home.html') ##完善公司信息

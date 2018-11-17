@@ -39,8 +39,12 @@
                     <div class="tips">{{ tips }}  </div>
                 {% endif %}
                 <!-- 判断radio选中第一个 -->
+{#<<<<<<< HEAD#}
+{#                <div id="login_box_one">#}
+{#                <input type="text"  id="phone" name="phone"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入手机号" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>#}
+{#=======#}
                 <div id="login_box_one">
-                <input type="text"  id="phone" name="phone"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入手机号" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+                <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入手机号" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
                 <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
                 <span class="error" style="display:none;" id="beError"></span>
                 </div>
@@ -55,7 +59,7 @@
                 <label class="fl" for="remember">
                     <input type="checkbox" id="remember" {{ checked }} name="autoLogin" /> 记住我
                 </label>
-                <a href="{% url 'setpassword' %}" class="fr" target="_blank">忘记密码？</a>
+                <a href="{% url 'reset' %}" class="fr" target="_blank">忘记密码？</a>
                 <button type="submit" class="submitLogin">登 &nbsp; &nbsp; 录</button>
 
                 <input type="hidden" id="callback" name="callback" value=""/>

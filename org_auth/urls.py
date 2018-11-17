@@ -14,5 +14,6 @@ urlpatterns = [
     path('', views.home),
     path('register01/',views.register01, name='register01'),
     path('register02/',views.register02, name='register02'),
-    path('complete_orginfo', views.conplete_orginfo, name='complete_orginfo')
+    path('complete_orginfo/', views.complete_orginfo, name='complete_orginfo'),
+    path('myhome/',views.home)
 ]
