@@ -73,6 +73,7 @@ class Resume(models.Model):
 
 class OrgInfo(models.Model):
 
+    authed = models.CharField('已经认证', max_length=20, default=None, null=True)
     name = models.CharField('公司名称', max_length=20, default=None, null=True)
     avatar = models.CharField('公司图标', max_length=50,default=None, null=True)
     lincese = models.CharField('营业执照', max_length=50, default=None, null=True)

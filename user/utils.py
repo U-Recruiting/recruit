@@ -9,6 +9,7 @@
 import http.client
 from urllib.parse import urlencode
 import json
+from index.models import *
 
 host = "106.ihuyi.com"
 sms_send_uri = "/webservice/sms.php?method=Submit"
@@ -29,3 +30,9 @@ sms_send_uri = "/webservice/sms.php?method=Submit"
 #     response_str = response.read()
 #     conn.close()
 #     return response_str
+
+def add_blank_resume(user):
+    UserInfo.objects.create(name='',user_id=user.id )
+    WorkExp.objects.create(name='',user_id=user.id )
+    ProjectExp.objects.create(name='',user_id=user.id)
+    EducationExp.objects.create(name='',user_id=user.id)

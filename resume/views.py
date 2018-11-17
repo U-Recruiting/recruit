@@ -17,23 +17,24 @@ import os
 def my_resume(request):
 
     user = request.user
+    user_real_name = user.userinfo_set.all().first().name
     if user.is_active:
         logined = True
-        user_real_name = user.userinfo_set.all().first().name
+
     else:
         logined = False
-
-    current_user = request.user
-
-    user_info = current_user.userinfo_set.all().first()
-
-    work_exp = current_user.workexp_set.all().first()
-
-    project_exp = current_user.projectexp_set.all().first()
-
-    edu_exp = current_user.educationexp_set.all().first()
-
-    hunting_intent = current_user.huntingintent_set.all().first()
+    #
+    # current_user = request.user
+    #
+    # user_info = current_user.userinfo_set.all().first()
+    #
+    # work_exp = current_user.workexp_set.all().first()
+    #
+    # project_exp = current_user.projectexp_set.all().first()
+    #
+    # edu_exp = current_user.educationexp_set.all().first()
+    #
+    # hunting_intent = current_user.huntingintent_set.all().first()
 
     return render(request, 'myresume.html', locals())
 
@@ -86,7 +87,7 @@ def edit_workexp(request):
     work_exp = user.workexp_set.all()
     if request.method == 'POST':
 
-        company = request.POST.get('conpany', '')
+        company = request.POST.get('company', '')
         tag = request.POST.get('tag', '')
         department = request.POST.get('department', '')
         type = request.POST.get('type', '')
