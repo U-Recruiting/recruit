@@ -24,8 +24,8 @@ def index(request):
     latest_3 = PositionInfo.objects.order_by('-create_datetime').all()[:3]
     latest_6 = PositionInfo.objects.order_by('-create_datetime').all()[3:6]
 
-    user = request.user
-    if user:
+    user = request.user #可能为匿名用户
+    if user.is_active: #如果不是匿名用户
         if user.userinfo_set.all().first():
             logined = True
             user_real_name = user.userinfo_set.all().first().name

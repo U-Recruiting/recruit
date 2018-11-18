@@ -89,7 +89,7 @@ DATABASES = {
         'PASSWORD': 'yaoye',
         'HOST': 'localhost',
         'PORT': '3306',
-       'NAME': 'recruit',
+        'NAME': 'recruit',
     }
 }
 
@@ -131,11 +131,11 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-#     os.path.join(BASE_DIR, 'user/static'),
-#     os.path.join(BASE_DIR, 'index/static'),
-#     os.path.join(BASE_DIR, 'resume/static'),
-#     os.path.join(BASE_DIR, 'search/static'),
-#     os.path.join(BASE_DIR, 'org/static'),
+    os.path.join(BASE_DIR, 'user/static'),
+    os.path.join(BASE_DIR, 'index/static'),
+    os.path.join(BASE_DIR, 'resume/static'),
+    os.path.join(BASE_DIR, 'search/static'),
+    os.path.join(BASE_DIR, 'org/static'),
 ]
 
 ## 自定义用户表

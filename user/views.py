@@ -1,19 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password,make_password
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import Role
 import json
 import datetime
-from .models import MyUser, Role
 from django.contrib.auth import login, logout, authenticate
 from PIL import Image
 import os
 import random
-from .models import MyUser
 from index.models import *
-from . import utils
+# from . import utils
 # Create your views here.
 
 #用户密码重置
@@ -56,13 +55,15 @@ def loginView(request):
     if request.method == 'POST':
         account = request.POST.get('account', '') #可以为电话和邮箱
         password = request.POST.get('password', '') #密码
-        # email = request.POST.get('email', '') #邮箱
-        # code_password = request.POST.get('code_password', '') #code 密码
-        remerber = request.POST.get('autoLogin', None)
+        print(account)
+        print(password)
 
+        remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=account) | Q(email=account)):
             user = MyUser.objects.filter(Q(mobile=account) | Q(email=account)).first()
-            print(user)
+            print(user.password)
+            print(check_password(password, user.password))
+            # print(authenticate(,user))
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
@@ -110,19 +111,16 @@ def registerView(request):
         role_type = int(request.POST.get('type', ''))+1
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
-        password = request.POST.get('password', '')
-        print(role_type)
-        print(email)
-        print(verification_code)
-        print(password)
+        # password = request.POST.get('password', '')
+        password = '123456'
         if MyUser.objects.filter(email=email):
             tips = '用户已存在,请直接登录！'
         else:
             if verification_code == request.session.get('verification_code'):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
-                hash_password = make_password(password, None, 'pbkdf2_sha256')
-                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=hash_password,
+
+                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=123456,
                                                   is_superuser=0,is_active=1, is_staff=0, date_joined=date_joined, mobile='', complete='no', role_id=role.id)
                 login(request, user)
                 if user.role_id == 1:
@@ -174,10 +172,6 @@ def setpasswordView(request):
         else:
             tips = '用户不存在'
     return render(request, 'test/register.html', locals())
-
-
-# 使用make_password实现密码修改
-from django.contrib.auth.hashers import make_password
 
 
 def changepwd(request):

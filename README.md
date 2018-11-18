@@ -40,5 +40,5 @@
  1. 修改register.html 添加jquery
  2。 配置手机发送验证码功能,在user.utils中
  
- 123456 :pbkdf2_sha256$120000$c8BLEjtOjgvh$NW5Eq0e60K9r04ydcZLd2noUY7vqHLkLaxkMpzuivII=
+ 123456 :pbkdf2_sha256$120000$StpGvQfO4vjm$yZ39kU/ejql4woM8dhRh1jypOoYoe/zzcgTF2EO2hw4=
  file: enctype="multipart/form-data"
