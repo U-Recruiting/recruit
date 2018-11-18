@@ -4,7 +4,7 @@ from user.models import MyUser
 
 
 class UserInfo(models.Model):
-    avatar = models.CharField('头像', max_length=20, default=None, null=True)
+    avatar = models.CharField('头像', max_length=200, default=None, null=True)
     name = models.CharField('用户名', max_length=50, default=None, null=True)
     birthday = models.DateTimeField('出生日期',null=True)
     sex = models.CharField('性别', max_length=10, default=None,null=True)
@@ -74,16 +74,16 @@ class Resume(models.Model):
 class OrgInfo(models.Model):
 
     authed = models.CharField('已经认证', max_length=20, default=None, null=True)
-    name = models.CharField('公司名称', max_length=20, default=None, null=True)
-    avatar = models.CharField('公司图标', max_length=50,default=None, null=True)
+    name = models.CharField('公司名称', max_length=200, default=None, null=True)
+    avatar = models.CharField('公司图标', max_length=200,default=None, null=True)
     lincese = models.CharField('营业执照', max_length=500, default=None, null=True)
-    type = models.CharField('公司类型', max_length=20, default=None, null=True)
+    type = models.CharField('公司类型', max_length=30, default=None, null=True)
     phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
     desc = models.CharField('公司描述', max_length=500, default=None, null=True)
     scale = models.CharField('公司人数',max_length=50, null=True)
-    url = models.CharField('公司网站', max_length=20, default=None,null=True)
-    phone = models.CharField('联系方式', max_length=20, default=None,null=True)
-    city = models.CharField('城市', max_length=20, default=None,null=True)
+    url = models.CharField('公司网站', max_length=50, default=None,null=True)
+    phone = models.CharField('联系方式', max_length=30, default=None,null=True)
+    city = models.CharField('城市', max_length=30, default=None,null=True)
     email = models.EmailField('公司邮箱',null=True)
     tags = models.CharField('公司标签', max_length=200, default=None,null=True) #绩效奖金 通讯津贴...
     createTime = models.DateTimeField(default=None,null=True)
@@ -92,9 +92,9 @@ class OrgInfo(models.Model):
 
 class PositionInfo(models.Model):
     type = models.CharField('岗位类型', max_length=20, null=True)
-    name = models.CharField('职位名称', max_length=20, null=True)
+    name = models.CharField('职位名称', max_length=300, null=True)
     status = models.CharField('岗位状态' ,max_length=20, null=True)
-    department = models.CharField('所属部门', max_length=20, null=True)
+    department = models.CharField('所属部门', max_length=200, null=True)
     job_catagory = models.CharField('工作性质', max_length=20, null=True) #全职，兼职，实习
     start_salary = models.CharField('起始薪资', max_length=20, null=True)
     end_salary = models.CharField('最高薪资', max_length=20, null=True)
@@ -102,16 +102,16 @@ class PositionInfo(models.Model):
 
     distinct = models.CharField('区/县', max_length=20, default=None, null=True)
 
-    address = models.CharField('工作地址', max_length=100, null=True)
-    work_exp = models.CharField('工作经验', max_length=20, null=True)
-    edu_exp = models.CharField('学历要求', max_length=20, null=True)
+    address = models.CharField('工作地址', max_length=500, null=True)
+    work_exp = models.CharField('工作经验', max_length=30, null=True)
+    edu_exp = models.CharField('学历要求', max_length=30, null=True)
 
     tags = models.CharField('职位标签', max_length=200, default=None,null=True)
 
-    desc = models.CharField('职位描述', max_length=400, null=True)
+    desc = models.CharField('职位描述', max_length=500, null=True)
 
     positionAdvantage = models.CharField('职位诱惑', max_length=200, default=None,null=True)
-    subwayline = models.CharField('地铁线', max_length=20, default=None,null=True)
+    subwayline = models.CharField('地铁线', max_length=200, default=None,null=True)
     linestaion = models.CharField('地铁线路', max_length=200, default=None,null=True)
     create_datetime = models.DateTimeField('创建时间',default=None,null=True)
 

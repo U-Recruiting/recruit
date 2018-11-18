@@ -23,16 +23,16 @@
     <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27"/>
     <div class="login_box">
 
-        <form id="loginForm" class="form" action="{% url 'register' %}" method="post">
+        <form id="loginForm" class="form">
             {% csrf_token %}
             <ul class="register_radio clearfix">
                 <li>
                     找工作
-                    <input type="radio" value="0" name="type" />
+                    <input type="radio" value="0" name="type"/>
                 </li>
                 <li>
                     招人
-                    <input type="radio" value="1" name="type" />
+                    <input type="radio" value="1" name="type"/>
                 </li>
             </ul>
             <span class="error" style="display:none;" id="beError"></span>
@@ -83,8 +83,8 @@
                     url: "{% url 'get_verification_code' %}",
                     type: 'post',
                     data: {
-                        email :$('#email').val(),
-                        login_register: '用户注册'
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        email: $('#email').val()
                     },
                     success: function (result) {
                         var data = JSON.parse(result);
@@ -95,7 +95,9 @@
         });
 
         $('.submitLogin').click(
-            function () {
+
+            function (e) {
+                e.preventDefault();
                 var radio = $('input:radio[name="type"]:checked').val();
 
                 var email = $('#email').val();
@@ -121,12 +123,34 @@
                 if (!radio | !email | !code | error_email) {
                     return false;
                 }
+
+                $.ajax({
+                    url: "{% url 'register' %}",
+                    type: 'post',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        type: $('input:radio[name="type"]:checked').val(),
+                        email:$('#email').val(),
+                        verificationCode: $('#verificationCode').val()
+                    },
+                    success: function (result) {
+                        if(result.tips === "pass"){
+                            window.location.href = result.url
+                        }else {
+                            $('.verification2').children('span').html(result.tips);
+                            $('.verification2').children('span').show()
+                        }
+
+                    }
+                });
             }
-        );
+        )
+        ;
 
         $('.register_radio li input').click(function (e) {
             $(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
         });
+
 
     });
 

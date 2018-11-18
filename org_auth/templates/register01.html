@@ -95,6 +95,7 @@
     </div><!-- end #header -->
     <div id="container">
         <form method="post" action="">
+            {% csrf_token %}
             <div class="content_mid">
                 <dl class="c_section c_section_mid">
                     <dt>
@@ -146,7 +147,7 @@
                                     </div>
 
 
-                                    <input type="file" name="businessLicenes" id="businessLicenes"
+                                    <input type="file" name="businessLicenes" id="businessLicenes" enctype="multipart/form-data"
                                            onchange="file_check(this,'http://www.lagou.com/cd/submitApproved.json',25927,this.id);">
                                     <input type="hidden" value="0" name="type" id="type">
                                 </div>
