@@ -103,7 +103,7 @@ def get_ajax_positions(request):
         status = request.POST.get('status', '')
         positions = orginfo.positioninfo_set.filter(status=status)
         json_positions = serializers.serialize('json', positions)
-    return HttpResponse(json_positions, content_type="application/json,charset=utf-8")
+        return JsonResponse(json_positions, content_type="application/json,charset=utf-8")
 
 
 def positions(request):
@@ -180,8 +180,42 @@ def get_resume(request):
         demo_json[1]['name'] = '我也被你拒绝啦！'
         return JsonResponse(demo_json, safe=False)
     elif order == 'filtered':
-        print('hey!!!')
         return JsonResponse(demo_json, safe=False)
+
+
+def get_position(request):
+    position_demo = [{
+        "position_id": "10086",
+        "position_name": "Python开发",
+        "city": "北京",
+        "position_type": "全栈、爬虫、数据分析",
+        "min_salary": "8k",
+        "max_salary": "10k",
+        "work_exp": "1-3年",
+        "edu_exp": "本科及以上",
+        "post_date": "2018-11-18 14:44:44"
+    },
+        {
+            "position_id": "10086",
+            "position_name": "Java开发",
+            "city": "北京",
+            "position_type": "全栈、爬虫、数据分析",
+            "min_salary": "8k",
+            "max_salary": "10k",
+            "work_exp": "1-3年",
+            "edu_exp": "本科及以上",
+            "post_date": "2018-11-18 14:44:44"
+        }
+    ]
+    order = dict(request.POST)['item'][0]
+    if order == 'valid':
+        position_demo[0]['position_name'] = '我是有效职位！'
+        position_demo[1]['position_name'] = '我也是有效职位！'
+        return JsonResponse(position_demo, safe=False)
+    elif order == 'invalid':
+        position_demo[0]['position_name'] = 'Oh！我下线了~~！'
+        position_demo[1]['position_name'] = '~~！'
+        return JsonResponse(position_demo, safe=False)
 
 
 def get_html(request):
