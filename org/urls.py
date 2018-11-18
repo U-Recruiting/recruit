@@ -26,5 +26,5 @@ urlpatterns = [
     path('my_org/<str:item>/', views.org_view),
     path('get_resumes/', views.get_resume, name='get_resumes'),
     path('get_html/', views.get_html, name='get_html'),
-
+    path('get_position', views.get_position, name='get_position'),
 ]
