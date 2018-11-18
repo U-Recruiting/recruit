@@ -6,14 +6,16 @@ import datetime
 from PIL import Image
 from index.models import PositionInfo, OrgInfo
 import os
+from django.conf import settings
 from user.models import MyUser
 
 # Create your views here.
 
 
-@login_required(login_url='/user/login')
+# @login_required(login_url='/user/login')
 def home(request):
-    return HttpResponse('hello')
+    logo = 'static/logo/3.jpg'
+    return render(request, 'myhome.html', locals())
 
 
 def register01(request):

@@ -30,10 +30,7 @@ urlpatterns = [
 
     path('resume/', include('resume.urls')),
 
-    path('spider/', include('spider.urls'))
-
-
-
+    path('spider/', include('spider.urls')),
 
 
 ]
