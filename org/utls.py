@@ -1,5 +1,5 @@
 #!usr/bin/python
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 """
 @author:shenchen
 @file: utls
@@ -18,6 +18,7 @@ def get_resume_item(positions, order: str):
     for position in positions:
         position_resume_status = position.positionresumestatus_set.filter(status=order)
         # resumes = []
+        # print(position_resume_status)
         for one_position_resume_status in position_resume_status:
             one_resume = {}
             one_resume['name'] = one_position_resume_status.resume.user_info.name
@@ -32,13 +33,35 @@ def get_resume_item(positions, order: str):
             one_resume['address'] = position.address
             one_resume['position_id'] = one_position_resume_status.position_id
             one_resume['resume_id'] = one_position_resume_status.resume_id
+            one_resume['post_date'] = str(one_position_resume_status.datetime).replace('T', ' ')
+            one_resume['worked_position'] = one_position_resume_status.resume.work_exp.position_name
+            one_resume['worked_company'] = one_position_resume_status.resume.work_exp.company
             received.append(one_resume)
         # received[position.name] = resumes
     return received
 
 
-def update_pisition_resume_status(position_id,resume_id, interview_address,interview_datatime, status):
+def format_position_item(positions):
+    positions_list = []
+    for position in positions:
+        fields = position['fields']
+        temp_dict = {
+            "position_id": position['pk'],
+            "position_name": fields['name'],
+            "city": fields['city'],
+            "position_type": fields['type'],
+            "min_salary": fields['start_salary'] + "k",
+            "max_salary": fields['end_salary'] + "k",
+            "work_exp": fields['work_exp'],
+            "edu_exp": fields['edu_exp'],
+            "post_date": fields['create_datetime']
+        }
+        positions_list.append(temp_dict)
+    # print(positions_list)
+    return positions_list
 
+
+def update_pisition_resume_status(position_id, resume_id, interview_address, interview_datatime, status):
     PositionResumeStatus.objects.filter(position_id=position_id, resume_id=resume_id).update(status=status,
                                                                                              address=interview_address,
                                                                                              datetime=interview_datatime)
@@ -59,4 +82,3 @@ def update_pisition_resume_status(position_id,resume_id, interview_address,inter
     send_mail('岗位投递通知', message, from_email, [user_email])
     data = {'message': 'success'}
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
-
