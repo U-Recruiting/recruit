@@ -15,7 +15,6 @@
     <meta content="QIQ6KC1oZ6" name="baidu-site-verification">
 
 
-
     <link href="/static/css/style.css" type="text/css" rel="stylesheet">
     <link href="/static/css/external.min.css" type="text/css" rel="stylesheet">
     <link href="/static/css/popup.css" type="text/css" rel="stylesheet">
@@ -43,7 +42,7 @@
             </ul>
             <dl class="collapsible_menu">
                 <dt>
-                    <span>jason&nbsp;</span>
+                    <span>steven&nbsp;</span>
                     <i></i>
                 </dt>
                 <dd style="display: none;"><a href="/org/my_org/positions">我发布的职位</a></dd>
@@ -367,7 +366,7 @@
                 }
             );
             $.post(
-                "{% url 'org:get_resumes' %}",
+                "{% url 'org:get_resumes_db' %}",
                 {item: "received"},
                 function (resume_json) {
                     $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
@@ -380,44 +379,44 @@
                                 "      <i></i>" +
                                 "  </label>" +
                                 "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
+                                "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                                "         href=\"" + resume.position_id + "\">" +
                                 "          <img src=\"/static/img/default_headpic.png\">" +
                                 "      </a>" +
                                 "      <div class=\"resumeIntro\">" +
                                 "          <h3 class=\"unread\">" +
                                 "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
+                                "                 href=\"" + resume.position_id + "\">" +
                                 "                  " + resume.name + "的简历" +
                                 "              </a>" +
                                 "              <em></em>" +
                                 "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
+                                "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                                 "          <div>" +
                                 "              " + resume.name +
                                 "/ " + resume.sex + " / " + resume.education +
                                 " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
+                                "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                                 + " · " + resume.school + "" +
                                 "          </div>" +
                                 "          <div class=\"jdpublisher\">" +
                                 "<span>" +
                                 "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
+                                "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
                                 "</span>" +
                                 "</div>" +
                                 "</div>" +
                                 "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" data-name=\"jason\" data-positionid=\"149594\"" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" data-name=\"" + resume.name +
+                                "\" data-positionname=\"" + resume.position_name + "\"" +
                                 "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
-                                "               href=\"javascript:notify()\">通知面试</a>" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_refuse\"" +
-                                "               href=\"javascript:void(0)\">不合适</a>" +
-                                "            <a data-resumename=\"jason的简历\" data-positionname=\"随便写\" data-deliverid=\"1686182\"" +
-                                "               data-positionid=\"149594\" data-resumekey=\"1ccca806e13637f7b1a4560f80f08057\"" +
-                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:void(0)\">" +
+                                "               href=\"javascript:confirmOrder('notify')\">通知面试</a>" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_refuse\"" + "\" data-name=\"" + resume.name +
+                                "\" href=\"javascript:confirmOrder('refuse')\">不合适</a>" +
+                                "            <a data-resumename=\"" + resume.name + "的简历\" data-positionname=\"" + resume.position_name + "\" data-resumeid=\"" + resume.resume_id + "\"" +
+                                "               data-positionid=\"" + resume.position_id + "\"" +
+                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:confirmOrder('forward')\">" +
                                 "                转发" +
-                                "                <span>(1人)</span>" +
                                 "            </a>" +
                                 "        </div>" +
                                 "    </div>" +
@@ -446,7 +445,7 @@
                 }
             );
             $.post(
-                "{% url 'org:get_resumes' %}",
+                "{% url 'org:get_resumes_db' %}",
                 {item: "notified"},
                 function (resume_json) {
                     $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
@@ -459,44 +458,43 @@
                                 "      <i></i>" +
                                 "  </label>" +
                                 "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
+                                "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                                "         href=\"" + resume.position_id + "\">" +
                                 "          <img src=\"/static/img/default_headpic.png\">" +
                                 "      </a>" +
                                 "      <div class=\"resumeIntro\">" +
                                 "          <h3 class=\"unread\">" +
                                 "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
+                                "                 href=\"" + resume.position_id + "\">" +
                                 "                  " + resume.name + "的简历" +
                                 "              </a>" +
                                 "              <em></em>" +
                                 "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
+                                "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                                 "          <div>" +
                                 "              " + resume.name +
                                 "/ " + resume.sex + " / " + resume.education +
                                 " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
+                                "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                                 + " · " + resume.school + "" +
                                 "          </div>" +
                                 "          <div class=\"jdpublisher\">" +
                                 "<span>" +
                                 "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
+                                "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
                                 "</span>" +
                                 "</div>" +
                                 "</div>" +
                                 "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" data-name=\"jason\" data-positionid=\"149594\"" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" data-name=\"" + resume.name + "\" data-positionid=\"" + resume.position_id + "\"" +
                                 "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
-                                "               href=\"javascript:void(0)\">录用</a>" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_refuse\"" +
-                                "               href=\"javascript:void(0)\">不合适</a>" +
-                                "            <a data-resumename=\"jason的简历\" data-positionname=\"随便写\" data-deliverid=\"1686182\"" +
-                                "               data-positionid=\"149594\" data-resumekey=\"1ccca806e13637f7b1a4560f80f08057\"" +
-                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:void(0)\">" +
+                                "               href=\"javascript:confirmOrder('pass')\">录用</a>" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_refuse\"" + "\" data-name=\"" + resume.name +
+                                "\" href=\"javascript:confirmOrder('refuse')\">不合适</a>" +
+                                "            <a data-resumename=\"" + resume.name + "的简历\" data-positionname=\"" + resume.position_name + "\" data-resumeid=\"" + resume.resume_id + "\"" +
+                                "               data-positionid=\"" + resume.position_id + "\"" +
+                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:confirmOrder('forward')\">" +
                                 "                转发" +
-                                "                <span>(1人)</span>" +
                                 "            </a>" +
                                 "        </div>" +
                                 "    </div>" +
@@ -525,7 +523,7 @@
                 }
             );
             $.post(
-                "{% url 'org:get_resumes' %}",
+                "{% url 'org:get_resumes_db' %}",
                 {item: "passed"},
                 function (resume_json) {
                     $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
@@ -538,37 +536,37 @@
                                 "      <i></i>" +
                                 "  </label>" +
                                 "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
+                                "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                                "         href=\"" + resume.position_id + "\">" +
                                 "          <img src=\"/static/img/default_headpic.png\">" +
                                 "      </a>" +
                                 "      <div class=\"resumeIntro\">" +
                                 "          <h3 class=\"unread\">" +
                                 "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
+                                "                 href=\"" + resume.position_id + "\">" +
                                 "                  " + resume.name + "的简历" +
                                 "              </a>" +
                                 "              <em></em>" +
                                 "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
+                                "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                                 "          <div>" +
                                 "              " + resume.name +
                                 "/ " + resume.sex + " / " + resume.education +
                                 " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
+                                "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                                 + " · " + resume.school + "" +
                                 "          </div>" +
                                 "          <div class=\"jdpublisher\">" +
                                 "<span>" +
                                 "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
+                                "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
                                 "</span>" +
                                 "</div>" +
                                 "</div>" +
                                 "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" data-name=\"jason\" data-positionid=\"149594\"" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" data-name=\"" + resume.name + "\" data-positionid=\"" + resume.position_id + "\"" +
                                 "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
-                                "               href=\"javascript:void(0)\">删除</a>" +
+                                "               href=\"javascript:confirmOrder('delete')\">删除</a>" +
                                 "        </div>" +
                                 "    </div>" +
                                 "<div class=\"contactInfo\">" +
@@ -596,7 +594,7 @@
                 }
             );
             $.post(
-                "{% url 'org:get_resumes' %}",
+                "{% url 'org:get_resumes_db' %}",
                 {item: "refused"},
                 function (resume_json) {
                     $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
@@ -609,41 +607,41 @@
                                 "      <i></i>" +
                                 "  </label>" +
                                 "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
+                                "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                                "         href=\"" + resume.position_id + "\">" +
                                 "          <img src=\"/static/img/default_headpic.png\">" +
                                 "      </a>" +
                                 "      <div class=\"resumeIntro\">" +
                                 "          <h3 class=\"unread\">" +
                                 "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
+                                "                 href=\"" + resume.position_id + "\">" +
                                 "                  " + resume.name + "的简历" +
                                 "              </a>" +
                                 "              <em></em>" +
                                 "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
+                                "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                                 "          <div>" +
                                 "              " + resume.name +
                                 "/ " + resume.sex + " / " + resume.education +
                                 " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
+                                "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                                 + " · " + resume.school + "" +
                                 "          </div>" +
                                 "          <div class=\"jdpublisher\">" +
                                 "<span>" +
                                 "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
+                                "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
                                 "</span>" +
                                 "</div>" +
                                 "</div>" +
                                 "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_caninterview\"" +
-                                "               href=\"javascript:void(0)\">删除</a>" +
-                                "            <a data-resumename=\"jason的简历\" data-positionname=\"随便写\" data-deliverid=\"1686182\"" +
-                                "               data-positionid=\"149594\" data-resumekey=\"1ccca806e13637f7b1a4560f80f08057\"" +
-                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:void(0)\">" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_caninterview\"" +
+                                "               href=\"javascript:confirmOrder('delete')\">删除</a>" +
+                                "            <a data-resumename=\"" + resume.name + "的简历\" data-positionname=\"" + resume.position_name + "\" data-resumeid=\"" + resume.resume_id + "\"" +
+                                "               data-positionid=\"" + resume.position_id + "\"" +
+                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:confirmOrder('forward')\">" +
                                 "                转发" +
-                                "                <span>(1人)</span>" +
+
                                 "            </a>" +
                                 "        </div>" +
                                 "    </div>" +
@@ -673,7 +671,7 @@
                 }
             );
             $.post(
-                "{% url 'org:get_resumes' %}",
+                "{% url 'org:get_resumes_db' %}",
                 {item: "filtered"},
                 function (resume_json) {
                     $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
@@ -686,46 +684,46 @@
                                 "      <i></i>" +
                                 "  </label>" +
                                 "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
+                                "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                                "         href=\"" + resume.position_id + "\">" +
                                 "          <img src=\"/static/img/default_headpic.png\">" +
                                 "      </a>" +
                                 "      <div class=\"resumeIntro\">" +
                                 "          <h3 class=\"unread\">" +
                                 "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
+                                "                 href=\"" + resume.position_id + "\">" +
                                 "                  " + resume.name + "的简历" +
                                 "              </a>" +
                                 "              <em></em>" +
                                 "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
+                                "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                                 "          <div>" +
                                 "              " + resume.name +
                                 "/ " + resume.sex + " / " + resume.education +
                                 " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
+                                "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                                 + " · " + resume.school + "" +
                                 "          </div>" +
                                 "          <div class=\"jdpublisher\">" +
                                 "<span>" +
                                 "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
+                                "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
                                 "</span>" +
                                 "</div>" +
                                 "</div>" +
                                 "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" data-name=\"jason\" data-positionid=\"149594\"" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" data-name=\"" + resume.name + "\" data-positionid=\"" + resume.position_id + "\"" +
                                 "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
-                                "               href=\"javascript:void(0)\">待定</a>" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_refuse\"" +
-                                "               href=\"javascript:void(0)\">不合适</a>" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_caninterview\"" +
-                                "               href=\"javascript:void(0)\">删除</a>" +
-                                "            <a data-resumename=\"jason的简历\" data-positionname=\"随便写\" data-deliverid=\"1686182\"" +
-                                "               data-positionid=\"149594\" data-resumekey=\"1ccca806e13637f7b1a4560f80f08057\"" +
-                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:void(0)\">" +
+                                "               href=\"javascript:confirmOrder('pend')\">待定</a>" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_refuse\"" + "\" data-name=\"" + resume.name +
+                                "\" href=\"javascript:confirmOrder('refuse')\">不合适</a>" +
+                                "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_caninterview\"" +
+                                "               href=\"javascript:confirmOrder('delete')\">删除</a>" +
+                                "            <a data-resumename=\"" + resume.name + "的简历\" data-positionname=\"" + resume.position_name + "\" data-resumeid=\"" + resume.resume_id + "\"" +
+                                "               data-positionid=\"" + resume.position_id + "\"" +
+                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:confirmOrder('forward')\">" +
                                 "                转发" +
-                                "                <span>(1人)</span>" +
+
                                 "            </a>" +
                                 "        </div>" +
                                 "    </div>" +
@@ -747,32 +745,31 @@
             $('#item_title').text('有效职位');
             $('#dd_valid_position').addClass('current');
             $.post(
-            '{% url 'org:get_position' %}',
-            {item: 'valid'},
-            function (json) {
-                $('#position_ul').replaceWith('<ul class="reset my_jobs" id="position_ul"></ul>');
-                $(json).each(
-                    function (i, position) {
-                        $('#position_ul').html($('#position_ul').html()+
-                            "<li data-id=\"149594\">\n" +
-                            "  <h3>\n" +
-                            "  <a target=\"_blank\" title=\"" + '有效职位' + "\" href=\"http://www.lagou.com/jobs/149594.html\">" + position.position_name + "</a>\n" +
-                            "  <span>[" + position.city + "]</span>\n" +
-                            "  </h3>\n" +
-                            "  <span class=\"receivedResumeNo\"><a\n" +
-                            "  href=\"unHandleResumes.html?positionId=149594\">应聘简历（1）</a></span>\n" +
-                            "  <div>" + position.position_type + " / " + position.min_salary + "-" + position.max_salary + " / 1-3年 / 硕士及以上</div>\n" +
-                            "  <div class=\"c9\">发布时间： 2014-07-01 17:07:01</div>\n" +
-                            "  <div class=\"links\">\n" +
-                            "    <a class=\"job_refresh\" href=\"javascript:void(0)\">刷新<span>每个职位7天内只能刷新一次</span></a>\n" +
-                            "    <a target=\"_blank\" class=\"job_edit\" href=\"create_position.html?positionId=149594\">编辑</a>\n" +
-                            "    <a class=\"job_offline\" href=\"javascript:void(0)\">下线</a>\n" +
-                            "    <a class=\"job_del\" href=\"javascript:void(0)\">删除</a>\n" +
-                            "  </div>\n" +
-                            "</li>")
-                    })
-            }
-        )
+                '{% url 'org:get_positions_db' %}',
+                {item: 'valid'},
+                function (json) {
+                    $('#position_ul').replaceWith('<ul class="reset my_jobs" id="position_ul"></ul>');
+                    $(json).each(
+                        function (i, position) {
+                            $('#position_ul').html($('#position_ul').html() +
+                                "<li data-id=\"" + position.position_id + "\">\n" +
+                                "  <h3>\n" +
+                                "  <a target=\"_blank\" title=\"" + '有效职位' + "\" href=\"http://www.lagou.com/jobs/" + position.position_id + ".html\">" + position.position_name + "</a>\n" +
+                                "  <span>[" + position.city + "]</span>\n" +
+                                "  </h3>\n" +
+                                "  <span class=\"receivedResumeNo\"><a\n" +
+                                "  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +
+                                "  <div>" + position.position_type + " / " + position.min_salary + "-" + position.max_salary + " / 1-3年 / 硕士及以上</div>\n" +
+                                "  <div class=\"c9\">发布时间： 2014-07-01 17:07:01</div>\n" +
+                                "  <div class=\"links\">\n" +
+                                "    <a class=\"job_edit\" href=\"javascript:confirmOrder('edit')\">编辑</a>\n" +
+                                "    <a class=\"job_offline\" href=\"javascript:confirmOrder('online')\">上线</a>\n" +
+                                "    <a class=\"job_del\" href=\"javascript:confirmOrder('delete_position')\">删除</a>\n" +
+                                "  </div>\n" +
+                                "</li>")
+                        })
+                }
+            )
         });
         $('#dd_invalid_position').click(function () {
             if (window.location.pathname.indexOf('positions') === -1) {
@@ -783,27 +780,26 @@
             $('#dd_invalid_position').addClass('current');
 
             $.post(
-                '{% url 'org:get_position' %}',
+                '{% url 'org:get_positions_db' %}',
                 {item: 'invalid'},
                 function (json) {
                     $('#position_ul').replaceWith('<ul class="reset my_jobs" id="position_ul"></ul>');
                     $(json).each(
                         function (i, position) {
-                            $('#position_ul').html($('#position_ul').html()+
-                                "<li data-id=\"149594\">\n" +
+                            $('#position_ul').html($('#position_ul').html() +
+                                "<li data-id=\"" + position.position_id + "\">\n" +
                                 "  <h3>\n" +
-                                "  <a target=\"_blank\" title=\"" + position.name + "\" href=\"http://www.lagou.com/jobs/149594.html\">" + position.position_name + "</a>\n" +
+                                "  <a target=\"_blank\" title=\"" + position.name + "\" href=\"http://www.lagou.com/jobs/" + position.position_id + ".html\">" + position.position_name + "</a>\n" +
                                 "  <span>[" + position.city + "]</span>\n" +
                                 "  </h3>\n" +
                                 "  <span class=\"receivedResumeNo\"><a\n" +
-                                "  href=\"unHandleResumes.html?positionId=149594\">应聘简历（1）</a></span>\n" +
+                                "  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +
                                 "  <div>" + position.position_type + " / " + position.min_salary + "-" + position.max_salary + " / 1-3年 / 硕士及以上</div>\n" +
                                 "  <div class=\"c9\">发布时间： 2014-07-01 17:07:01</div>\n" +
                                 "  <div class=\"links\">\n" +
-                                "    <a class=\"job_refresh\" href=\"javascript:void(0)\">刷新<span>每个职位7天内只能刷新一次</span></a>\n" +
-                                "    <a target=\"_blank\" class=\"job_edit\" href=\"create_position.html?positionId=149594\">编辑</a>\n" +
-                                "    <a class=\"job_offline\" href=\"javascript:void(0)\">下线</a>\n" +
-                                "    <a class=\"job_del\" href=\"javascript:void(0)\">删除</a>\n" +
+                                "    <a class=\"job_edit\" href=\"javascript:confirmOrder('edit')\">编辑</a>\n" +
+                                "    <a class=\"job_offline\" href=\"javascript:confirmOrder('online')\">上线</a>\n" +
+                                "    <a class=\"job_del\" href=\"javascript:confirmOrder('delete_position')\">删除</a>\n" +
                                 "  </div>\n" +
                                 "</li>")
                         })
@@ -839,108 +835,108 @@
     function default_resume_load() {
         to_resume();
         remove_current();
-            $('#item_title').text('待处理简历');
-            $('#dd_received').addClass('current');
-            $.post(
-                "{% url 'org:get_html' %}",
-                {html: "received"},
-                function (response) {
-                    $('#option_div').replaceWith(response)
-                }
-            );
-            $.post(
-                "{% url 'org:get_resumes' %}",
-                {item: "received"},
-                function (resume_json) {
-                    $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
-                    $(resume_json).each(
-                        function (i, resume) {
-                            $('#view_list').html($('#view_list').html() +
-                                "<li data-id=\"" + resume.resume_id + "\" class=\"onlineResume\">" +
-                                "  <label class=\"checkbox\">" +
-                                "      <input type=\"checkbox\">" +
-                                "      <i></i>" +
-                                "  </label>" +
-                                "  <div class=\"resumeShow\">" +
-                                "      <a title=\"预览在线简历\" target=\"_blank\" class=\"resumeImg\"" +
-                                "         href=\"resumeView.html?deliverId=1686182\">" +
-                                "          <img src=\"/static/img/default_headpic.png\">" +
-                                "      </a>" +
-                                "      <div class=\"resumeIntro\">" +
-                                "          <h3 class=\"unread\">" +
-                                "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                                "                 href=\"resumeView.html?deliverId=1686182\">" +
-                                "                  " + resume.name + "的简历" +
-                                "              </a>" +
-                                "              <em></em>" +
-                                "          </h3>" +
-                                "          <span class=\"fr\">投递时间：2014-07-01 17:08</span>" +
-                                "          <div>" +
-                                "              " + resume.name +
-                                "/ " + resume.sex + " / " + resume.education +
-                                " / " + resume.work_years + "年 / " + resume.city + " <br>" +
-                                "" + resume.position_name + " · " + resume.org + " | " + resume.education
-                                + " · " + resume.school + "" +
-                                "          </div>" +
-                                "          <div class=\"jdpublisher\">" +
-                                "<span>" +
-                                "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
-                                "href=\"http://www.lagou.com/jobs/149594.html\">" + resume.position_name + "</a>" +
-                                "</span>" +
-                                "</div>" +
-                                "</div>" +
-                                "        <div class=\"links\">" +
-                                "            <a data-deliverid=\"1686182\" data-name=\"jason\" data-positionid=\"149594\"" +
-                                "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
-                                "               href=\"javascript:notify()\">通知面试</a>" +
-                                "            <a data-deliverid=\"1686182\" class=\"resume_refuse\"" +
-                                "               href=\"javascript:void(0)\">不合适</a>" +
-                                "            <a data-resumename=\"jason的简历\" data-positionname=\"随便写\" data-deliverid=\"1686182\"" +
-                                "               data-positionid=\"149594\" data-resumekey=\"1ccca806e13637f7b1a4560f80f08057\"" +
-                                "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:void(0)\">" +
-                                "                转发" +
-                                "                <span>(1人)</span>" +
-                                "            </a>" +
-                                "        </div>" +
-                                "    </div>" +
-                                "<div class=\"contactInfo\">" +
-                                "    <span class=\"c9\">电话：</span>" + resume.mobile + "" +
-                                "    <span class=\"c9\">邮箱：</span><a href=\"mailto:" + resume.email + "\">" + resume.email + "</a>\n" +
-                                "</div></li>");
-                        }
-                    )
+        $('#item_title').text('待处理简历');
+        $('#dd_received').addClass('current');
+        $.post(
+            "{% url 'org:get_html' %}",
+            {html: "received"},
+            function (response) {
+                $('#option_div').replaceWith(response)
+            }
+        );
+        $.post(
+            "{% url 'org:get_resumes_db' %}",
+            {item: "received"},
+            function (resume_json) {
+                $('#view_list').replaceWith('<ul id="view_list" class="reset resumeLists"></ul>');
+                $(resume_json).each(
+                    function (i, resume) {
+                        $('#view_list').html($('#view_list').html() +
+                            "<li data-id=\"" + resume.resume_id + "\" class=\"onlineResume\">" +
+                            "  <label class=\"checkbox\">" +
+                            "      <input type=\"checkbox\">" +
+                            "      <i></i>" +
+                            "  </label>" +
+                            "  <div class=\"resumeShow\">" +
+                            "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
+                            "         href=\"" + resume.position_id + "\">" +
+                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "      </a>" +
+                            "      <div class=\"resumeIntro\">" +
+                            "          <h3 class=\"unread\">" +
+                            "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
+                            "                 href=\"" + resume.position_id + "\">" +
+                            "                  " + resume.name + "的简历" +
+                            "              </a>" +
+                            "              <em></em>" +
+                            "          </h3>" +
+                            "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
+                            "          <div>" +
+                            "              " + resume.name +
+                            "/ " + resume.sex + " / " + resume.education +
+                            " / " + resume.work_years + "年 / " + resume.city + " <br>" +
+                            "" + resume.worked_position + " · " + resume.worked_company + " | " + resume.education
+                            + " · " + resume.school + "" +
+                            "          </div>" +
+                            "          <div class=\"jdpublisher\">" +
+                            "<span>" +
+                            "应聘职位：<a title=\"" + resume.position_name + "\" target=\"_blank\"" +
+                            "href=\"" + resume.position_id + "\">" + resume.position_name + "</a>" +
+                            "</span>" +
+                            "</div>" +
+                            "</div>" +
+                            "        <div class=\"links\">" +
+                            "            <a data-resumeid=\"" + resume.resume_id + "\" data-name=\"" + resume.name +
+                            "\" data-positionname=\"" + resume.position_name + "\"" +
+                            "               data-email=\"" + resume.email + "\" class=\"resume_notice\"" +
+                            "               href=\"javascript:confirmOrder('notify')\">通知面试</a>" +
+                            "            <a data-resumeid=\"" + resume.resume_id + "\" class=\"resume_refuse\"" + "\" data-name=\"" + resume.name +
+                            "\" href=\"javascript:confirmOrder('refuse')\">不合适</a>" +
+                            "            <a data-resumename=\"" + resume.name + "的简历\" data-positionname=\"" + resume.position_name + "\" data-resumeid=\"" + resume.resume_id + "\"" +
+                            "               data-positionid=\"" + resume.position_id + "\"" +
+                            "               data-forwardcount=\"1\" class=\"resume_forward\" href=\"javascript:confirmOrder('forward')\">" +
+                            "                转发" +
 
-                }
-            )
+                            "            </a>" +
+                            "        </div>" +
+                            "    </div>" +
+                            "<div class=\"contactInfo\">" +
+                            "    <span class=\"c9\">电话：</span>" + resume.mobile + "" +
+                            "    <span class=\"c9\">邮箱：</span><a href=\"mailto:" + resume.email + "\">" + resume.email + "</a>\n" +
+                            "</div></li>");
+                    }
+                )
+
+            }
+        )
     }
 
     function default_position_load() {
         to_position();
         remove_current();
-            $('#item_title').text('有效职位');
-            $('#dd_valid_position').addClass('current');
-            $.post(
-            '{% url 'org:get_position' %}',
+        $('#item_title').text('有效职位');
+        $('#dd_valid_position').addClass('current');
+        $.post(
+            '{% url 'org:get_positions_db' %}',
             {item: 'valid'},
             function (json) {
                 $('#position_ul').replaceWith('<ul class="reset my_jobs" id="position_ul"></ul>');
                 $(json).each(
                     function (i, position) {
-                        $('#position_ul').html($('#position_ul').html()+
-                            "<li data-id=\"149594\">\n" +
+                        $('#position_ul').html($('#position_ul').html() +
+                            "<li data-id=\"" + position.position_id + "\">\n" +
                             "  <h3>\n" +
-                            "  <a target=\"_blank\" title=\"" + '有效职位' + "\" href=\"http://www.lagou.com/jobs/149594.html\">" + position.position_name + "</a>\n" +
+                            "  <a target=\"_blank\" title=\"" + '有效职位' + "\" href=\"http://www.lagou.com/jobs/" + position.position_id + ".html\">" + position.position_name + "</a>\n" +
                             "  <span>[" + position.city + "]</span>\n" +
                             "  </h3>\n" +
                             "  <span class=\"receivedResumeNo\"><a\n" +
-                            "  href=\"unHandleResumes.html?positionId=149594\">应聘简历（1）</a></span>\n" +
+                            "  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +
                             "  <div>" + position.position_type + " / " + position.min_salary + "-" + position.max_salary + " / 1-3年 / 硕士及以上</div>\n" +
                             "  <div class=\"c9\">发布时间： 2014-07-01 17:07:01</div>\n" +
                             "  <div class=\"links\">\n" +
-                            "    <a class=\"job_refresh\" href=\"javascript:void(0)\">刷新<span>每个职位7天内只能刷新一次</span></a>\n" +
-                            "    <a target=\"_blank\" class=\"job_edit\" href=\"create_position.html?positionId=149594\">编辑</a>\n" +
-                            "    <a class=\"job_offline\" href=\"javascript:void(0)\">下线</a>\n" +
-                            "    <a class=\"job_del\" href=\"javascript:void(0)\">删除</a>\n" +
+                            "    <a class=\"job_edit\" href=\"javascript:confirmOrder('edit')\">编辑</a>\n" +
+                            "    <a class=\"job_offline\" href=\"javascript:confirmOrder('online')\">上线</a>\n" +
+                            "    <a class=\"job_del\" href=\"javascript:confirmOrder('delete_position')\">删除</a>\n" +
                             "  </div>\n" +
                             "</li>")
                     })
@@ -973,10 +969,77 @@
     }
 
     <!-- 显示弹窗 -->
-    function notify() {
-        alert('!!!');
-        $('#testtest').css('display', 'inline')
+    function confirmOrder(order) {
+        switch (order) {
+            case 'notify':
+                var info = "确定通知【" + $('a.resume_notice').attr('data-name') + "】面试【" + $('a.resume_notice').attr('data-positionname') + "】吗?";
+                if (confirm(info)) {
+                    //点击确定后操作
+                    alert('通知成功！')
+                }
+                break;
+            case 'refuse':
+                if (confirm("确定拒绝【" + $('a.resume_notice').attr('data-name') + "】吗?")) {
+                    //点击确定后操作
+                    alert('通知成功！')
+                }
+                break;
+            case 'forward':
+                if (confirm("确定转发吗?")) {
+                    //点击确定后操作
+                    var subject = $('a.resume_forward').attr('data-resumename');
+                    var resumeId = $('a.resume_forward').attr('data-resumeid');
+                    var body = '您好，这是投递我司【】岗位的【】的简历！简历详情：' + resumeId;
+                    window.location.href = 'mailto: 123@13.com?subject=' + subject + '&body=' + body
+                }
+                break;
+            case 'delete':
+                if (confirm("确定删除该简历吗?")) {
+                    //点击确定后操作
+                    alert('删除成功！')
+                }
+                break;
+            case 'pass':
+                if (confirm("确定录用吗?")) {
+                    //点击确定后操作
+                    alert('录用成功！')
+                }
+                break;
+            case 'pend':
+                if (confirm("确定待定吗?")) {
+                    //点击确定后操作
+                    alert('通知成功！')
+                }
+                break;
+            case 'edit':
+                if (confirm("确定编辑吗?")) {
+                    //点击确定后操作
+                    location.href = '/create_position?positionId='
+                }
+                break;
+            case 'online':
+                if (confirm("确定上线吗?")) {
+                    //点击确定后操作
+
+                }
+                break;
+            case 'offline':
+                if (confirm("确定下线吗?")) {
+                    //点击确定后操作
+                    alert('通知成功！')
+                }
+                break;
+            case 'delete_position':
+                if (confirm("确定删除职位吗?")) {
+                    //点击确定后操作
+                    alert('通知成功！')
+                }
+                break;
+        }
+
+        {#$('#testtest').css('display', 'inline')#}
     }
+
 </script>
 </body>
 </html>
