@@ -57,13 +57,9 @@ def loginView(request):
         password = request.POST.get('password', '') #密码
         print(account)
         print(password)
-
         remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=account) | Q(email=account)):
             user = MyUser.objects.filter(Q(mobile=account) | Q(email=account)).first()
-            print(user.password)
-            print(check_password(password, user.password))
-            # print(authenticate(,user))
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
@@ -120,7 +116,7 @@ def registerView(request):
                 date_joined = datetime.datetime.now()
                 role = Role.objects.get(id=role_type)
 
-                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=123456,
+                user = MyUser.objects.create_user(username=email, first_name='', last_name='', email=email, password=password,
                                                   is_superuser=0,is_active=1, is_staff=0, date_joined=date_joined, mobile='', complete='no', role_id=role.id)
                 login(request, user)
                 if user.role_id == 1:
@@ -201,7 +197,6 @@ def logoutView(request):
 def complte_user_info(request):
 
     user = request.user
-    print(user)
     logined = True
     if request.method == 'POST':
         username = request.POST.get('username', '')

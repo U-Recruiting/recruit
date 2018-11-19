@@ -79,7 +79,7 @@ class OrgInfo(models.Model):
     lincese = models.CharField('营业执照', max_length=500, default=None, null=True)
     type = models.CharField('公司类型', max_length=30, default=None, null=True)
     phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
-    desc = models.CharField('公司描述', max_length=500, default=None, null=True)
+    desc = models.CharField('公司描述', max_length=3000, default=None, null=True)
     scale = models.CharField('公司人数',max_length=50, null=True)
     url = models.CharField('公司网站', max_length=50, default=None,null=True)
     phone = models.CharField('联系方式', max_length=30, default=None,null=True)
@@ -108,7 +108,7 @@ class PositionInfo(models.Model):
 
     tags = models.CharField('职位标签', max_length=200, default=None,null=True)
 
-    desc = models.CharField('职位描述', max_length=500, null=True)
+    desc = models.CharField('职位描述', max_length=3000, null=True)
 
     positionAdvantage = models.CharField('职位诱惑', max_length=200, default=None,null=True)
     subwayline = models.CharField('地铁线', max_length=200, default=None,null=True)

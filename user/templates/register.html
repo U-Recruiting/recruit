@@ -39,8 +39,7 @@
             {% if tips %}
                 <div class="tips">{{ tips }}</div>
             {% endif %}
-            <input type="text" id="email" name="email" tabindex="1" style="width:296px;font-size:16px;"
-                   value="{{ username }}" placeholder="请输入常用邮箱"/>
+            <input type="text"  id="email" name="email"  value="{{ username }}" tabindex="1" placeholder="请输入邮箱" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
             <span class="error" style="display:none;" id="beError"></span>
             <div class="verification">
                 <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码"/>

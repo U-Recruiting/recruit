@@ -119,4 +119,3 @@ class LaGou:
                 print('*'*50+str(self.page))
                 self.page+=1
 
-

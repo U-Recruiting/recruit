@@ -7,15 +7,18 @@ from urllib.parse import unquote
 
 
 def searchView(request, page):
-
-    # user = request.user
-    # if user.is_active:
-    #     logined = True
-    #     user_real_name = user.userinfo_set.all().first().name
-    # else:
-    #     logined = False
+    #
+    user = request.user  # 可能为匿名用户
+    if user.is_active:  # 如果不是匿名用户
+        if user.userinfo_set.all().first():
+            logined = True
+            user_real_name = user.userinfo_set.all().first().name
+        else:
+            logined = False
+    else:
+        logined = False
+    #
     if request.method == 'GET':
-
 
         kword = request.session.get('search_input', '')
         print(kword)
@@ -75,7 +78,10 @@ def searchView(request, page):
         return render(request, 'searchcomlist.html', locals())
     else:
         # 处理POST请求，并重定向搜索页面。
-        request.session['search_input'] = request.POST.get('search_input', '')
+        # request.session['search_input'] = request.POST.get('search_input', '')
+
+        print(request.POST)
+
         return redirect('/search/1')
 
 
@@ -90,12 +96,12 @@ def companyView(request):
 
 # 职位详情页
 def jobinfoView(request):
-    user = request.user
-    if user.is_active:
-        logined = True
-        user_real_name = user.userinfo_set.all().first().name
-    else:
-        logined = False
+    # user = request.user
+    # if user.is_active:
+    #     logined = True
+    #     user_real_name = user.userinfo_set.all().first().name
+    # else:
+    #     logined = False
     return render(request, 'jobinfo.html',locals())
 
 

@@ -8,5 +8,6 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('start/', views.spider)
+    path('start/', views.spider),
+    path('spider2/', views.spider2),
 ]

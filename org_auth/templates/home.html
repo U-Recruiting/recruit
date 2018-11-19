@@ -58,6 +58,23 @@
             background: white;
             z-index: 200;
         }
+
+        #result {
+            width: 320px;
+            height: 180px;
+            border: 1px solid #eee;
+
+        }
+
+        #result img {
+            width: 320px;
+            height: 180px;
+        }
+
+        input {
+            width: 70px;
+            margin-top: 10px;
+        }
     </style>
 
 </head>
@@ -85,35 +102,68 @@
         <div class="content_mid">
             <dl class="c_section c_section_mid">
                 <dd>
-                    <form method="post" action='' id="stepForm">
+                    <form method="post"  id="stepForm">
+                        {% csrf_token %}
                         <h3>公司全称</h3>
                         <input type="text" placeholder="请输入公司名称" value='' name='company_name' id=''>
 
 
                         <h3>公司LOGO</h3> <!--非必填改必填-->
-                        <div class="new_product mt20">
-                            <div id="productNo0" class="product_upload">
-                                <div style="background-color: rgb(147, 183, 187);">
-                                    <span>上传公司LOGO</span>
-                                    <br>
-{#                                    尺寸：380*220px 大小：小于5M#}
-                                </div>
-                            </div>
-                            <div id="productShow0" class="product_upload dn productShow">
-                                {#                                <img width="380" height="220" src="">#}
-{#                                <span>更换产品图片<br>380*220px 小于5M</span>#}
-                            </div>
-                            <input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M"
-{#                                   onchange="img_check(this,'http://www.lagou.com/c/upload.json',380,220,5,'myfiles0','myfiles0_error','productNo0','productShow0','type0','productInfos0');"#}
-                                   name="myfiles" id="myfiles0">
-{#                            <input type="hidden" value="3" name="productInfos[0].type" id="type0">#}
-{#                            <input type="hidden" name="productInfos[0].productPicUrl" id="productInfos0">#}
-                        </div>
-{#                        <span style="display:none;" id="myfiles0_error" class="error"></span>#}
+                        <div id="result"><span>上传公司营业执照副本</span></div>
+                        <input id="pic" type="file" name='pic' accept="image/*" onchange="selectFile()"/>
+                        <!-- <button onclick = "handIn()">提交</button> -->
+                        <script type="text/javascript">
+                            //var files = document.getElementById('pic').files;
+                            var form = new FormData();//通过HTML表单创建FormData对象
+                            {#                                    var url = '127.0.0.1:8080/'#}
+
+                            function selectFile() {
+                                var files = document.getElementById('pic').files;
+                                console.log(files[0]);
+                                if (files.length == 0) {
+                                    return;
+                                }
+                                var file = files[0];
+                                //把上传的图片显示出来
+                                var reader = new FileReader();
+                                // 将文件以Data URL形式进行读入页面
+                                console.log(reader);
+                                reader.readAsBinaryString(file);
+                                reader.onload = function (f) {
+                                    var result = document.getElementById("result");
+                                    var src = "data:" + file.type + ";base64," + window.btoa(this.result);
+                                    result.innerHTML = '<img src ="' + src + '"/>';
+                                }
+                                console.log('file', file);
+                                ///////////////////
+                                form.append('file', file);
+                                console.log(form.get('file'));
+                            }
+                        </script>
+
+                        {#                        <div class="new_product mt20">#}
+                        {#                            <div id="productNo0" class="product_upload">#}
+                        {#                                <div style="background-color: rgb(147, 183, 187);">#}
+                        {#                                    <span>上传公司LOGO</span>#}
+                        {#                                    <br>#}
+                        {#                                    尺寸：380*220px 大小：小于5M#}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                            <div id="productShow0" class="product_upload dn productShow">#}
+                        {#                                <img width="380" height="220" src="">#}
+                        {#                                <span>更换产品图片<br>380*220px 小于5M</span>#}
+                        {#                            </div>#}
+                        {#                            <input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M"#}
+                        {#                                   onchange="img_check(this,'http://www.lagou.com/c/upload.json',380,220,5,'myfiles0','myfiles0_error','productNo0','productShow0','type0','productInfos0');"#}
+                        {#                                   name="myfiles" id="myfiles0">#}
+                        {#                            <input type="hidden" value="3" name="productInfos[0].type" id="type0">#}
+                        {#                            <input type="hidden" name="productInfos[0].productPicUrl" id="productInfos0">#}
+                        {#        </div>#}
+                        {#                        <span style="display:none;" id="myfiles0_error" class="error"></span>#}
 
 
-{#                        <h3>公司邮箱</h3>#}
-{#                        <input type="text" placeholder="请输入公司邮箱" value="" name="company_email" id="">#}
+                        {#                        <h3>公司邮箱</h3>#}
+                        {#                        <input type="text" placeholder="请输入公司邮箱" value="" name="company_email" id="">#}
 
                         <h3>所在城市</h3>
                         <input type="text" placeholder="请输入工作城市，如：北京" name="company_city" id="">
@@ -160,9 +210,9 @@
                             </ul>
 
                             <input type="text" placeholder="请输入自定义标签" name="label" id="label">
-                            <input type="submit" value="贴上" name = '' id="add_label">
+                            <input type="button" value="贴上" name='' id="add_label">
                             <div class="clear"></div>
-                            <div id="box_labels" >
+                            <div id="box_labels">
                                 <dl>
                                     <dt>薪酬激励</dt>
                                     <dd>
@@ -339,12 +389,36 @@
 </div>
 
 <script>
-    {#    $('#step1').on("click", function () {#}
-    {#        location.href = "/org/"#}
-    {#    });#}
     $(function () {
+
+        $('#step1').click(function (e) {
+            e.preventDefault();
+            var labels_list = [];
+            var labels = $('#labels li span');
+            for(var i=0; i<labels.length;i++){
+                labels_list.push(labels[i].innerHTML);
+            }
+            var labels_str = labels_list.join(',');
+
+            console.log(labels_str);
+            var form = new FormData(document.getElementById("stepForm"));
+            form.append('csrfmiddlewaretoken','{{ csrf_token }}');
+            form.append('labels', labels_str);
+            $.ajax({
+                url: "{% url 'complete_orginfo' %}",
+                type: 'post',
+                data:form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    window.location.href=result.url;
+                }
+            });
+        });
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;
+
+
     })
 </script>
 </body>
