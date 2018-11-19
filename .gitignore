@@ -4,4 +4,6 @@
 *.iml
 *.ipr
 *.py[cod]
+*.pyc
+__pycache__
 migrations
