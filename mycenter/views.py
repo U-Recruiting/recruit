@@ -34,3 +34,6 @@ def mycollection(request):
 
 def collect(request):
     pass
+
+def companydetail(request):
+    return render(request, 'companydetail.html')

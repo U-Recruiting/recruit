@@ -24,37 +24,33 @@
         <div class="login_box">
             <form id="loginForm" class="form" action="{% url 'login' %}" method="post">
                 {% csrf_token %}
-                <ul class="login_radio clearfix">
-		            <li>
-		            	手机号登录
-		              	<input type="radio" value="0" name="type" />
-		            </li>
-		            <li>
-                        密码登录
-		              	<input type="radio" value="1" name="type"  />
-		            </li>
-		        </ul>
+{#                <ul class="login_radio clearfix">#}
+{#		            <li>#}
+{#		            	手机号登录#}
+{#		              	<input type="radio" value="0" name="type" />#}
+{#		            </li>#}
+{#		            <li>#}
+{#                        密码登录#}
+{#		              	<input type="radio" value="1" name="type"  />#}
+{#		            </li>#}
+{#		        </ul>#}
 
                  {% if tips %}
                     <div class="tips">{{ tips }}  </div>
                 {% endif %}
                 <!-- 判断radio选中第一个 -->
-{#<<<<<<< HEAD#}
-{#                <div id="login_box_one">#}
-{#                <input type="text"  id="phone" name="phone"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入手机号" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>#}
-{#=======#}
-                <div id="login_box_one">
-                <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入手机号" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+
+                <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入邮箱" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
                 <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
                 <span class="error" style="display:none;" id="beError"></span>
-                </div>
+
                 <!-- 判断radio选中第二个 -->
-                <div id="login_box_two" style="display: none">
+                <!--
+
                 <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入用户名" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
                 <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
                 <span class="error" style="display:none;" id="beError"></span>
-                </div>
-
+                -->
 
                 <label class="fl" for="remember">
                     <input type="checkbox" id="remember" {{ checked }} name="autoLogin" /> 记住我
@@ -91,16 +87,8 @@
 
     	$('.login_radio li input').click(function(e){
     		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
-            if ($(this).value == 1){
-                $(".login_box_one").hide();
-                $(".login_box_two").show();
-            }
+
     	});
-{#        $("input[type='radio']").eq(1).focus(function (e) {#}
-{#            $('#login_box_one').display = none;#}
-{#            $('#login_box_two').display = block;#}
-{##}
-{#        })#}
 
 
        //验证表单
