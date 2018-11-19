@@ -148,95 +148,27 @@
             <div id="content_bar">
                 <div id="sidebar">
                     <div class="mainNavs">
-                        {% for lable in lables_4 %}
-                            <div class="menu_box">
-                                <div class="menu_main">
+                        {% for lable in lables %}
+                            <div class="menu_box" >
+                                <div class="menu_main" >
                                     <h2>{{ lable.name }} <span>  </span></h2>
-                                    <a href="">后端开发</a>
-                                    <a href="">前端开发</a>
-                                    <a href="">测试</a>
-                                    <a href="">技术经理</a>
-                                    <a href="">架构师</a>
+                                    {% for lable2 in lable.job_label2_set.all %}
+                                    <a href="">{{ lable2.name }}</a>
+                                    {% endfor %}
                                 </div>
                                 <div class="menu_sub dn" id="menu_sub1">
+                                    {% for lable2 in lable.job_label2_set.all %}
                                     <dl class="reset">
                                         <dt>
-                                            <a href="">后端开发</a>
+                                            <a href="">{{ lable2.name }}</a>
                                         </dt>
                                         <dd>
-                                            <a href="" class="curr">Java</a>
-                                            <a href="" class="curr">C++</a>
-                                            <a href="" class="curr">PHP</a>
-                                            <a href="" class="curr">数据挖掘</a>
-                                            <a href="" class="curr">C</a>
-                                            <a href="">C#</a>
-                                            <a href="">.NET</a>
+                                            {% for lable3 in lable2.job_label3_set.all %}
+                                            <a href="">{{ lable3.name }}</a>
+                                            {% endfor %}
                                         </dd>
                                     </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">移动开发</a>
-                                        </dt>
-                                        <dd>
-                                            <a href="">HTML5</a>
-                                            <a href="" class="curr">Android</a>
-                                            <a href="" class="curr">iOS</a>
-                                        </dd>
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">前端开发</a></dt>
-                                        <dd>
-                                            <a href="">web前端</a>
-                                            <a href="">Flash</a>
-                                            <a href="">html5</a>
-                                            <a href="">JavaScript</a>
-
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">测试</a>
-                                        </dt>
-                                        <dd>
-                                            <a href="">测试工程师</a>
-                                        </dd>
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">运维</a>
-                                        </dt>
-                                        <dd>
-                                            <a href="">运维工程师</a>
-                                        </dd>
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">DBA</a>
-                                        </dt>
-                                        <dd>
-                                            <a href="h">MySQL</a>
-                                        </dd>
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">
-                                                项目管理
-                                            </a>
-                                        </dt>
-                                        <dd>
-                                            <a href="" class="curr">项目经理</a>
-                                        </dd>
-                                    </dl>
-                                    <dl class="reset">
-                                        <dt>
-                                            <a href="">
-                                                高端职位
-                                            </a>
-                                        </dt>
-                                        <dd>
-                                            <a href="" class="curr">技术经理</a>
-                                        </dd>
-                                    </dl>
+                                    {% endfor %}
                                 </div>
                             </div>
                         {% endfor %}
@@ -253,169 +185,67 @@
                 <div id="container_body">
                     <ul class="hotabbing reset">
                         <li class="current">热门职位</li>
-                        <div><a href="list.html" class="btn fr" target="_blank" style="margin-top: 0px;height: 28px">查看更多</a>
+                        <div><a href="{% url 'searchmore' %}" class="btn fr" style="margin-top: 0px;height: 28px">查看更多</a>
                         </div>
                     </ul>
                     <div id="hotList" style="height: 80%">
                         <ul class="hot_pos reset">
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix" >
+                            {% for position in hot_position_3 %}
+                            <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                <li class="clearfix" style="width:300px">
                                 <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="{% url 'jobinfo' %}" target="_blank">数据分析师</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">10k-15k</span>
+                                    <div class="mb10" >
+                                        <a href="{% url 'jobinfo' %}" style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{position.position_info.name}}</a>&nbsp;
+                                        <span style="font-size: 12px;float: left;margin-left: 10px"><em class="c7">&nbsp;[1天前发布]</em></span>
+                                        <span class="c9" style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{position.position_info.start_salary}}k-{{position.position_info.end_salary}}k</span>
                                     </div>
-                                    <span><em class="c7">经验3-5年\硕士</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">阿里巴巴</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>工作环境好</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix" >
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix" >
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">手机游戏运营</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">4k-8k</span>
-                                    </div>
-                                    <span><em class="c7">经验1-3年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">腾通讯公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 互联网\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix" >
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">Java工程师</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">12k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\硕士</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">网易公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
+                                    <span><em class="c7">经验{{position.position_info.work_exp}}\{{position.position_info.edu_exp}}</em></span>
 
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix" >
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">Python工程师</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
                                     <br/>
-                                    <div class="hot_pos_r">
+                                    <div class="hot_pos_r" style="width:300px;margin-top: 12px">
                                         <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">联通</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
+                                            <a href="h/c/5232.html" >{{position.position_info.org.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span  style="float: right;margin-right: 20px"><em class="c7">{{position.position_info.org.city}}</em></span>
                                         </div>
                                         <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-
+                                            <li style="margin-right: 15px">工作环境好</li>
+                                            <li style="margin-right: 15px">福利好</li>
+                                            <li style="margin-right: 15px">商业险</li>
                                         </ul>
                                     </div>
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
-
                             </li>
                             </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix" >
+                            {% endfor %}
+                            {% for position in hot_position_6 %}
+                            <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                <li class="odd clearfix" style="width:300px">
                                 <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">Python工程师</a>&nbsp;
-                                        <span class="c9">[1天前发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
+                                    <div class="mb10" >
+                                        <a href="{% url 'jobinfo' %}" style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{position.position_info.name}}</a>&nbsp;
+                                        <span style="font-size: 12px;float: left;margin-left: 10px"><em class="c7">&nbsp;[1天前发布]</em></span>
+                                        <span class="c9" style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{position.position_info.start_salary}}k-{{position.position_info.end_salary}}k</span>
                                     </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
+                                    <span><em class="c7">经验{{position.position_info.work_exp}}\{{position.position_info.edu_exp}}</em></span>
+
                                     <br/>
-                                    <div class="hot_pos_r">
+                                    <div class="hot_pos_r" style="width:300px;margin-top: 12px">
                                         <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">联通</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
+                                            <a href="h/c/5232.html" >{{position.position_info.org.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span  style="float: right;margin-right: 20px"><em class="c7">{{position.position_info.org.city}}</em></span>
                                         </div>
                                         <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-
+                                            <li style="margin-right: 15px">工作环境好</li>
+                                            <li style="margin-right: 15px">福利好</li>
+                                            <li style="margin-right: 15px">商业险</li>
                                         </ul>
                                     </div>
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
-
                             </li>
                             </div>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="clear"></div>
@@ -425,167 +255,67 @@
                 <div id="container_new_body">
                     <ul class="hotabbing reset">
                         <li class="current">最新职位</li>
-                        <div><a href="list.html" class="btn fr" target="_blank" style="margin-top: 0px;height: 28px">查看更多</a>
+                        <div><a href="{% url 'searchmore' %}" class="btn fr" style="margin-top: 0px;height: 28px">查看更多</a>
                         </div>
                     </ul>
                     <div id="hotList" style="height: 80%">
                         <ul class="hot_pos hot_posHotPosition reset">
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix">
+                            {% for position in latest_3 %}
+                            <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                <li class="clearfix" style="width:300px">
                                 <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
+                                    <div class="mb10" >
+                                        <a href="{% url 'jobinfo' %}" style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{position.name}}</a>&nbsp;
+                                        <span style="font-size: 12px;float: left;margin-left: 10px"><em class="c7">&nbsp;[1天前发布]</em></span>
+                                        <span class="c9" style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{position.start_salary}}k-{{position.end_salary}}k</span>
                                     </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
+                                    <span><em class="c7">经验{{position.work_exp}}\{{position.edu_exp}}</em></span>
+
                                     <br/>
-                                    <div class="hot_pos_r">
+                                    <div class="hot_pos_r" style="width:300px;margin-top: 12px">
                                         <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
+                                            <a href="h/c/5232.html" >{{position.org.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span  style="float: right;margin-right: 20px"><em class="c7">{{position.org.city}}</em></span>
                                         </div>
                                         <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
+                                            <li style="margin-right: 15px">工作环境好</li>
+                                            <li style="margin-right: 15px">福利好</li>
+                                            <li style="margin-right: 15px">商业险</li>
                                         </ul>
                                     </div>
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
                             </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix">
+                            {% endfor %}
+                            {% for position in latest_6 %}
+                            <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                <li class="odd clearfix" style="width:300px">
                                 <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
+                                    <div class="mb10" >
+                                        <a href="{% url 'jobinfo' %}" style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{position.name}}</a>&nbsp;
+                                        <span style="font-size: 12px;float: left;margin-left: 10px"><em class="c7">&nbsp;[1天前发布]</em></span>
+                                        <span class="c9" style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{position.start_salary}}k-{{position.end_salary}}k</span>
                                     </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
+                                    <span><em class="c7">经验{{position.work_exp}}\{{position.edu_exp}}</em></span>
+
                                     <br/>
-                                    <div class="hot_pos_r">
+                                    <div class="hot_pos_r" style="width:300px;margin-top: 12px">
                                         <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
+                                            <a href="h/c/5232.html" >{{position.org.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span  style="float: right;margin-right: 20px"><em class="c7">{{position.org.city}}</em></span>
                                         </div>
                                         <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
+                                            <li style="margin-right: 15px">工作环境好</li>
+                                            <li style="margin-right: 15px">福利好</li>
+                                            <li style="margin-right: 15px">商业险</li>
                                         </ul>
                                     </div>
                                     <!-- <a  class="wb">分享到微博</a> -->
                                 </div>
                             </li>
                             </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="clearfix">
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix">
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix">
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
-                            <div class="hot_pos_box" style="margin: 10px 30px;float: left">
-                            <li class="odd clearfix">
-                                <div class="hot_pos_m">
-                                    <div class="mb10">
-                                        <a href="h/jobs/147822.html" target="_blank">运营总监</a>&nbsp;
-                                        <span class="c9">[15:08发布]</span>
-                                        <span class="c9"
-                                              style="float: right;margin-right: 10px;color: red">15k-20k</span>
-                                    </div>
-                                    <span><em class="c7">经验3-5年\本科</em></span>
-                                    <br/>
-                                    <div class="hot_pos_r">
-                                        <div class="mb10">
-                                            <a href="h/c/5232.html" target="_blank">监控宝公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span><em class="c7">领域：</em> 云计算\大数据</span>
-                                        </div>
-                                        <ul class="companyTags reset">
-                                            <li>五险一金</li>
-                                            <li>福利好</li>
-                                            <li>商业险</li>
-                                        </ul>
-                                    </div>
-                                    <!-- <a  class="wb">分享到微博</a> -->
-                                </div>
-                            </li>
-                            </div>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="clear"></div>
