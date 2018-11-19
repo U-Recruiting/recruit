@@ -112,7 +112,7 @@ class PositionInfo(models.Model):
 
     positionAdvantage = models.CharField('职位诱惑', max_length=200, default=None,null=True)
     subwayline = models.CharField('地铁线', max_length=200, default=None,null=True)
-    linestaion = models.CharField('地铁线路', max_length=200, default=None,null=True)
+    linestaion = models.CharField('地铁线路', max_length=2000, default=None,null=True)
     create_datetime = models.DateTimeField('创建时间',default=None,null=True)
 
     org = models.ForeignKey(OrgInfo, on_delete=models.CASCADE, default=None) #

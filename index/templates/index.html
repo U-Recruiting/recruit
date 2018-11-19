@@ -74,7 +74,7 @@
     <!-- 搜索框-->
     <div class="container_search">
         <div id="search_box">
-            <form id="searchForm" name="searchForm" action="{% url 'search' 1 %}" method="post">
+            <form id="searchForm" name="searchForm" action="/search/" method="post">
                  {% csrf_token %}
                 <ul id="searchType">
                     <li data-searchtype="1" class="type_selected">职位</li>

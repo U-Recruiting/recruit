@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from urllib.parse import unquote
 
 
-def searchView(request, page):
+def searchView(request):
     #
     user = request.user  # 可能为匿名用户
     if user.is_active:  # 如果不是匿名用户
@@ -21,15 +21,15 @@ def searchView(request, page):
     if request.method == 'GET':
 
         kword = request.session.get('search_input', '')
-        print(kword)
-
+        print('keyword', kword)
+        page = request.GET.get('pn', 1)
         city =request.GET.get('city', '')
         distinct =request.GET.get('distinct', '')
-        work_exp =request.GET.get('work_exp', '')
-        edu_exp =request.GET.get('edu_exp', '')
+        work_exp =request.GET.get('workExpSelectInput', '')
+        edu_exp =request.GET.get('eduExpSelectInput', '')
         phase =request.GET.get('phase', '')
-        scale =request.GET.get('scale', '')
-        type =request.GET.get('type', '')
+        scale =request.GET.get('scaleInput', '')
+        type =request.GET.get('domainInput', '')
 
         print(city+distinct+work_exp+edu_exp)
 
@@ -45,28 +45,43 @@ def searchView(request, page):
         if phase:
             objects = objects.filter(phase=phase)
         if scale:
-            objects = objects.filter(scale=scale)
+            orginfo = OrgInfo.objects.filter(scale=scale)
+            objects = objects.filter(org=orginfo).all()
         if type:
             objects = objects.filter(type=type)
 
         if kword:
             # Q是SQL语句里的or语法
-            position_info = objects.filter(Q(name__icontains=kword) | Q(tags__icontains=kword)).all()
+            position_info = objects.filter(Q(name__icontains=kword) | Q(type__icontains=kword)).all()
         else:
-            position_info = objects.order_by('-create_datetime').all()[:50]
-        # 分页功能
-        # paginator = Paginator(position_info, 5)
-        # try:
-        #     contacts = paginator.page(page)
-        # except PageNotAnInteger:
-        #     contacts = paginator.page(1)
-        # except EmptyPage:
-        #     contacts = paginator.page(paginator.num_pages)
+            position_info = objects.order_by('-create_datetime').all()[:500]
 
-        position_exist = PositionInfo.objects.filter(name__icontains=kword)
+
+        # 分页功能
+        paginator = Paginator(position_info, 15)
+        try:
+            position_list = paginator.page(page)
+
+            for position in position_list:
+                tags = position.org.tags.split(',')
+                position.tags = tags
+
+            # position_companys = {}
+            # for one_position in  position_list:
+            #     org = one_position.org
+            #     position_company = {}
+            #     position_company['tags'] = org.tags.split(',')
+            #     position_companys[one_position.id] = position_company
+        #
+        except PageNotAnInteger:
+            position_list = paginator.page(1)
+        except EmptyPage:
+            position_list = paginator.page(paginator.num_pages)
+
+        position_exist = PositionInfo.objects.filter(name=kword)
         if position_exist:
             position_id = position_exist[0].id
-            dynamic_position_info = Dynamic_Position.objects.filter(position_info_id=int(position_id)).first()
+            dynamic_position_info = Dynamic_Position.objects.filter(position_info_id=position_id).first()
 
             if dynamic_position_info:
                 dynamic_position_info.dynamic_search += 1
@@ -75,14 +90,14 @@ def searchView(request, page):
             else:
                 dynamic = Dynamic_Position(dynamic_search=1, position_info_id=position_id)
                 dynamic.save()
-        return render(request, 'searchcomlist.html', locals())
+        return render(request, 'searchcomlist2.html', locals())
     else:
         # 处理POST请求，并重定向搜索页面。
-        # request.session['search_input'] = request.POST.get('search_input', '')
+        request.session['search_input'] = request.POST.get('search_input', '')
 
         print(request.POST)
 
-        return redirect('/search/1')
+        return redirect('/search/')
 
 
 def companyView(request):

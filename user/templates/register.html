@@ -39,8 +39,20 @@
             {% if tips %}
                 <div class="tips">{{ tips }}</div>
             {% endif %}
-            <input type="text"  id="email" name="email"  value="{{ username }}" tabindex="1" placeholder="请输入邮箱" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <input type="text" id="email" name="email" value="{{ username }}" tabindex="1" placeholder="请输入邮箱"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
             <span class="error" style="display:none;" id="beError"></span>
+            <input type="password" id="password" name="password" value="" tabindex="1" placeholder="请输入密码"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            <input type="password" id="passwordAgain" name="passwordAgain" value="" tabindex="1" placeholder="请再次输入密码"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            {#            <input type="password" id="password" name="password" tabindex="2" style="width:296px;font-size:16px;"#}
+            {#                   value="{{ password }}" placeholder="请设置密码"/>#}
+            {#            <input type="password" id="password_again" name="password_again" tabindex="3"#}
+            {#                   style="width:296px;font-size:16px;"#}
+            {#                   value="{{ password_again }}" placeholder="请再次确认密码"/>#}
             <div class="verification">
                 <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码"/>
                 <input type="button" value="获取验证码" id="code_button" class="Code"></input>
@@ -94,7 +106,6 @@
         });
 
         $('.submitLogin').click(
-
             function (e) {
                 e.preventDefault();
                 var radio = $('input:radio[name="type"]:checked').val();
@@ -129,13 +140,13 @@
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
                         type: $('input:radio[name="type"]:checked').val(),
-                        email:$('#email').val(),
+                        email: $('#email').val(),
                         verificationCode: $('#verificationCode').val()
                     },
                     success: function (result) {
-                        if(result.tips === "pass"){
+                        if (result.tips === "pass") {
                             window.location.href = result.url
-                        }else {
+                        } else {
                             $('.verification2').children('span').html(result.tips);
                             $('.verification2').children('span').show()
                         }

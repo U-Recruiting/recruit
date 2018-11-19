@@ -9,7 +9,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<int:position_id>', views.shoot, name='shoot'),
+    path('', views.shoot, name='shoot'),
 ]
 
 

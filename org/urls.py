@@ -13,7 +13,7 @@ app_name = 'org'
 urlpatterns = [
     path('test/', views.test),
 
-    # path('', views.home),  # home 默认显示待处理简历
+    path('', views.home),  # home 默认显示待处理简历
     # path('create/', views.create),  # 发布职位
     # path('create_success/', views.create_success, name='create_success'),
     # path('get_ajax_resumes/', views.get_ajax_resumes, name='resumes'),

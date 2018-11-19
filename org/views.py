@@ -16,16 +16,16 @@ def test(request):
     return render(request, 'create.html', locals())
 
 
-# @login_required(login_url='/user/login')
+@login_required(login_url='/user/login')
 
 
-# def home(request):
-#     user = MyUser.objects.get(email='120557727@qq.com')
-#     orginfo = user.orginfo_set.all().first()
-#     positions = orginfo.positioninfo_set.all()
-#     received = utls.get_resume_item(positions, 'received')
-#     print(received)
-#     return render(request, 'resumes_view.html', locals())
+def home(request):
+    # user = MyUser.objects.get(email='120557727@qq.com')
+    # orginfo = user.orginfo_set.all().first()
+    # positions = orginfo.positioninfo_set.all()
+    # received = utls.get_resume_item(positions, 'received')
+    # print(received)
+    return render(request, 'org_view.html', locals())
 
 
 # def create(request):

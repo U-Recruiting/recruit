@@ -46,8 +46,8 @@ class LaGou:
         self.page = 1
         self.url = url
         self.all_data = []
-        self.cities = ['北京','上海','深圳', '广州', '杭州', '成都', '南京', '武汉', '西安','厦门']
-        # self.cities = ['北京']
+        # self.cities = ['北京','上海','深圳', '广州', '杭州', '成都', '南京', '武汉', '西安','厦门']
+        self.cities = ['上海']
 
     def isNone(self, value):
         if not value:

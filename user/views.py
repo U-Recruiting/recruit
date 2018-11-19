@@ -202,6 +202,7 @@ def complte_user_info(request):
         username = request.POST.get('username', '')
         phone = request.POST.get('phone', '')
         user.mobile = phone
+
         user.complete = 'yes'
         user.save()
         UserInfo.objects.create(name=username, user_id=user.id)
@@ -210,4 +211,4 @@ def complte_user_info(request):
         print(logined)
         print(user_real_name)
         return redirect('/')
-    return render(request, 'userinfo_test.html', locals())
+    return render(request, 'basic_information.html', locals())

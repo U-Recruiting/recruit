@@ -42,3 +42,36 @@
  
  123456 :pbkdf2_sha256$120000$StpGvQfO4vjm$yZ39kU/ejql4woM8dhRh1jypOoYoe/zzcgTF2EO2hw4=
  file: enctype="multipart/form-data"
+ 
+ 
+ {% for position in position_list %}
+                        <li class="odd clearfix" style="width: 998px">
+                        <div class="hot_pos_left">
+                            <div class="mb10">
+                                <a href="/position/{{ position.id }}" target="_blank">{{ position.name }}</a>
+                                &nbsp;
+                                <span class="c9">[{{ position.city }}]</span><span>x天前发布</span>
+                            </div>
+                            <span><em class="c7" style="color: red;font-size: medium">{{ position.start_salary }}-{{ position.end_salary }}</em></span>
+                            <span><em class="c7">{{ position.work_exp }}\{{ position.edu_exp }}</em> </span>
+                            <br/>
+                            <span><em class="c7">职位诱惑：</em>{{ position.positionAdvantage }}</span>
+                            <br/>
+
+                        </div>
+                        <div class="hot_pos_right">
+                            <div class="apply">
+                                <a href="/shoot/{{ position.id }}" target="_blank">投个简历</a>
+                            </div>
+{#                            <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>#}
+                            <span><em class="c7">{{ position.org.type }}\{{ position.org.phase }}\{{ position.org.scale }}</em> </span>
+                            <br/>
+                            <ul class="comTags reset">
+                                <li>移动互联网</li>
+                                <li>五险一金</li>
+                                <li>扁平管理</li>
+                            </ul>
+                        </div>
+
+                    </li>
+                    {% endfor %}

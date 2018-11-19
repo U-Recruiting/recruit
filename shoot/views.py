@@ -4,18 +4,19 @@ from django.contrib.auth.decorators import login_required
 from index.models import PositionInfo, PositionResumeStatus
 from user.models import MyUser
 # Create your views here.
+import json
 
+@login_required(login_url='/user/login')
 
-# @login_required(login_url='/user/login')
-def shoot(request, position_id):
+def shoot(request):
 
-    # 获取投递岗位
-    position = PositionInfo.objects.get(id=position_id)
-
+    # # 获取投递岗位
+    position = PositionInfo.objects.get(id=request.POST.get('position_id',''))
+    print(position.name)
     # 该岗位那些人投递了
 
     position_resumed = []
-
+    #
     # 该岗位所以简历
     resumed = position.resume.all()
     for resume in resumed:
@@ -25,17 +26,16 @@ def shoot(request, position_id):
         position_resumed += positions
     # 当前用户
     # user = request.user
-    user = MyUser.objects.get(email='ronnik@163.com')
-
     # 获取用户简历
-    resume = user.resume_set.first()
+    # resume = user.resume_set.first()
 
 
     # 填入岗位信息表（多对多）
-    position.resume.add(resume)
+    # position.resume.add(resume)
 
-    prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
-    if not prs:
-        PositionResumeStatus(position_id=position.id, resume_id=resume.id,status='received').save()
+    # prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
+    # if not prs:
+    #     PositionResumeStatus(position_id=position.id, resume_id=resume.id,status='received').save()
+    data = {"data": "success"}
+    return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
 
-    return render(request, 'success.html', locals())

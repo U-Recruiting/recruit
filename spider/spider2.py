@@ -57,32 +57,32 @@ class GaLouOrg:
             spans = html.xpath('//*[@id="company_intro"]/div[2]/div[2]/span[1]')
             types = html.xpath('//*[@id="basic_container"]/div[2]/ul/li[1]/span')
             tags = html.xpath('//*[@id="tags_container"]/div[2]/div/ul/li')
-                                #desc = '//*[@id="job_detail"]/dd[2]/div'
-            for span in spans:
-                ps = span.xpath('./p')
-                if ps:
-                    for p in ps:
-                        if p.text:
-                            desc_list.append(p.text)
-                else:
-                    if span.text:
-                        desc_list.append(span.text)
+            #                     #desc = '//*[@id="job_detail"]/dd[2]/div'
+            # for span in spans:
+            #     ps = span.xpath('./p')
+            #     if ps:
+            #         for p in ps:
+            #             if p.text:
+            #                 desc_list.append(p.text)
+            #     else:
+            #         if span.text:
+            #             desc_list.append(span.text)
+            #
+            # desc = ''.join(desc_list)
+            # print(desc)
 
-            desc = ''.join(desc_list)
-            print(desc)
-
-            for type in types:
-                type_list += type.text
-            type = ''.join(type_list)
-            print(type)
+            # for type in types:
+            #     type_list += type.text
+            # type = ''.join(type_list)
+            # print(type)
 
             for tag in tags:
                 tag_list.append(tag.text.strip())
             tags = ','.join(tag_list)
             print(tags)
-            orginfo.type=type
-            orginfo.desc=desc
-            orginfo.tags=type
+            # orginfo.type=type
+            # orginfo.desc=desc
+            orginfo.tags=tags
             orginfo.save()
             print("*"*80)
 
