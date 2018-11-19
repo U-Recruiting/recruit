@@ -90,7 +90,7 @@
                                 {% csrf_token %}
                                 <input type="text" name="position_id" value="{{ position_info_detail.id }}"
                                        hidden="hidden">
-                                <button type="submit" id="shoot_resume" name="shoot_resume"
+                                <button type="button" id="shoot_resume" name="shoot_resume"
                                         class="jb_push_job_btn" {{ disabled }}>{{ buttin_text }}
                                 </button>
 
@@ -1010,20 +1010,27 @@
         $('#shoot_resume').click(function (e) {
             e.preventDefault();
             var form = new FormData();
-            form.append('csrfmiddlewaretoken','{{ csrf_token }}');
+            form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
             form.append('position_id', {{ position_info_detail.id }});
+
             $.ajax({
                 url: "{% url 'shoot' %}",
                 type: 'post',
                 data: form,
+                processData: false,
+                contentType: false,
                 success: function (result) {
-
-                    {#alert(result.data);#}
-                    {#shoot_resume = document.getElementById("shoot_resume");#}
-                    {#shoot_resume.innerText = '已投递';#}
-                    {#shoot_resume.disabled = true#}
+                  if(result.to == 'success'){
+                    shoot_resume = document.getElementById("shoot_resume");
+                    shoot_resume.innerText = '已投递';
+                    shoot_resume.disabled = true
+                  }else{
+                      window.location.href = result.to
+                  }
                 }
             });
+
+
         });
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;

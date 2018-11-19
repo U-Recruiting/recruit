@@ -44,6 +44,8 @@ def test(request):
 # 用户登录
 def loginView(request):
     next = request.GET.get('next', '')
+
+    print(next)
     if next:
         link = "/user/login/?next="+next
     else:
@@ -58,8 +60,8 @@ def loginView(request):
         print(account)
         print(password)
         remerber = request.POST.get('autoLogin', None)
-        if MyUser.objects.filter(Q(mobile=account) | Q(email=account)):
-            user = MyUser.objects.filter(Q(mobile=account) | Q(email=account)).first()
+        if MyUser.objects.filter(Q(mobile=account) | Q(username=account)):
+            user = MyUser.objects.filter(Q(mobile=account) | Q(username=account)).first()
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
@@ -199,15 +201,23 @@ def complte_user_info(request):
     user = request.user
     logined = True
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        phone = request.POST.get('phone', '')
-        user.mobile = phone
+        name = request.POST.get('name', '')
+        gender = request.POST.get('gender', '')
+        topDegree = request.POST.get('topDegree', '')
+        workyear = request.POST.get('workyear', '')
+        phone = request.POST.get('tel', '')
+        email = request.POST.get('email', '')
+        currentState = request.POST.get('currentState', '')
 
+        user.mobile = phone
+        user.email = email
         user.complete = 'yes'
         user.save()
-        UserInfo.objects.create(name=username, user_id=user.id)
+        userinfo = UserInfo.objects.create(name=name, sex=gender, education=topDegree,
+                                work_years=workyear, user_id=user.id)
 
-        user_real_name = username
+        Resume.objects.create(user_info_id=userinfo.id, user_id=user.id)
+        user_real_name = name
         print(logined)
         print(user_real_name)
         return redirect('/')

@@ -64,11 +64,11 @@ class HuntingIntent(models.Model):
 
 
 class Resume(models.Model):
-    user_info = models.ForeignKey(UserInfo, on_delete=models.CASCADE, default=None)
-    work_exp = models.ForeignKey(WorkExp, on_delete=models.CASCADE, default=None)
-    project_exp = models.ForeignKey(ProjectExp, on_delete=models.CASCADE, default=None)
-    edu_exp = models.ForeignKey(EducationExp, on_delete=models.CASCADE, default=None)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None)
+    user_info = models.ForeignKey(UserInfo, on_delete=models.CASCADE, default=None, null=True)
+    work_exp = models.ForeignKey(WorkExp, on_delete=models.CASCADE, default=None, null=True)
+    project_exp = models.ForeignKey(ProjectExp, on_delete=models.CASCADE, default=None, null=True)
+    edu_exp = models.ForeignKey(EducationExp, on_delete=models.CASCADE, default=None, null=True)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None, null=True)
 
 
 class OrgInfo(models.Model):
@@ -182,5 +182,8 @@ class Job_Label3(models.Model):
     name = models.CharField('三级标签名称', max_length=20, default=None, null=True)
     parent = models.ForeignKey(Job_Label2, on_delete=models.CASCADE,verbose_name='父标签ID', default=None)
 
-
+class PositionDesc(models.Model):
+    duty = models.CharField('工作职责', max_length=500,default=None, null=True)
+    require = models.CharField('任职要求', max_length=500,default=None, null=True)
+    other = models.CharField('其他', max_length=500,default=None, null=True)
 

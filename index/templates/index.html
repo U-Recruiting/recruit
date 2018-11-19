@@ -127,17 +127,17 @@
         <div id="hotSearch_box">
             <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
             <dl id="hotSearch">
-                <dt>热门搜索：</dt>
-                <dd><a href="list.htmlJava?labelWords=label&city=">Java</a></dd>
-                <dd><a href="list.htmlPHP?labelWords=label&city=">PHP</a></dd>
-                <dd><a href="list.htmlAndroid?labelWords=label&city=">Android</a></dd>
-                <dd><a href="list.htmliOS?labelWords=label&city=">iOS</a></dd>
-                <dd><a href="list.html前端?labelWords=label&city=">前端</a></dd>
-                <dd><a href="list.html产品经理?labelWords=label&city=">产品经理</a></dd>
-                <dd><a href="list.htmlUI?labelWords=label&city=">UI</a></dd>
-                <dd><a href="list.html运营?labelWords=label&city=">运营</a></dd>
-                <dd><a href="list.htmlBD?labelWords=label&city=">BD</a></dd>
-                <dd><a href="list.html?gx=实习&city=">实习</a></dd>
+                <dt class="hot_position">热门搜索：</dt>
+                <dd><a href="javascript:void(0)">Java</a></dd>
+                <dd><a href="javascript:void(0)">PHP</a></dd>
+                <dd><a href="javascript:void(0)">Android</a></dd>
+                <dd><a href="javascript:void(0)">iOS</a></dd>
+                <dd><a href="javascript:void(0)">前端</a></dd>
+                <dd><a href="javascript:void(0)">产品经理</a></dd>
+                <dd><a href="javascript:void(0)">UI</a></dd>
+                <dd><a href="javascript:void(0)">运营</a></dd>
+                <dd><a href="javascript:void(0)">BD</a></dd>
+                <dd><a href="javascript:void(0)">实习</a></dd>
             </dl>
         </div>
     </div><!---->
@@ -342,10 +342,12 @@
 
     <script type="text/javascript">
         $(function () {
-            $('#noticeDot-1').hide();
-            $('#noticeTip a.closeNT').click(function () {
-                $(this).parent().hide();
+
+            $('.hot_position dd a').click(function () {
+                alert('asnajkasjk')
             });
+
+
         });
         var index = Math.floor(Math.random() * 2);
         var ipArray = new Array('42.62.79.226', '42.62.79.227');

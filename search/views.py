@@ -4,7 +4,7 @@ from django.db.models import Q
 from index.models import *
 from django.contrib.auth.decorators import login_required
 from urllib.parse import unquote
-
+import datetime
 
 def searchView(request):
     #
@@ -30,6 +30,7 @@ def searchView(request):
         phase =request.GET.get('phase', '')
         scale =request.GET.get('scaleInput', '')
         type =request.GET.get('domainInput', '')
+        hot_position = request.GET.get('hot_position')
 
         print(city+distinct+work_exp+edu_exp)
 
@@ -49,6 +50,8 @@ def searchView(request):
             objects = objects.filter(org=orginfo).all()
         if type:
             objects = objects.filter(type=type)
+        if hot_position:
+            hot_positionme = objects.filter(name__icontains=hot_position)
 
         if kword:
             # Q是SQL语句里的or语法
@@ -65,6 +68,12 @@ def searchView(request):
             for position in position_list:
                 tags = position.org.tags.split(',')
                 position.tags = tags
+
+                post_time = position.create_datetime
+
+                now = datetime.datetime.now()
+                timedelta = (now - post_time).days
+                position.timedelta = timedelta
 
             # position_companys = {}
             # for one_position in  position_list:
@@ -101,12 +110,20 @@ def searchView(request):
 
 
 def companyView(request):
-    # user = request.user
-    # if user.is_active:
-    #     logined = True
-    #     user_real_name = user.userinfo_set.all().first().name
-    # else:
-    #     logined = False
+    user = request.user  # 可能为匿名用户
+    if user.is_active:  # 如果不是匿名用户
+        if user.userinfo_set.all().first():
+            logined = True
+            user_real_name = user.userinfo_set.all().first().name
+        else:
+            logined = False
+    else:
+        logined = False
+
+    all_org = OrgInfo.objects.all()
+
+
+
     return render(request,'companylist.html',locals())
 
 # 职位详情页

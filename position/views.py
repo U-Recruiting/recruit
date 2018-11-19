@@ -11,6 +11,7 @@ def details(request, position_id):
     user = request.user  # 可能为匿名用户
 
     if user.is_active:  # 如果不是匿名用户
+        print(user.is_active)
         if user.userinfo_set.all().first():
             logined = True
             user_real_name = user.userinfo_set.all().first().name

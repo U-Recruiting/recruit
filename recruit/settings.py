@@ -86,15 +86,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'PASSWORD': '1234.Com',
-        'HOST': '192.168.14.10',
+        'PASSWORD': 'yaoye',
+        'HOST': 'localhost',
         'PORT': '3306',
-<<<<<<< HEAD
-        'NAME': 'recruit1',
-=======
-        'NAME': 'recruit',
+        'NAME': 'recruit_data',
 
->>>>>>> f444598c2a6d21a15d9eaa2b54f8c560093a69da
     }
 }
 
