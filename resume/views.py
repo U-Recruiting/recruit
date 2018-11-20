@@ -13,6 +13,7 @@ import os
 # def myresume_test(request):
 #     return render(request, "myresume.html")
 
+
 # @login_required
 def my_resume(request):
     user = request.user  # 可能为匿名用户
@@ -294,3 +295,7 @@ def myrecommand(request):
     else:
         logined = False
     return  render(request,'myjob_recommand.html',locals())
+
+#简历预览
+def preview(request):
+    return render(request,'preview.html')
