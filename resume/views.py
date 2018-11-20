@@ -15,26 +15,32 @@ import os
 
 # @login_required
 def my_resume(request):
-
-    user = request.user
-    user_real_name = user.userinfo_set.all().first().name
-    if user.is_active:
-        logined = True
-
+    user = request.user  # 可能为匿名用户
+    if user.is_active:  # 如果不是匿名用户
+        if user.userinfo_set.all().first():
+            logined = True
+            user_real_name = user.userinfo_set.all().first().name
+        else:
+            logined = False
     else:
         logined = False
     #
-    # current_user = request.user
-    #
-    # user_info = current_user.userinfo_set.all().first()
-    #
-    # work_exp = current_user.workexp_set.all().first()
-    #
-    # project_exp = current_user.projectexp_set.all().first()
-    #
-    # edu_exp = current_user.educationexp_set.all().first()
-    #
-    # hunting_intent = current_user.huntingintent_set.all().first()
+
+    current_user = user
+
+    user_info = current_user.userinfo_set.all().first()
+
+    work_exp = current_user.workexp_set.all().first()
+
+    project_exp = current_user.projectexp_set.all().first()
+
+    edu_exp = current_user.educationexp_set.all().first()
+
+    hunting_intent = current_user.huntingintent_set.all().first()
+
+    resume = current_user.resume_set.all().first()
+
+    print(resume.name)
 
     return render(request, 'myresume.html', locals())
 

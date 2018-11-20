@@ -216,7 +216,9 @@ def complte_user_info(request):
         userinfo = UserInfo.objects.create(name=name, sex=gender, education=topDegree,
                                 work_years=workyear, user_id=user.id)
 
-        Resume.objects.create(user_info_id=userinfo.id, user_id=user.id)
+        resume_name = user.name+'的简历'
+        resume_time = datetime.datetime.now()
+        Resume.objects.create(name=resume_name,edit_time=resume_time,user_info_id=userinfo.id, user_id=user.id)
         user_real_name = name
         print(logined)
         print(user_real_name)

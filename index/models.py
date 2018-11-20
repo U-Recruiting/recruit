@@ -64,6 +64,8 @@ class HuntingIntent(models.Model):
 
 
 class Resume(models.Model):
+    name = models.CharField('简历名称', max_length=200, default=None, null=True)
+    edit_time = models.DateTimeField('简历更新时间', null=True)
     user_info = models.ForeignKey(UserInfo, on_delete=models.CASCADE, default=None, null=True)
     work_exp = models.ForeignKey(WorkExp, on_delete=models.CASCADE, default=None, null=True)
     project_exp = models.ForeignKey(ProjectExp, on_delete=models.CASCADE, default=None, null=True)
