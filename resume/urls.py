@@ -25,5 +25,6 @@ urlpatterns = [
     path('mydelivery',views.mydelivery,name='mydelivery'),
     path('mysubscribe',views.mysubscribe,name='mysubscribe'),
     path('myrecommand',views.myrecommand,name = 'myrecommand'),
+    path('preview',views.preview,name = 'preview'),
 
 ]
