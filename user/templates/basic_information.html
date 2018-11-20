@@ -35,17 +35,17 @@ var youdao_conv_id = 271546;
 </head>
 
 <body id="login_bg">
-		<div class="login_header" style="margin-left: 360px;margin-top: 60px">
+		<div class="login_header" style="margin-left: 360px;margin-top: 0px">
         	<a href="/"><img src="{% static 'imgs/logo.png' %}" width="285" height="62" alt="淘职招聘" /></a>
             <div id="cloud_s"><img src="{% static 'imgs/cloud_s.png' %}" width="81" height="52" alt="cloud" /></div>
             <div id="cloud_m"><img src="{% static 'imgs/cloud_m.png' %}" width="136" height="95"  alt="cloud" /></div>
         </div>
 
-        <div style="position: absolute;left:340px;top: 150px;height: 500px;width: 550px;background-color: rgb(250,255,189);overflow: auto">
-            <div style="position: absolute;top: 0px;left: 250px">
+        <div style="position: absolute;left:400px;top: 100px;height: 480px;width: 550px;background-color:rgb(250,255,189);">
+            <div style="position: absolute;top: 0px;left: 200px;float: left">
                 <h2 style="font-size: 20px;font-weight: bold">请完善个人信息</h2>
             </div>
-            <div class="basicEdit" >
+            <div class="basicEdit" style="background-color:rgb(250,255,189);height: 400px;overflow: auto">
                         <form id="profileForm" method="post" action="">
                             {% csrf_token %}
                             <table>
@@ -154,30 +154,29 @@ var youdao_conv_id = 271546;
                                         <td></td>
                                         <td colspan="3">
                                             <input type="submit" value="保 存" id="save_personal_information" class="btn_profile_save">
-{#                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>#}
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                         </form><!--end #profileForm-->
-{#                        <div class="new_portrait">#}
-{#                                <div class="portrait_upload" id="portraitNo">#}
-{#                                    <span>上传自己的头像</span>#}
-{#                                </div>#}
-{#                                <div class="portraitShow dn" id="portraitShow">#}
-{#                                    <img width="120" height="120" src="">#}
-{#                                    <span>更换头像</span>#}
-{#                                </div>#}
-{#                                <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M"#}
-{#                                       onchange="img_check(this,'h/resume/uploadPhoto.json','headPic');" name="headPic"#}
-{#                                       id="headPic" class="myfiles">#}
-{#                                <!-- <input type="hidden" id="headPicHidden" /> -->#}
-{#                                <em>#}
-{#                                    尺寸：120*120px <br>#}
-{#                                    大小：小于5M#}
-{#                                </em>#}
-{#                                <span style="display:none;" id="headPic_error" class="error"></span>#}
-{#                            </div><!--end .new_portrait-->#}
+<!--{#                        <div class="new_portrait">#}-->
+<!--{#                                <div class="portrait_upload" id="portraitNo">#}-->
+<!--{#                                    <span>上传自己的头像</span>#}-->
+<!--{#                                </div>#}-->
+<!--{#                                <div class="portraitShow dn" id="portraitShow">#}-->
+<!--{#                                    <img width="120" height="120" src="">#}-->
+<!--{#                                    <span>更换头像</span>#}-->
+<!--{#                                </div>#}-->
+<!--{#                                <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M"#}-->
+<!--{#                                       onchange="img_check(this,'h/resume/uploadPhoto.json','headPic');" name="headPic"#}-->
+<!--{#                                       id="headPic" class="myfiles">#}-->
+<!--{#                                &lt;!&ndash; <input type="hidden" id="headPicHidden" /> &ndash;&gt;#}-->
+<!--{#                                <em>#}-->
+<!--{#                                    尺寸：120*120px <br>#}-->
+<!--{#                                    大小：小于5M#}-->
+<!--{#                                </em>#}-->
+<!--{#                                <span style="display:none;" id="headPic_error" class="error"></span>#}-->
+<!--{#                            </div>&lt;!&ndash;end .new_portrait&ndash;&gt;#}-->
                     </div><!--end .basicEdit-->
         </div>
 
