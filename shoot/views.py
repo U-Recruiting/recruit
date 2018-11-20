@@ -6,7 +6,6 @@ from user.models import MyUser
 # Create your views here.
 import json
 
-# @login_required
 def shoot(request):
     position_id = request.POST.get('position_id', '')
     # # 获取投递岗位
@@ -44,4 +43,3 @@ def shoot(request):
         url = '/user/login/?next=/position/{0}'.format(position_id)
         data = {"to":url}
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
-

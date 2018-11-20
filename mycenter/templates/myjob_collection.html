@@ -82,21 +82,25 @@
                     <dd>
                         <form id="collectionsForm">
                             <ul class="reset my_collections">
-                                <li data-id="133340">
-                                    <a title="携程旅行网" target="_blank" href="h/c/6636.html">
-                                        <img alt="携程旅行网" src="{% static 'imgs/ff808081441c19bf01441f9a47190b3a.png' %}">
+                                {% for position in positions %}
+                                    <li data-id="133340">
+                                    <a title="{{ position.name }}" target="_blank" href="/position/{{ position.id }}">
+                                        <img alt="{{ position.org.name }}" src="/static/org_logo/{{ position.org.id }}.jpg">
                                     </a>
                                     <div class="co_item">
-                                        <h2 title="酒店业务助理">
+                                        <h2 title="{{ position.name }}">
                                             <a target="_blank" href="h/jobs/133340.html">
-                                                <em>酒店业务助理</em>
-                                                <span>（4k以上）</span>
+                                                <em>{{ position.name }}</em>
+                                                <span>（{{ position.start_salary }}-{{ position.end_salary }}）</span>
                                             </a>
                                         </h2>
-                                        <span class="co_time">发布时间：2014-06-27 09:37</span>
-                                        <div class="co_cate">携程旅行网 / 北京 / 1-3年 / 本科</div>
-                                        <span class="co_youhuo c7">出勤福利</span>
-                                        <a class="collection_link" target="_blank" href="h/jobs/133340.html">投个简历</a>
+                                        <span class="co_time">发布时间：{{ position.create_datetime }}</span>
+                                        <div class="co_cate">{{ position.org.name }} / {{ position.city }} / {{ position.work_exp }} / {{ position.edu_exp }}</div>
+                                        {% for adv in position.adv %}
+                                            <span class="co_youhuo c7">{{ adv }}</span>
+                                        {% endfor %}
+
+                                        <a class="collection_link" target="_blank" href="/position/{{ position.id }}">投个简历</a>
                                         <i></i>
                                         <a class="collectionCancel collection_link collected" href="javascript:;">
                                             取消收藏
@@ -104,50 +108,7 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li data-id="148886">
-                                    <a title="蘑菇街" target="_blank" href="h/c/108.html">
-                                        <img alt="蘑菇街" src="{% static 'imgs/ff80808142a8df050142b1674c596676.jpg' %}">
-                                    </a>
-                                    <div class="co_item">
-                                        <h2 title="PHP">
-                                            <a target="_blank" href="h/jobs/148886.html">
-                                                <em>PHP</em>
-                                                <span>（15k-30k）</span>
-                                            </a>
-                                        </h2>
-                                        <span class="co_time">发布时间：2014-07-01 09:41</span>
-                                        <div class="co_cate">蘑菇街 / 杭州 / 不限 / 本科</div>
-                                        <span class="co_youhuo c7">有技术挑战、有成长机会、有漂亮妹子</span>
-                                        <a class="collection_link" target="_blank" href="h/jobs/148886.html">投个简历</a>
-                                        <i></i>
-                                        <a class="collectionCancel collection_link collected" href="javascript:;">
-                                            取消收藏
-                                            <span>已取消收藏</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li data-id="148519">
-                                    <a title="搜狗" target="_blank" href="h/c/1537.html">
-                                        <img alt="搜狗" src="{% static 'imgs/ff80808142e0968f0142e0d41f1205f2.jpg' %}">
-                                    </a>
-                                    <div class="co_item">
-                                        <h2 title="商家运营">
-                                            <a target="_blank" href="h/jobs/148519.html">
-                                                <em>商家运营</em>
-                                                <span>（8k-16k）</span>
-                                            </a>
-                                        </h2>
-                                        <span class="co_time">发布时间：2014-07-01 09:21</span>
-                                        <div class="co_cate">搜狗 / 北京 / 1-3年 / 本科</div>
-                                        <span class="co_youhuo c7">领先品牌，全新产品，急聘电商运营人才。</span>
-                                        <a class="collection_link" target="_blank" href="h/jobs/148519.html">投个简历</a>
-                                        <i></i>
-                                        <a class="collectionCancel collection_link collected" href="javascript:;">
-                                            取消收藏
-                                            <span>已取消收藏</span>
-                                        </a>
-                                    </div>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </form>
                     </dd>
@@ -157,8 +118,6 @@
                 <div class="mycenterR" id="myInfo">
                     <h2>我的职位管理</h2>
                     <a href="{% url 'mycollection' %}">我的收藏</a>
-                    <br>
-                    <a href="{% url 'mysubscribe' %}">我的订阅</a>
                     <br>
                     <a href="{% url 'mydelivery' %}">我的投递</a>
                 </div><!--end #myInfo-->

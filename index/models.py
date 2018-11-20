@@ -70,6 +70,9 @@ class Resume(models.Model):
     work_exp = models.ForeignKey(WorkExp, on_delete=models.CASCADE, default=None, null=True)
     project_exp = models.ForeignKey(ProjectExp, on_delete=models.CASCADE, default=None, null=True)
     edu_exp = models.ForeignKey(EducationExp, on_delete=models.CASCADE, default=None, null=True)
+    hunting_intent = models.ForeignKey(HuntingIntent, on_delete=models.CASCADE, default=None, null=True)
+
+
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None, null=True)
 
 

@@ -62,6 +62,7 @@ def loginView(request):
         remerber = request.POST.get('autoLogin', None)
         if MyUser.objects.filter(Q(mobile=account) | Q(username=account)):
             user = MyUser.objects.filter(Q(mobile=account) | Q(username=account)).first()
+            print('nskanjkaajk')
             if check_password(password, user.password):
                 login(request, user)
                 if user.role.name == 'org':
@@ -215,10 +216,16 @@ def complte_user_info(request):
         user.save()
         userinfo = UserInfo.objects.create(name=name, sex=gender, education=topDegree,
                                 work_years=workyear, user_id=user.id)
+        hunting_intent = HuntingIntent.objects.create(user_id=user.id)
+        work_exp = WorkExp.objects.create(user_id=user.id)
+        project_exp = ProjectExp.objects.create(user_id=user.id)
+        edu_exp = EducationExp.objects.create(user_id=user.id)
+        hunting_intent = HuntingIntent.objects.create(user_id=user.id)
 
         resume_name = user.name+'的简历'
         resume_time = datetime.datetime.now()
-        Resume.objects.create(name=resume_name,edit_time=resume_time,user_info_id=userinfo.id, user_id=user.id)
+        Resume.objects.create(name=resume_name,edit_time=resume_time,user_info_id=userinfo.id, user_id=user.id,
+                              work_exp=work_exp,project_exp=project_exp,edu_exp=edu_exp,hunting_intent=hunting_intent)
         user_real_name = name
         print(logined)
         print(user_real_name)

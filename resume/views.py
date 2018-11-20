@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from index.models import *
 from PIL import Image
@@ -38,10 +38,10 @@ def my_resume(request):
     edu_exp = current_user.educationexp_set.all().first()
 
     hunting_intent = current_user.huntingintent_set.all().first()
+    hunting_salary = hunting_intent.satrt_salary+'-'+hunting_intent.end_salary
 
     resume = current_user.resume_set.all().first()
 
-    print(resume.name)
 
     return render(request, 'myresume.html', locals())
 
@@ -210,10 +210,10 @@ def edit_huntingintent(request):
     huntingintent_exp = user.huntingintent_set.all()
 
     if request.method == 'POST':
-        city = request.POST.get('city', '')
-        position = request.POST.get('position', '')
-        position_type = request.POST.get('position_type', '')
-        salary = request.POST.get('salary', '')
+        city = request.POST.get('expectCity', '')
+        position = request.POST.get('expectPosition', '')
+        position_type = request.POST.get('type', '')
+        salary = request.POST.get('expectSalary', '')
 
         if position:
             huntingintent_exp.update(position=position)
@@ -224,23 +224,23 @@ def edit_huntingintent(request):
         if salary:
             split_salary = salary.split('-')
             if len(split_salary) == 2:
-                huntingintent_exp.update(satrt_salary=salary[0])
-                huntingintent_exp.update(end_salary=salary[1])
+                huntingintent_exp.update(satrt_salary=split_salary[0])
+                huntingintent_exp.update(end_salary=split_salary[1])
             else:
                 huntingintent_exp.update(satrt_salary='')
-                huntingintent_exp.update(end_salary=salary)
-        resp = {}
-        resp['position'] = huntingintent_exp[0].position
-        resp['position_type'] = huntingintent_exp[0].position_type
-        resp['city'] = huntingintent_exp[0].city
-        start_salary = huntingintent_exp[0].satrt_salary
-        end_salary = huntingintent_exp[0].end_salary
-        if start_salary:
-            resp['salary'] = start_salary+'-'+end_salary
-        else:
-            resp['salary'] = end_salary
-
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+                huntingintent_exp.update(end_salary=split_salary[0])
+        # resp = {}
+        # resp['position'] = huntingintent_exp[0].position
+        # resp['position_type'] = huntingintent_exp[0].position_type
+        # resp['city'] = huntingintent_exp[0].city
+        # start_salary = huntingintent_exp[0].satrt_salary
+        # end_salary = huntingintent_exp[0].end_salary
+        # if start_salary:
+        #     resp['salary'] = start_salary+'-'+end_salary
+        # else:
+        #     resp['salary'] = end_salary
+        # return redirect('/resume/myresume')
+    return redirect('/resume/myresume')
 
 
 def edit_avatar(request):

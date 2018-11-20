@@ -62,10 +62,10 @@
     <div id="container_list">
         <div class="clearfix">
             <div class="content_l">
-                <form id="companyListForm" name="companyListForm" method="get" action="{% url 'search' %}">
+                <form id="companyListForm" name="companyListForm" method="get" action="{% url 'company' %}">
                     <input type="hidden" id="city" name="city" value="{{ city }}"/>
                     <input type="hidden" id="workExpSelectInput" name="workExpSelectInput" value="{{ work_exp }}"/>
-                    <input type="hidden" id="eduExpSelectInput" name="eduExpSelectInput" value="{{ edu_exp }}"/>
+                    <input type="hidden" id="eduExpSelectInput" name="phaseSelectInput" value="{{ phase }}"/>
                     <input type="hidden" id="scaleInput" name="scaleInput" value="{{ scale }}"/>
                     <input type="hidden" id="domainInput" name="domainInput" value="{{ type }}"/>
                     <dl class="hc_tag">
@@ -195,7 +195,7 @@
                         <dd>
                             <dl>
                                 <dt>发展阶段：</dt>
-                                <dd>
+                                <dd id="phaseSelect">
                                     <a href="javascript:void(0)">初创型</a>
                                     <a href="javascript:void(0)">成长型</a>
                                     <a href="javascript:void(0)">成熟型</a>
@@ -204,7 +204,7 @@
                             </dl>
                             <dl>
                                 <dt>行业领域：</dt>
-                                <dd>
+                                <dd id="domainSelect">
                                     <a href="javascript:void(0)">移动互联网</a>
                                     <a href="javascript:void(0)">电子商务</a>
                                     <a href="javascript:void(0)">社交</a>
@@ -237,21 +237,22 @@
                     <ul class="hc_list reset">
 
                         {% for org in org_list %}
-                            <li style="margin-right: 0px">
+                            <li style="margin: 13px">
                                 <a href="/search/companydetail/{{ org.id }}" target="_blank">
                                     <h3 title="{{ org.name }}">{{ org.name }}</h3>
                                     <div class="comLogo">
                                         <img src="/static/org_logo/{{ org.id }}.jpg" width="190"
-                                             height="190" alt="{{ org.name }}"/>
+                                             height="190" alt="{{ org.name }}" id="org_logo"/>
                                         <ul>
                                             <li>{{ org.domain }}</li>
                                             <li>{{ org.city }}，{{ org.phase }}</li>
                                         </ul>
                                     </div>
                                 </a>
-                                <a href="h/jobs/143909.html" target="_blank"> 对日Windows C++软件工程师</a>
-                                <a href="h/jobs/145066.html" target="_blank"> 日语韩语软件测试</a>
-                                <a href="h/jobs/143905.html" target="_blank"> 嵌入式C/C++对日初级软件工程师</a>
+                                {% for org_position in org.positioninfos %}
+                                    <a href="/position/{{ org_position.id }}"
+                                       target="_blank"> {{ org_position.name }}</a>
+                                {% endfor %}
                                 <ul class="reset ctags">
                                     <li>{{ org.phase }}</li>
                                     {% for tag in org.tags %}
@@ -271,12 +272,16 @@
         <script>
             $(function () {
 
-                    var work = $('#workplaceSelect li a');
-                    for (var i = 0; i < work.length; i++) {
-                        if (work[i].text == "{{ city }}") {
-                            work[i].css
-                        }
-                    }
+                    $(".org_logo").one("error", function (e) {  //加入相应的图片类名
+                        $(this).attr("src", "/static/avatar/a.jpg");
+                    });
+
+                    {#var work = $('#workplaceSelect li a');#}
+                    {#for (var i = 0; i < work.length; i++) {#}
+                    {#    if (work[i].text == "{{ city }}") {#}
+                    {#        work[i].css#}
+                    {#    }#}
+                    {#}#}
 
                     /*分页 */
                     $('.Pagination').pager({
@@ -284,7 +289,7 @@
                         pageNOName: "pn",
                         form: "companyListForm",
                         pageCount: {{ paginator.num_pages }},
-                        pageSize: 15
+                        pageSize: 16
                     });
                     $('#workplaceSelect li a').click(function () {
                         $(this).addClass('current').parent().siblings().children().removeClass('current');
@@ -298,19 +303,14 @@
                         $('#companyListForm').submit();
 
                     });
-                    $('#eduExpSelect a').click(function () {
+                    $('#phaseSelect a').click(function () {
                         $(this).addClass('current').siblings().removeClass('current');
                         $('#eduExpSelectInput').val($(this).text());
                         $('#companyListForm').submit();
 
                     });
-                    $('#scale a').click(function () {
-                        $(this).addClass('current').siblings().removeClass('current');
-                        $('#scaleInput').val($(this).text());
-                        $('#companyListForm').submit();
 
-                    });
-                    $('#domain a').click(function () {
+                    $('#domainSelect a').click(function () {
                         $(this).addClass('current').siblings().removeClass('current');
                         $('#domainInput').val($(this).text());
                         $('#companyListForm').submit();
