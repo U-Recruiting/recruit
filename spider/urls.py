@@ -10,4 +10,5 @@ from . import views
 urlpatterns = [
     path('start/', views.spider),
     path('spider2/', views.spider2),
+    path('spider3/', views.spider3),
 ]

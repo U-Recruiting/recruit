@@ -39,6 +39,22 @@ def details(request, position_id):
 
     post_time = position_info_detail.create_datetime
 
+    desc = position_info_detail.desc
+    desc_list = desc.split('==1、')
+
+    if len(desc_list) >=1:
+        duty = desc_list[0].split('==')
+    if len(desc_list)>=2:
+        require = desc_list[1].split('==')
+        if len(require)>0:
+            require[0] = '1、'+require[0]
+
+    if len(desc_list) >=3:
+        other = desc_list[2].split('==')
+        if len(other)>0:
+            other[0] = '1、'+other[0]
+
+
     now = datetime.datetime.now()
     timedelta = (now - post_time).days
 

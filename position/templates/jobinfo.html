@@ -140,22 +140,20 @@
 
                     <dd class="job_bt">
                         <h3 class="description">职位描述</h3>
-                        <p><strong>工作职责：</strong>&nbsp;<br>1、挖掘公司互联网产品现有和预期的市场需求；&nbsp; <br>2、负责组织公司互联网新产品开发和产品改进；&nbsp;
-                            <br>3、发掘收集竞争对手信息，进行竞争对手分析，制定应对战略；&nbsp; <br>4、在产品运营中倾听用户声音，了解用户潜在需求，并在产品改进中满足；&nbsp; <br>5、在产品运营中整合已有的产品功能、用户资源、推广资源，策划运营活动；&nbsp;
-                            <br>6、与市场、运营、UI、开发、测试、公关、法务、客服等人员紧密合作，实现产品目标。 <br>&nbsp; <br>
-                            <strong>任职要求：</strong>
-                            <br>1、本科及以上学历，英语四级以上，专业不限；&nbsp;
-                            <br>2、对互联网产品有敏锐的直觉和良好的市场分析能力；&nbsp;
-                            <br>3、有严密的逻辑分析能力，有良好的沟通协作能力；&nbsp;
-                            <br>4、有很强的责任心、学习能力、文字表达能力；&nbsp;
-                            <br>5、具有很强的团队协助精神，善于总结和分享经验；&nbsp;
-                            <br>6、具有互联网产品规划和产品设计经验者优先。</p>
-                        <p>&nbsp;</p>
-                        <p><strong>其他：&nbsp;</strong>
-                            <br>1、五险一金、商业综合医疗保险，节日慰问金、生日礼金、结婚礼金、年度体检、旅游；&nbsp;
-                            <br>2、工作时间为5天工作制，享受国家法定节假日、带薪年假7天、带薪病假、产假（陪产假）、婚假、丧假等；&nbsp;
-                            <br>3、每周定期举办足球、羽毛球、篮球及员工深度互动等文体活动。&nbsp;
+                        <p><strong>工作职责：</strong>&nbsp;
+                            {% for one_duty in duty %}<br>{{ one_duty }}{% endfor %}<br>
+                            {% if require %}
+                                <strong>任职要求：</strong>
+
+                                {% for one_require in require %}<br>{{ one_require }}{% endfor %}
+                            {% endif %}
                         </p>
+                        <p>&nbsp;</p>
+                        {% if require %}
+                            <p><strong>其他：&nbsp;</strong><br>
+                                {% for one_other in other %}{{ one_other }}<br>{% endfor %}
+                            </p>
+                        {% endif %}
                     </dd>
 
                     <!-- 用户是否激活 0-否；1-是 -->
@@ -186,7 +184,7 @@
                     </dt>
                     <dd>
                         <ul class="c_feature reset">
-                            <li><span>领域</span>{{ position_info_detail.tags }}</li>
+                            <li><span>领域</span>{{ position_info_detail.org.domain }}</li>
                             <li><span>规模</span> {{ position_info_detail.org.scale }}</li>
                             <li>
                                 <span>主页</span>
@@ -1020,13 +1018,13 @@
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                  if(result.to == 'success'){
-                    shoot_resume = document.getElementById("shoot_resume");
-                    shoot_resume.innerText = '已投递';
-                    shoot_resume.disabled = true
-                  }else{
-                      window.location.href = result.to
-                  }
+                    if (result.to == 'success') {
+                        shoot_resume = document.getElementById("shoot_resume");
+                        shoot_resume.innerText = '已投递';
+                        shoot_resume.disabled = true
+                    } else {
+                        window.location.href = result.to
+                    }
                 }
             });
 

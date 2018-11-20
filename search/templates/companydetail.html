@@ -109,7 +109,7 @@
                     <div style="background-color:#fff;" class="c_logo">
                         <a title="上传公司LOGO" id="logoShow" class="inline cboxElement">
                             <img width="190" height="190" alt="公司logo"
-                                 src="{% static 'imgs/7fdf693be1044ed8a71f561420162a3b.png' %}">
+                                 src="/static/org_logo/{{ org_info_detail.id }}.jpg">
 
                             <!--<span>更换公司图片<br>190px*190px 小于5M</span>-->
                         </a>
@@ -127,7 +127,7 @@
                          -->
 
                     <div class="c_box companyName">
-                        <h2 title="乐影传媒有限公司"style="text-align: center;font-size: 30px;height: 35px">乐影传媒有限公司</h2>
+                        <h2 title="{{ org_info_detail.name }}"style="text-align: center;font-size: 30px;height: 35px">{{ org_info_detail.name }}</h2>
 
                         <em class="valid">
                             <img src="{% static 'imgs/valid.png' %}">
@@ -136,17 +136,17 @@
 {#                        <a target="_blank" class="applyC" href="http://www.lagou.com/c/auth.html">申请认证</a>#}
                         <div class="clear"></div>
 
-                        <h1 title="上海乐影传媒有限公司" class="fullname">上海乐影传媒有限公司</h1>
-
-                        <form class="clear editDetail dn" id="editDetailForm">
-                            <input type="text" placeholder="请输入公司简称" maxlength="15" value="平潭协创进出口贸易有限公司"
-                                   name="companyShortName" id="companyShortName">
-                            <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="测试的发打发打发大范德萨发"
-                                   name="companyFeatures" id="companyFeatures">
-                            <input type="hidden" value="25927" id="companyId" name="companyId">
-                            <input type="submit" value="保存" id="saveDetail" class="btn_small">
-                            <a id="cancelDetail" class="btn_cancel_s">取消</a>
-                        </form>
+                        <h1 title="上海乐影传媒有限公司" class="fullname">{{ org_info_detail.name }}</h1>
+{##}
+{#                        <form class="clear editDetail dn" id="editDetailForm">#}
+{#                            <input type="text" placeholder="请输入公司简称" maxlength="15" value="平潭协创进出口贸易有限公司"#}
+{#                                   name="companyShortName" id="companyShortName">#}
+{#                            <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="测试的发打发打发大范德萨发"#}
+{#                                   name="companyFeatures" id="companyFeatures">#}
+{#                            <input type="hidden" value="25927" id="companyId" name="companyId">#}
+{#                            <input type="submit" value="保存" id="saveDetail" class="btn_small">#}
+{#                            <a id="cancelDetail" class="btn_cancel_s">取消</a>#}
+{#                        </form>#}
 
                         <div class="clear oneword"><img width="17" height="15"
                                                         src="{% static 'imgs/quote_l.png' %}">&nbsp;
@@ -154,11 +154,10 @@
                                                                   src="{% static 'imgs/quote_r.png' %}"></div>
                         <h3 class="dn">已选择标签</h3>
                         <ul style="overflow:auto" id="hasLabels" class="reset clearfix">
-                            <li><span>年终分红</span></li>
-                            <li><span>五险一金</span></li>
-                            <li><span>弹性工作</span></li>
-                            <li><span>岗位晋升</span></li>
-                            <li class="link">编辑</li>
+                            {% for tag in org_info_detail.tags %}
+                                <li><span>{{ tag }}</span></li>
+                            {% endfor %}
+{#                            <li class="link">编辑</li>#}
                         </ul>
                         <div class="dn" id="addLabels">
                             <a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>
@@ -180,21 +179,21 @@
                             <tbody>
                             <tr>
                                 <td width="45">地点</td>
-                                <td>上海</td>
+                                <td>{{ org_info_detail.city }}</td>
                             </tr>
                             <tr>
                                 <td>领域</td><!-- 支持多选 -->
-                                <td title="移动互联网">移动互联网</td>
+                                <td title="{{ org_info_detail.domain }}">{{ org_info_detail.domain }}</td>
                             </tr>
                             <tr>
                                 <td>规模</td>
-                                <td>150-500人</td>
+                                <td>{{ org_info_detail.scale }}</td>
                             </tr>
                             <tr>
                                 <td>主页</td>
                                 <td>
-                                    <a rel="nofollow" title="http://www.weimob.com" target="_blank"
-                                       href="http://www.weimob.com">http://www.weim...</a>
+                                    <a rel="nofollow" title="{{ org_info_detail.url }}" target="_blank"
+                                       href="{{ org_info_detail.url }}">{{ org_info_detail.url  }}</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -621,7 +620,7 @@
                             <h2><em></em>公司介绍</h2>
                             </dt>
                             <dd>
-                                <div class="c_intro">该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎</div>
+                                <div class="c_intro">{{ org_info_detail.desc }}</div>
 {#                                <a title="编辑公司介绍" id="editIntro" class="c_edit" href="javascript:void(0)"></a>#}
                             </dd>
                         </dl>
@@ -637,24 +636,25 @@
                     <h2><em></em>招聘职位</h2>
                     </dt>
                     <dd>
-                        <div class="jobListShow" style="margin: 10px 15px">
+                        {% for position in org_positions %}
+                            <div class="jobListShow" style="margin: 100px 15px">
                             <div class="hot_pos_l">
                                 <div class="mb10">
-                                    <a href="http:127.0.0.1/8000" title="前端开发" target="_blank">前端开发</a>
+                                    <a href="index.html" title="{{ position.name }}" target="_blank">{{ position.name }}</a>
                                     &nbsp;
-                                    <span class="c9">[北京]</span>
+                                    <span class="c9">[{{ position.city }}]</span>
                                 </div>
-                                <span><em class="c7">月薪：</em>10k-20k</span>
-                                <span><em class="c7">经验：</em> 3-5年</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
+                                <span><em class="c7">月薪：</em>{{ position.start_salary }}-{{ position.end_salary }}</span>
+                                <span><em class="c7">经验：</em>{{ position.work_exp }}</span>
+                                <span><em class="c7">最低学历： </em>{{ position.edu_exp }}</span>
                                 <br/>
-                                <span><em class="c7">职位诱惑：</em>借移动医疗大势享受坐直升飞机的职场发展</span>
+                                <span><em class="c7">职位诱惑：</em>{{ position.positionAdvantage }}</span>
                                 <br/>
-                                <span>1天前发布</span>
+                                <span>{{ position.timedelta }}天前发布</span>
                             </div>
                             <div class="hot_pos_r">
                                 <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
+                                    <a href="/position/{{ position.id }}" target="_blank">投个简历</a>
                                 </div>
 {#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
 {#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
@@ -671,215 +671,10 @@
 
                         </div>
 
-
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="项目经理" target="_blank">项目经理</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>15k-20k</span>
-                                <span><em class="c7">经验：</em> 3年以上</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>快速成长的机会，优秀可转正</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
-
-                        </div>
+                        {% endfor %}
 
 
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="软件工程师" target="_blank">软件工程师</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>10k-15k</span>
-                                <span><em class="c7">经验：</em> 应届毕业生</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>发展空间，与大牛一起工作</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
 
-                        </div>
-
-
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="Java开发" target="_blank">Java开发</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>5k-15k</span>
-                                <span><em class="c7">经验：</em> 本科毕业生</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>利用Java开发需要的项目，让你成为Java大神</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
-
-                        </div>
-
-
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="数据库开发" target="_blank">数据库开发</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>5k-10k</span>
-                                <span><em class="c7">经验：</em> 本科毕业生</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>MySQL，Oracle，应有尽有</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
-
-                        </div>
-
-
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="产品经理" target="_blank">产品经理</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>15k-20k</span>
-                                <span><em class="c7">经验：</em> 2年</span>
-                                <span><em class="c7">最低学历： </em>硕士研究生</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>让你负责设计产品，领导开发团队</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
-
-                        </div>
-
-
-                        <div class="jobListShow" style="margin: 100px 15px">
-                            <div class="hot_pos_l">
-                                <div class="mb10">
-                                    <a href="index.html" title="Python" target="_blank">Python</a>
-                                    &nbsp;
-                                    <span class="c9">[北京]</span>
-                                </div>
-                                <span><em class="c7">月薪：</em>10k-20k</span>
-                                <span><em class="c7">经验：</em> 本科毕业生</span>
-                                <span><em class="c7">最低学历： </em>本科</span>
-                                <br/>
-                                <span><em class="c7">职位诱惑：</em>利用当下最流行的语言，助你成为大神</span>
-                                <br/>
-                                <span>1天前发布</span>
-                            </div>
-                            <div class="hot_pos_r">
-                                <div class="apply_list">
-                                    <a href="toudi.html" target="_blank">投个简历</a>
-                                </div>
-{#                                <div class="mb10"><a href="h/c/1712.html" title="数字多媒体" target="_blank">数字多媒体</a></div>#}
-{#                                <span><em class="c7">领域： </em>移动互联网 ,数字传媒</span>#}
-{#                                <span><em class="c7">创始人：</em> Lu</span>#}
-{#                                <br/>#}
-{#                                <span><em class="c7">阶段： </em>成长型(A轮)</span>#}
-{#                                <span><em class="c7">规模： </em>15-50人</span>#}
-{#                                <ul class="companyTags reset">#}
-{#                                    <li>五险一金</li>#}
-{#                                    <li>股票期权</li>#}
-{#                                    <li>年度旅游</li>#}
-{#                                </ul>#}
-                            </div>
-
-                        </div>
                     </dd>
                 </dl>
 

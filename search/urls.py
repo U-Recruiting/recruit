@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.searchView, name='search'),
     path('searchmore', views.searchmoreView, name='searchmore'),
     path('company',views.companyView,name = 'company'),
+    path('companydetail/<int:org_id>',views.details,name = 'companydetail'),
     path('jobinfo',views.jobinfoView,name = 'jobinfo')
 ]
 

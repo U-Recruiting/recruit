@@ -30,7 +30,7 @@ USER_AGENT_LIST = [
 ]
 
 header = {'User-Agent': '{0}'.format(random.sample(USER_AGENT_LIST, 1)[0]),
-          'Cookie': 'user_trace_token=20181117171047-3f797619-d794-4f03-bd5c-60e1fbf17ae6; LGUID=20181117171048-ac220d29-ea48-11e8-892c-5254005c3644; _ga=GA1.2.756823683.1542445848; _gid=GA1.2.497375058.1542445848; sajssdk_2015_cross_new_user=1; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2216720efd5b9123-028f2322ef9974-35667407-1024000-16720efd5bc367%22%2C%22%24device_id%22%3A%2216720efd5b9123-028f2322ef9974-35667407-1024000-16720efd5bc367%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E5%BC%95%E8%8D%90%E6%B5%81%E9%87%8F%22%2C%22%24latest_referrer%22%3A%22http%3A%2F%2Flocalhost%3A8000%2Forg_auth%2Fregister01%2F%22%2C%22%24latest_referrer_host%22%3A%22localhost%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC%22%7D%7D; JSESSIONID=ABAAABAAAGGABCB015D3CCCFE065F5482BB7BE2CA273B4C; _gat=1; LGSID=20181117215417-46776a08-ea70-11e8-a493-525400f775ce; PRE_UTM=; PRE_HOST=www.baidu.com; PRE_SITE=https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DTW8LpTjJDJhubKZvNE4NykmjAqITI3OT2zN1yH2YEzu%26wd%3D%26eqid%3Ded18a41500004b8d000000025bf01d85; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1542447390,1542447463,1542447691,1542462857; index_location_city=%E5%85%A8%E5%9B%BD; TG-TRACK-CODE=index_search; SEARCH_ID=0585e906820943b59c73816727ea1f9c; LGRID=20181117220050-30b04598-ea71-11e8-a496-525400f775ce; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1542463250',
+          'Cookie': 'WEBTJ-ID=20181119224339-1672c6d4bf59fa-0c980075c2a6dd-35667407-1024000-1672c6d4bf962d; _ga=GA1.2.903620223.1542638620; _gat=1; user_trace_token=20181119224339-810ddc17-ec09-11e8-895f-5254005c3644; LGSID=20181119224339-810dddc7-ec09-11e8-895f-5254005c3644; PRE_UTM=m_cf_cpt_baidu_pc; PRE_HOST=www.baidu.com; PRE_SITE=https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3Dlagou; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Flp%2Fhtml%2Fcommon.html%3Futm_source%3Dm_cf_cpt_baidu_pc; LGUID=20181119224339-810de0b3-ec09-11e8-895f-5254005c3644; _gid=GA1.2.800602254.1542638620; JSESSIONID=ABAAABAAADEAAFI6EEF9B96F4A66591C94CC798C7717625; index_location_city=%E5%85%A8%E5%9B%BD; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1542638890; TG-TRACK-CODE=index_search; LGRID=20181119224915-49366ae0-ec0a-11e8-895f-5254005c3644; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1542638956; SEARCH_ID=d9556d8953704a3884631dae3edcf010',
           'Host': "www.lagou.com",
           'Origin': "https://www.lagou.com",
           'Referer': "https://www.lagou.com/jobs/list_?px=new&city=%E4%B8%8A%E6%B5%B7"
@@ -47,7 +47,7 @@ class LaGou:
         self.url = url
         self.all_data = []
         # self.cities = ['北京','上海','深圳', '广州', '杭州', '成都', '南京', '武汉', '西安','厦门']
-        self.cities = ['上海']
+        self.cities = ['厦门']
 
     def isNone(self, value):
         if not value:
@@ -57,16 +57,19 @@ class LaGou:
     def get_data_from_url(self):
         for city in self.cities:
             self.url = self.url.format(city)
-            for i in range(1, 201):
+            for i in range(1, 41):
                 data['pn'] = i
                 response = requests.post(self.url, headers=header, data=data)
                 content = response.content.decode('utf-8')
                 if content:
-                    json_data = json.loads(content)
-                    print(json_data)
-                    print('*'*20+str(self.page))
-                    self.page+=1
-                    self.all_data.append(json_data)
+                    try:
+                        json_data = json.loads(content)
+                        print(json_data)
+                        print('*'*20+str(self.page))
+                        self.page+=1
+                        self.all_data.append(json_data)
+                    except (Exception):
+                        print('异常')
                 else:
                     continue
 

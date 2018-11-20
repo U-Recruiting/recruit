@@ -77,9 +77,10 @@ class OrgInfo(models.Model):
     name = models.CharField('公司名称', max_length=200, default=None, null=True)
     avatar = models.CharField('公司图标', max_length=200,default=None, null=True)
     lincese = models.CharField('营业执照', max_length=500, default=None, null=True)
-    type = models.CharField('公司类型', max_length=30, default=None, null=True)
+    type = models.CharField('公司类型', max_length=50, default=None, null=True)
+    domain = models.CharField('公司领域', max_length=50, default=None, null=True)
     phase = models.CharField('公司所在阶段', max_length=50, default=None, null=True) #A轮
-    desc = models.CharField('公司描述', max_length=3000, default=None, null=True)
+    desc = models.CharField('公司描述', max_length=5000, default=None, null=True)
     scale = models.CharField('公司人数',max_length=50, null=True)
     url = models.CharField('公司网站', max_length=50, default=None,null=True)
     phone = models.CharField('联系方式', max_length=30, default=None,null=True)
@@ -182,8 +183,8 @@ class Job_Label3(models.Model):
     name = models.CharField('三级标签名称', max_length=20, default=None, null=True)
     parent = models.ForeignKey(Job_Label2, on_delete=models.CASCADE,verbose_name='父标签ID', default=None)
 
-class PositionDesc(models.Model):
-    duty = models.CharField('工作职责', max_length=500,default=None, null=True)
-    require = models.CharField('任职要求', max_length=500,default=None, null=True)
-    other = models.CharField('其他', max_length=500,default=None, null=True)
+# class PositionDesc(models.Model):
+#     duty = models.CharField('工作职责', max_length=500,default=None, null=True)
+#     require = models.CharField('任职要求', max_length=500,default=None, null=True)
+#     other = models.CharField('其他', max_length=500,default=None, null=True)
 

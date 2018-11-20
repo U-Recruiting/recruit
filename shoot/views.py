@@ -7,7 +7,6 @@ from user.models import MyUser
 import json
 
 # @login_required
-
 def shoot(request):
     position_id = request.POST.get('position_id', '')
     # # 获取投递岗位
@@ -25,18 +24,21 @@ def shoot(request):
         # 所以简历对应岗位信息汇总
         position_resumed += positions
     # 当前用户
-    user = request.user
+
     # 获取用户简历
-    resume = user.resume_set.first()
+
+
 
 
     # 填入岗位信息表（多对多）
-    position.resume.add(resume)
 
-    prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
-    if not prs:
-        PositionResumeStatus(position_id=position.id, resume_id=resume.id,status='received').save()
-    if request.user.is_active:
+    user = request.user
+    if user.is_active:
+        resume = user.resume_set.first()
+        position.resume.add(resume)
+        prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
+        if not prs:
+            PositionResumeStatus(position_id=position.id, resume_id=resume.id, status='received').save()
         data = {"to": "success"}
     else:
         url = '/user/login/?next=/position/{0}'.format(position_id)
