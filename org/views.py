@@ -24,8 +24,8 @@ from . import utls
 
 
 def create(request):
-    user = request.user
-    # user = MyUser.objects.get(email='1234@test.com')
+    # user = request.user
+    user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
 
     position_info = dict(request.POST)
@@ -48,9 +48,9 @@ def create(request):
         # tags=tags,
         # desc=desc,
         positionAdvantage=position_info['position_advantage'][0],
-        # positionRes=position_info['position_res'][0],
-        # positionRequire=position_info['position_require'][0],
-        # positionOther=position_info['position_other'][0],
+        positionRes=position_info['position_res'][0],
+        positionRequire=position_info['position_require'][0],
+        positionOther=position_info['position_other'][0],
         # subwayline=subwayline,
         # linestaion=linestaion,
         create_datetime=create_datetime,
@@ -62,8 +62,8 @@ def create(request):
 
 
 def delete_position(request):
-    user = request.user
-    # user = MyUser.objects.get(email='1234@test.com')
+    # user = request.user
+    user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
     position_id = dict(request.POST)['position_id'][0]
     PositionInfo.objects.filter(id=position_id, org_id=orginfo.id).delete()
@@ -76,8 +76,8 @@ def get_ajax_resumes(request):
     :param request:
     :return:
     """
-    user = request.user
-    # user = MyUser.objects.get(email='1234@test.com')
+    # user = request.user
+    user = MyUser.objects.get(email='1234@test.com')
     # print(user.date_joined)
     org_info = user.orginfo_set.all().first()
     positions = org_info.positioninfo_set.all()
@@ -97,8 +97,7 @@ def get_ajax_positions(request):
     :param request:
     :return: 职位列表
     """
-    user = request.user
-    # user = MyUser.objects.get(email='1234@test.com')
+    user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
     status = dict(request.POST)['item'][0]
 
@@ -127,8 +126,8 @@ def interview_or_pass_or_refuse_ajax(request):
 
 
 def update_position_status(request):
-    user = request.user
-    # user = MyUser.objects.get(email='1234@test.com')
+    # user = request.user
+    user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
     position_id = dict(request.POST)['position_id'][0]
     status = dict(request.POST)['status'][0]
@@ -245,8 +244,7 @@ def get_html(request):
 
 def org_view(request, item):
     # print(item)
-    user = request.user
     if item in ['resumes', 'positions', 'create', 'create_success']:
-        return render(request, 'org_view.html',context={'username':user.username})
+        return render(request, 'org_view.html')
     else:
         return HttpResponse('404!!!')
