@@ -95,7 +95,7 @@
                     type: 'post',
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
-                        email: $('#email').val()
+                        email: $('#email').val(),
                     },
                     success: function (result) {
                         var data = JSON.parse(result);
@@ -141,7 +141,8 @@
                         csrfmiddlewaretoken: '{{ csrf_token }}',
                         type: $('input:radio[name="type"]:checked').val(),
                         email: $('#email').val(),
-                        verificationCode: $('#verificationCode').val()
+                        verificationCode: $('#verificationCode').val(),
+                        password : $('#password').val() ,
                     },
                     success: function (result) {
                         if (result.tips === "pass") {

@@ -60,8 +60,8 @@ def loginView(request):
         print(account)
         print(password)
         remerber = request.POST.get('autoLogin', None)
-        if MyUser.objects.filter(Q(mobile=account) | Q(username=account)):
-            user = MyUser.objects.filter(Q(mobile=account) | Q(username=account)).first()
+        if MyUser.objects.filter(username=account):
+            user = MyUser.objects.filter(username=account).first()
             print('nskanjkaajk')
             if check_password(password, user.password):
                 login(request, user)
@@ -111,7 +111,8 @@ def registerView(request):
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
         password = request.POST.get('password', '')
-        # password = '123456'
+        print(password)
+        # password = 'shenchen'
         if MyUser.objects.filter(username=email):
             tips = '用户已存在,请直接登录！'
         else:
