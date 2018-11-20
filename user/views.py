@@ -222,7 +222,7 @@ def complte_user_info(request):
         edu_exp = EducationExp.objects.create(user_id=user.id)
         hunting_intent = HuntingIntent.objects.create(user_id=user.id)
 
-        resume_name = user.name+'的简历'
+        resume_name = userinfo.name+'的简历'
         resume_time = datetime.datetime.now()
         Resume.objects.create(name=resume_name,edit_time=resume_time,user_info_id=userinfo.id, user_id=user.id,
                               work_exp=work_exp,project_exp=project_exp,edu_exp=edu_exp,hunting_intent=hunting_intent)

@@ -33,6 +33,7 @@ def shoot(request):
 
     user = request.user
     if user.is_active:
+        print('asadmaskdnajdks')
         resume = user.resume_set.first()
         position.resume.add(resume)
         prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
