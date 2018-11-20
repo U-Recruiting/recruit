@@ -77,13 +77,17 @@
                             <div>{{ position_info_detail.org.name }}招聘</div>
                             {{ position_info_detail.name }}
                         </h1>
-
-                        <div class="jd_collection_top" id="jobCollection">
-                            <div class="jd_collection_success_top">
-                                <span>已成功收藏该职位，</span>
-                                <a class="jd_collection_page_top" href="collections.html">查看全部</a>
-                                <a class="jd_collection_x_top" href="javascript:;"></a>
-                            </div>
+{##}
+{#                        <div class="jd_collection_top" id="jobCollection">#}
+{#                            <div class="jd_collection_success_top">#}
+{#                                <span>已成功收藏该职位，</span>#}
+{#                                <a class="jd_collection_page_top" href="collections.html">查看全部</a>#}
+{#                                <a class="jd_collection_x_top" href="javascript:;"></a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="jd_collection_top"></div>#}
+                        <div style=" float: right">
+                            <button class="collected_button" style="background-color:#fafafa;width:33px; border:none;height: 33px;background-image: url({% static 'imgs/nocollected.png' %})"></button>
                         </div>
                         <div class="jb_push_job">
                             <form class="resumeSetForm_top" id="resumeSetForm">
@@ -96,7 +100,7 @@
 
                                 <label class="radio">
                                     <input type="radio" value="1" class="resume1" name="resumeName">
-                                    <a title="ada的简历">ada简历</a>
+                                    <a title="ada的简历">简历</a>
                                 </label>
                                 <div class="setBtns">
                                     <a target="_blank" href="h/resume/preview.html">预览</a> |
@@ -168,7 +172,7 @@
             <div class="content_right">
                 <dl class="job_company">
                     <dt>
-                        <a target="_blank" href="h/c/5004.html">
+                        <a target="_blank" href="/search/companydetail/{{ position_info_detail.org.id }}">
                             <img width="80" height="80" alt="{{ position_info_detail.org.name }}"
                                  src="/static/org_logo/{{ position_info_detail.org.id }}.jpg" class="b2">
                             <div>
@@ -1030,6 +1034,10 @@
 
 
         });
+
+        $('.collected_button').click(function () {
+            alert('ansjkndjkadaj')
+        })
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;
     })

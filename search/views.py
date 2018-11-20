@@ -109,6 +109,7 @@ def searchView(request):
         return redirect('/search/')
 
 
+# 公司查询列表页
 def companyView(request):
     user = request.user  # 可能为匿名用户
     if user.is_active:  # 如果不是匿名用户
@@ -129,7 +130,7 @@ def companyView(request):
         distinct = request.GET.get('distinct', '')
         work_exp = request.GET.get('workExpSelectInput', '')
         edu_exp = request.GET.get('eduExpSelectInput', '')
-        phase = request.GET.get('phase', '')
+        phase = request.GET.get('phaseSelectInput', '')
         scale = request.GET.get('scaleInput', '')
         type = request.GET.get('domainInput', '')
         hot_position = request.GET.get('hot_position')
@@ -146,12 +147,12 @@ def companyView(request):
         if edu_exp:
             objects = objects.filter(edu_exp=edu_exp)
         if phase:
-            objects = objects.filter(phase=phase)
+            objects = objects.filter(phase__icontains=phase)
         if scale:
             orginfo = OrgInfo.objects.filter(scale=scale)
             objects = objects.filter(org=orginfo).all()
         if type:
-            objects = objects.filter(type=type)
+            objects = objects.filter(domain__icontains=type)
         if hot_position:
             hot_positionme = objects.filter(name__icontains=hot_position)
 
@@ -162,10 +163,19 @@ def companyView(request):
             org_info = objects.order_by('-createTime').all()[:200]
         # all_org = OrgInfo.objects.all()
 
+        org_filter = []
+        for i in org_info:
+            if len(i.name)<15:
+                org_filter.append(i)
+        print(len(org_filter))
+
         # 分页功能
-        paginator = Paginator(org_info, 15)
+        paginator = Paginator(org_filter, 16)
         try:
             org_list = paginator.page(page)
+            print(org_list)
+            for org in org_list:
+                org.positioninfos = org.positioninfo_set.all()[:1]
 
             for org in org_list:
                 tags = org.tags.split(',')[:2]
@@ -218,7 +228,7 @@ def companyView(request):
 
 
 def details(request, org_id):
-    buttin_text = '投递简历'
+    # buttin_text = '投递简历'
     user = request.user  # 可能为匿名用户
 
     if user.is_active:  # 如果不是匿名用户
@@ -227,10 +237,10 @@ def details(request, org_id):
             logined = True
             user_real_name = user.userinfo_set.all().first().name
             resume = user.resume_set.first()
-            psr = PositionResumeStatus.objects.filter(position_id=position_id, resume_id=resume.id)
-            if psr:
-                disabled = "disabled"
-                buttin_text = '已投递'
+            # psr = PositionResumeStatus.objects.filter(position_id=position_id, resume_id=resume.id)
+            # if psr:
+            #     disabled = "disabled"
+            #     buttin_text = '已投递'
         else:
             logined = False
     else:

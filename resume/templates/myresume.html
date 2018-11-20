@@ -27,7 +27,7 @@
                     <div class="basicShow">
                         <div class="m_portrait">
                             <img width="120" height="120" style="width: 60px;height: 60px;" alt="jason"
-                                 src="{% static '/imgs/default_headpic.png' %}">
+                                 src="/static/avatar/a.jpg">
                         </div>
                         <div class="basicinfo">
                             <span style="font-size: x-large;font-weight: bold">{{ user_info.name }}</span><br>
@@ -170,32 +170,30 @@
                             <span style="display:none;" id="headPic_error" class="error"></span>
                         </div><!--end .new_portrait-->
                     </div><!--end .basicEdit-->
-                    <input type="hidden" id="nameVal" value="ada">
-                    <input type="hidden" id="genderVal" value="女">
-                    <input type="hidden" id="topDegreeVal" value="硕士">
-                    <input type="hidden" id="workyearVal" value="3年">
+                    <input type="hidden" id="nameVal" value="{{ user_real_name }}">
+                    <input type="hidden" id="genderVal" value="{{ user_info.sex }}">
+                    <input type="hidden" id="topDegreeVal" value="{{ user_info.education }}">
+                    <input type="hidden" id="workyearVal" value="{{ user_info.work_years }}">
                     <input type="hidden" id="currentStateVal" value="">
-                    <input type="hidden" id="emailVal" value="ada@qq.com">
-                    <input type="hidden" id="telVal" value="18644444444">
+                    <input type="hidden" id="emailVal" value="{{ user.email }}">
+                    <input type="hidden" id="telVal" value="{{ user.mobile }}">
                     <input type="hidden" id="pageType" value="1">
 
                 </div><!--end #basicInfo-->
                 <div class="profile_box" id="expectJob">
                     <h2 >期望工作</h2>
-                    <span></span>
-{#                    <span class="c_edit" style="top:15px; right:40px"></span>#}
-{#                    <span class="c_edit" style="top:39px; right:400px"></span>#}
-{#                    <span class="c_edit" style="top:59px; right:40px"></span>#}
-{#                    <div class="basicShow" style="margin-left: 25px">#}
-{#                        <div class="basicinfo">#}
-{#                            <span style="font-size: x-large;font-weight: bold">{{ user_info.name }}</span><br>#}
-{#                            <span> {{ user_info.sex }} |  {{ user_info.education }}  |  {{ user_info.work_years }}工作经验<br>#}
+                    <span class="c_edit" style="top:15px; right:40px"></span>
+                    <div class="basicShow" style="margin-left: 25px">
+                        <div class="basicinfo">
+{#                            <span style="font-size: x-large;font-weight: bold">{{ hunting_intent.position }}</span><br>#}
+                            <span> {{ hunting_intent.position }} |  {{ hunting_intent.city }}  |  {{ hunting_intent.position_type }} |  {{ hunting_salary}}<br>
 {#                                   {{ user.mobile }} | {{ user.email }}<br>#}
-{#                            </span>#}
-{#                        </div>#}
-{#                    </div><!--end .expectShow-->#}
+                            </span>
+                        </div>
+                    </div><!--end .expectShow-->
                     <div class="expectEdit dn">
-                        <form id="expectForm">
+                        <form id="expectForm" action="{% url 'edit_huntingintent' %}" method="post">
+                            {% csrf_token %}
                             <table>
                                 <tbody>
                                 <tr>
@@ -345,17 +343,16 @@
                             </table>
                         </form><!--end #expectForm-->
                     </div><!--end .expectEdit-->
-                    <div class="expectAdd pAdd">
-                        填写准确的期望工作能大大提高求职成功率哦…<br>
-                        快来添加期望工作吧！
-                        <span>添加期望工作</span>
-                    </div><!--end .expectAdd-->
+{#                    <div class="expectAdd pAdd">#}
+{##}
+{#                        <span>添加期望工作</span>#}
+{#                    </div><!--end .expectAdd-->#}
 
-                    <input type="hidden" id="expectJobVal" value="">
-                    <input type="hidden" id="expectCityVal" value="">
-                    <input type="hidden" id="typeVal" value="">
-                    <input type="hidden" id="expectPositionVal" value="">
-                    <input type="hidden" id="expectSalaryVal" value="">
+                    <input type="hidden" id="expectJobVal"  value="amsdlkank">
+                    <input type="hidden" id="expectCityVal" value="{{ hunting_intent.city }}">
+                    <input type="hidden" id="typeVal" value="{{ hunting_intent.position_type }}">
+                    <input type="hidden" id="expectPositionVal" value="{{ hunting_intent.position }}">
+                    <input type="hidden" id="expectSalaryVal" value="{{ hunting_salary }}">
                 </div><!--end #expectJob-->
 
                 <div class="profile_box" id="workExperience">
