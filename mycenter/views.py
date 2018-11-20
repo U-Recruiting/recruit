@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from index.models import PositionInfo
+from index.models import *
 # Create your views here.
-
+import json
 
 def delivery(request):
 
@@ -23,14 +23,37 @@ def delivery(request):
 
 
 def mycollection(request):
-    # if request.method == 'POST':
-    #     print(request.POST)
+    user = request.user  # 可能为匿名用户
 
+    if user.is_active:  # 如果不是匿名用户
+        if user.userinfo_set.all().first():
+            logined = True
+            user_real_name = user.userinfo_set.all().first().name
+        else:
+            logined = False
+    else:
+        logined = False
+
+    if request.method == 'GET':
+        collections =Collection.objects.filter(user_id=user.id)
+        positions = []
+        for collection in collections:
+            collection.position.adv = collection.position.positionAdvantage.split(',')[:2]
+            positions.append(collection.position)
     return render(request, 'myjob_collection.html', locals())
 
 
 def collect(request):
-    pass
+    print(request.POST)
+    user = request.user
+    if request.method == 'POST':
+        print(request.POST)
+        position_id = request.POST.get('position_id', '')
+        Collection.objects.create(position_id=position_id, user_id=user.id)
+        data = {"message": "success"}
+        return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
+
+    return HttpResponse('ok')
 
 def companydetail(request):
     return render(request, 'companydetail.html')

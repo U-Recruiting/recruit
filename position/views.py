@@ -8,6 +8,7 @@ import datetime
 
 def details(request, position_id):
     buttin_text = '投递简历'
+    collect_url = '/static/imgs/nocollected.png'
     user = request.user  # 可能为匿名用户
 
     if user.is_active:  # 如果不是匿名用户
@@ -17,9 +18,17 @@ def details(request, position_id):
             user_real_name = user.userinfo_set.all().first().name
             resume = user.resume_set.first()
             psr = PositionResumeStatus.objects.filter(position_id=position_id, resume_id=resume.id)
+            user_colletion = user.collection_set.all()
+            # print(user_colletion.filter(position_id = position_id))
+            user_collection_position = user_colletion.filter(position_id=position_id)
+
             if psr:
-                disabled = "disabled"
+                shoot_disabled = "disabled"
                 buttin_text = '已投递'
+            if user_collection_position:
+                collect_disabled = "disabled"
+                collect_url = "/static/imgs/collected.png"
+
         else:
             logined = False
     else:

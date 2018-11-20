@@ -77,17 +77,18 @@
                             <div>{{ position_info_detail.org.name }}招聘</div>
                             {{ position_info_detail.name }}
                         </h1>
-{##}
-{#                        <div class="jd_collection_top" id="jobCollection">#}
-{#                            <div class="jd_collection_success_top">#}
-{#                                <span>已成功收藏该职位，</span>#}
-{#                                <a class="jd_collection_page_top" href="collections.html">查看全部</a>#}
-{#                                <a class="jd_collection_x_top" href="javascript:;"></a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="jd_collection_top"></div>#}
+                        {##}
+                        {#                        <div class="jd_collection_top" id="jobCollection">#}
+                        {#                            <div class="jd_collection_success_top">#}
+                        {#                                <span>已成功收藏该职位，</span>#}
+                        {#                                <a class="jd_collection_page_top" href="collections.html">查看全部</a>#}
+                        {#                                <a class="jd_collection_x_top" href="javascript:;"></a>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <div class="jd_collection_top"></div>#}
                         <div style=" float: right">
-                            <button class="collected_button" style="background-color:#fafafa;width:33px; border:none;height: 33px;background-image: url({% static 'imgs/nocollected.png' %})"></button>
+                            <button class="collected_button" id="collected_button" {{ collect_disabled }}
+                                    style="background-color:#fafafa;width:33px; border:none;height: 33px;background-image: url({{ collect_url }})"></button>
                         </div>
                         <div class="jb_push_job">
                             <form class="resumeSetForm_top" id="resumeSetForm">
@@ -95,7 +96,7 @@
                                 <input type="text" name="position_id" value="{{ position_info_detail.id }}"
                                        hidden="hidden">
                                 <button type="button" id="shoot_resume" name="shoot_resume"
-                                        class="jb_push_job_btn" {{ disabled }}>{{ buttin_text }}
+                                        class="jb_push_job_btn" {{ shoot_disabled }}>{{ buttin_text }}
                                 </button>
 
                                 <label class="radio">
@@ -1035,9 +1036,30 @@
 
         });
 
-        $('.collected_button').click(function () {
-            alert('ansjkndjkadaj')
-        })
+        $('.collected_button').click(function (e) {
+            e.preventDefault();
+            var form = new FormData();
+            form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            form.append('position_id', {{ position_info_detail.id }});
+
+            $.ajax({
+                url: "/mycenter/collect/",
+                type: 'post',
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    {#var src = {% static '/imgs/collected.png' %}#}
+                    if(result.message == 'success'){
+                        $('.collected_button').css("background-image", "url(/static/imgs/collected.png)");
+                        collected_button = document.getElementById('collected_button')
+                        collected_button.disabled = true
+
+                    }
+
+                }
+            });
+        });
         $(window).unbind('beforeunload');
         window.onbeforeunload = null;
     })

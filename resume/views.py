@@ -224,11 +224,11 @@ def edit_huntingintent(request):
         if salary:
             split_salary = salary.split('-')
             if len(split_salary) == 2:
-                huntingintent_exp.update(satrt_salary=salary[0])
-                huntingintent_exp.update(end_salary=salary[1])
+                huntingintent_exp.update(satrt_salary=split_salary[0])
+                huntingintent_exp.update(end_salary=split_salary[1])
             else:
                 huntingintent_exp.update(satrt_salary='')
-                huntingintent_exp.update(end_salary=salary)
+                huntingintent_exp.update(end_salary=split_salary[0])
         # resp = {}
         # resp['position'] = huntingintent_exp[0].position
         # resp['position_type'] = huntingintent_exp[0].position_type
