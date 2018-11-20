@@ -83,22 +83,23 @@ var youdao_conv_id = 271546;
         </div>
 
     	<input type="hidden" id="resubmitToken" value="" />
-{#     	<div class="find_psw">#}
-{#        	<img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" />#}
-{#            <form id="pswForm" action="http://www.lagou.com/rs.html" method="post">#}
-{#                <form id="pswForm"  action="{% url 'email_verify' %}" method="post">#}
-{#           		<input type="text" name="email" id="email" tabindex="1" value="" placeholder="请输入注册时使用的邮箱地址" />#}
-{#                                <input type="submit" id="submitLogin"  value="找回密码" />#}
-{#            </form>#}
-{#        </div>#}
-        <section class="content_box" id="findPwd2" style="margin-top: 50px;height: 200px;">
-            <img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" style="position: absolute;left: 35px;top: 20px;" />
-            <h5 class="change_way" style="position: absolute;top: 290px;left: 175px"><a rel="nofollow" href="/user/login/">返回登录</a><span class="separate"></span></h5>
-            <!-- 通过邮箱来找回密码 -->
-    <div class="findPwd" style="background-color: red;position: absolute;width:400px;left: 20px;top: 100px">
-
-        <form action="" method="">
-
+     	<div class="find_psw">
+        	<img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" />
+            <form id="pswForm" action="{% url 'updatepwd' %}" method="post">
+                <form id="pswForm"  action="{% url 'email_verify' %}" method="post">
+           		                <input type="text" name="email" id="email" tabindex="1" value="" placeholder="请输入邮箱收到的验证码" />
+                                <input type="submit" id="submitLogin"  value="找回密码" />
+                </form>
+            </form>
+        </div>
+{#        <section class="content_box" id="findPwd2" style="margin-top: 50px;height: 200px;">#}
+{#            <img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" style="position: absolute;left: 35px;top: 20px;" />#}
+{#            <h5 class="change_way" style="position: absolute;top: 290px;left: 175px"><a rel="nofollow" href="/user/login/">返回登录</a><span class="separate"></span></h5>#}
+{#            <!-- 通过邮箱来找回密码 -->#}
+{#    <div class="findPwd" style="background-color: red;position: absolute;width:400px;left: 20px;top: 100px">#}
+{##}
+{#        <form action="" method="">#}
+{##}
 {#            <ul class="form_head clearfix">#}
 {#                <li class="active fl">#}
 {#                    <span class="icon_step step1"></span>#}
@@ -128,29 +129,29 @@ var youdao_conv_id = 271546;
 {#                    <input type="button" class="btn btn_green btn_active btn_block" value="找回密码" >#}
 {#                </div>#}
 {#            </div>#}
-            <div class="form_body" style="position: absolute;top: 20px">
-                <div class="input_item clearfix">
-                    <h3 class="reset_mail">密码重置邮件已发送至你的邮箱：<span class="des_mail">Alice@taozhi.com</span></h3>
-                    <p class="reset_tips">请在24小时内登录你的邮箱接收邮件,链接激活后可重置密码。</p>
-                </div>
-                <div class="input_item clearfix" style="display:block;" id="gotoVerify">
-                    <input type="button" class="btn btn_green btn_active btn_block" value="登录邮箱查看" style="text-align: center;height: auto;background-color: #D69700" id="step2" >
-                </div>
-            </div>
-            <div class="form_body" style="display:none">
-                <div class="input_item clearfix">
-                    <input type="text" class="input input_white" name="" placeholder="请输入新密码" data-required="required" autocomplete="off" >
-                </div>
-                <div class="input_item clearfix">
-                    <input type="text" class="input input_white" name="" placeholder="请再次输入新密码" data-required="required" autocomplete="off" >
-                </div>
-                <div class="input_item clearfix">
-                    <input type="button" class="btn btn_green btn_active btn_block" value="确定" id="step3" onclick="findByMail('step3')">
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
+{#            <div class="form_body" style="position: absolute;top: 20px">#}
+{#                <div class="input_item clearfix">#}
+{#                    <h3 class="reset_mail">密码重置邮件已发送至你的邮箱：<span class="des_mail">Alice@taozhi.com</span></h3>#}
+{#                    <p class="reset_tips">请在24小时内登录你的邮箱接收邮件,链接激活后可重置密码。</p>#}
+{#                </div>#}
+{#                <div class="input_item clearfix" style="display:block;" id="gotoVerify">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="登录邮箱查看" style="text-align: center;height: auto;background-color: #D69700" id="step2" >#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form_body" style="display:none">#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="text" class="input input_white" name="" placeholder="请输入新密码" data-required="required" autocomplete="off" >#}
+{#                </div>#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="text" class="input input_white" name="" placeholder="请再次输入新密码" data-required="required" autocomplete="off" >#}
+{#                </div>#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="确定" id="step3" onclick="findByMail('step3')">#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#</section>#}
     </div>
 
 <input type="hidden" id="verifyStyle" style="display: none" value="nolagou"><!-- jquery lib --><!--拉勾UI框架 -->
