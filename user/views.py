@@ -110,9 +110,9 @@ def registerView(request):
         role_type = int(request.POST.get('type', ''))+1
         email = request.POST.get('email', '')
         verification_code = request.POST.get('verificationCode', '')
-        # password = request.POST.get('password', '')
-        password = '123456'
-        if MyUser.objects.filter(email=email):
+        password = request.POST.get('password', '')
+        # password = '123456'
+        if MyUser.objects.filter(username=email):
             tips = '用户已存在,请直接登录！'
         else:
             if verification_code == request.session.get('verification_code'):
