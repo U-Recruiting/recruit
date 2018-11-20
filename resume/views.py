@@ -38,7 +38,7 @@ def my_resume(request):
     edu_exp = current_user.educationexp_set.all().first()
 
     hunting_intent = current_user.huntingintent_set.all().first()
-    hunting_salary = hunting_intent.satrt_salary+'-'+hunting_intent.end_salary
+    # hunting_salary = hunting_intent.satrt_salary+'-'+hunting_intent.end_salary
 
     resume = current_user.resume_set.all().first()
 

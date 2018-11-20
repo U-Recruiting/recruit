@@ -1,5 +1,5 @@
 #!usr/bin/python
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 """
 @author:shenchen
 @file: urls
@@ -12,7 +12,9 @@ from . import views
 urlpatterns = [
     path('delivery', views.delivery, name='delivery'),
     path('mycollection', views.mycollection, name='mycollection'),
-    path('collect/' ,views.collect, name ='collect'),
-    path('companydetail/' ,views.companydetail,name = 'companydetail')
+    path('collect/', views.collect, name='collect'),
+    path('companydetail/', views.companydetail, name='companydetail'),
 
+    path('get_delivery_status', views.get_delivery_status, name='status'),
+    path('delivery_resumes', views.delivery_resumes, name='delivery_resumes')
 ]

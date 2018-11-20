@@ -11,20 +11,21 @@ from . import views
 
 app_name = 'org'
 urlpatterns = [
-    path('test/', views.test),
 
     # path('', views.home),  # home 默认显示待处理简历
-    path('create/', views.create),  # 发布职位
+    path('create/', views.create, name='create'),  # 发布职位
     # path('create_success/', views.create_success, name='create_success'),
-    # path('positions/', views.positions, name='positions'),
-    # path('interview_or_pass_or_refuse', views.interview_or_pass_or_refuse_ajax, name='interview_or_pass_or_refuse'),
 
     path('my_org/<str:item>/', views.org_view),
     path('get_ajax_resumes/', views.get_ajax_resumes, name='get_resumes_db'),
     path('get_ajax_positions/', views.get_ajax_positions, name='get_positions_db'),
     path('get_html/', views.get_html, name='get_html'),
+    path('interview_or_pass_or_refuse', views.interview_or_pass_or_refuse_ajax, name='update_resume_status'),
+    path('delete_position/', views.delete_position, name='delete_position'),
+    path('update_position_status/', views.update_position_status, name='update_position_status'),
 
     # 测试功能
     path('get_resumes/', views.get_resume, name='get_resumes'),
     path('get_position', views.get_position, name='get_position'),
+
 ]

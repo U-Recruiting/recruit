@@ -55,6 +55,7 @@ def complete_orginfo(request):
         desc = request.POST.get('desc', '')
         createTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         orginfo = user.orginfo_set.all().first()
+
         logo_path = os.path.join(settings.BASE_DIR, 'static/org_logo/' + str(orginfo.id) + '.jpg')
         Image.open(logo).save(logo_path)
         OrgInfo.objects.filter(user_id=user.id).update(name=company_name, avatar=logo_path,
@@ -64,10 +65,51 @@ def complete_orginfo(request):
         user.complete = 'yes'
         user.save()
 
-        return HttpResponse(json.dumps({'url':'/org'}, ensure_ascii=False), content_type="application/json,charset=utf-8")
+        return HttpResponse(json.dumps({'url':'/org/my_org/create'}, ensure_ascii=False), content_type="application/json,charset=utf-8")
 
     return render(request, 'home.html', locals())
 
 
 def home01(request):
     return render(request, 'home.html') ##完善公司信息
+def myhome(request):
+    user = request.user
+
+    if request.method == "GET":
+        # name = OrgInfo.objects.filter(user_id =198).values()
+        org_ifo = user.orginfo_set.all().first()
+        org_ifo.tags = org_ifo.tags.split(",")
+        # print(name)
+        # name01= name[0]["tags"]
+        # #
+        # print(name01)
+        # tags = [1,2,3,4,5]
+        return render(request, 'myhome.html', locals())
+
+    if request.method == "POST":
+        orginfo = user.orginfo_set.all().first()
+        logo = request.FILES.get('pic', '')
+        city = request.POST.get('company_city', '')
+        type = request.POST.get('select_industry_hidden', '')
+        scale = request.POST.get('companySize', '')
+        desc = request.POST.get('company_desc', '')
+        # print(orginfo.tags)
+        if str(request.POST.get("label")).strip('') is not None:
+            tags = orginfo.tags +','+ request.POST.get("label",'')
+            print(tags)
+        else:
+            tags = orginfo.tags
+        # OrgInfo.objects.filter(user_id = user).update(logo = logo,citi = city,type = type,scale= scale,desc=desc)
+
+        logo_path = os.path.join(settings.BASE_DIR, 'static/org_logo/' + str(orginfo.id) + '.jpg')
+            # Image.open(logo).save(logo_path)
+        OrgInfo.objects.filter(user_id=user).update(avatar=logo_path,
+                                                           type=type, desc=desc, scale=scale,
+                                                           city=city,tags = tags
+                                                           )
+            # user.complete = 'yes'
+        user.save()
+
+        org_ifo = user.orginfo_set.all().first()
+        org_ifo.tags = org_ifo.tags.split(",")
+        return render(request, "myhome.html",locals())

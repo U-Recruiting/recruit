@@ -11,62 +11,63 @@ from . import utls
 
 # Create your views here.
 
-
-def test(request):
-    return render(request, 'create.html', locals())
+# @login_required(login_url='/user/login')
 
 
-@login_required(login_url='/user/login')
-
-
-def home(request):
-    # user = MyUser.objects.get(email='120557727@qq.com')
-    # orginfo = user.orginfo_set.all().first()
-    # positions = orginfo.positioninfo_set.all()
-    # received = utls.get_resume_item(positions, 'received')
-    # print(received)
-    return render(request, 'org_view.html', locals())
+# def home(request):
+#     user = MyUser.objects.get(email='1234@test.com')
+#     orginfo = user.orginfo_set.all().first()
+#     positions = orginfo.positioninfo_set.all()
+#     received = utls.get_resume_item(positions, 'received')
+#     print(received)
+#     return render(request, 'resumes_view.html', locals())
 
 
 def create(request):
-    # user = request.user
-    user = MyUser.objects.get(email='120557727@qq.com')
+    user = request.user
+    # user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
-    if request.method == 'POST':
-        type = request.POST.get('type', '')
-        name = request.POST.get('name', '')
-        department = request.POST.get('department', '')
-        job_catagory = request.POST.get('job_catagory', '')
-        start_salary = request.POST.get('start_salary', '')
-        end_salary = request.POST.get('end_salary', '')
-        city = request.POST.get('city', '')
 
-        distinct = request.POST.get('distinct', '')
+    position_info = dict(request.POST)
 
-        address = request.POST.get('address', '')
-        work_exp = request.POST.get('work_exp', '')
-        edu_exp = request.POST.get('edu_exp', '')
+    create_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        tags = request.POST.get('tags', '')
+    position = PositionInfo(
+        status='valid',
+        type=position_info['position_type'][0],
+        name=position_info['position_name'][0],
+        department=position_info['department'][0],
+        job_catagory='',
+        start_salary=position_info['min_salary'][0],
+        end_salary=position_info['max_salary'][0],
+        city=position_info['work_city'][0],
+        distinct='',
+        address=position_info['position_address'][0],
+        work_exp=position_info['work_experience'][0],
+        edu_exp=position_info['edu_experience'][0],
+        # tags=tags,
+        # desc=desc,
+        positionAdvantage=position_info['position_advantage'][0],
+        # positionRes=position_info['position_res'][0],
+        # positionRequire=position_info['position_require'][0],
+        # positionOther=position_info['position_other'][0],
+        # subwayline=subwayline,
+        # linestaion=linestaion,
+        create_datetime=create_datetime,
+        org_id=orginfo.id
+    )
+    position.save()
+    print(position_info)
+    return JsonResponse({'message': 'success'}, safe=False)
 
-        desc = request.POST.get('desc', '')
 
-        positionAdvantage = request.POST.get('positionAdvantage', '')
-        subwayline = request.POST.get('subwayline', '')
-        linestaion = request.POST.get('linestaion', '')
-        create_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-        position = PositionInfo(type=type, name=name, department=department, job_catagory=job_catagory,
-                                start_salary=start_salary,
-                                end_salary=end_salary, city=city, distinct=distinct, address=address,
-                                work_exp=work_exp, edu_exp=edu_exp, tags=tags, desc=desc,
-                                positionAdvantage=positionAdvantage, subwayline=subwayline, linestaion=linestaion,
-                                create_datetime=create_datetime, org_id=orginfo.id)
-        position.save()
-        print('success')
-        return render(request, 'create_div/create_success.html')
-
-    return render(request, 'create_position.html', locals())
+def delete_position(request):
+    user = request.user
+    # user = MyUser.objects.get(email='1234@test.com')
+    orginfo = user.orginfo_set.all().first()
+    position_id = dict(request.POST)['position_id'][0]
+    PositionInfo.objects.filter(id=position_id, org_id=orginfo.id).delete()
+    return JsonResponse({'message': 'success'})
 
 
 def get_ajax_resumes(request):
@@ -75,8 +76,8 @@ def get_ajax_resumes(request):
     :param request:
     :return:
     """
-    # user = request.user
-    user = MyUser.objects.get(email='120557727@qq.com')
+    user = request.user
+    # user = MyUser.objects.get(email='1234@test.com')
     # print(user.date_joined)
     org_info = user.orginfo_set.all().first()
     positions = org_info.positioninfo_set.all()
@@ -96,39 +97,45 @@ def get_ajax_positions(request):
     :param request:
     :return: 职位列表
     """
-    user = MyUser.objects.get(email='120557727@qq.com')
+    user = request.user
+    # user = MyUser.objects.get(email='1234@test.com')
     orginfo = user.orginfo_set.all().first()
     status = dict(request.POST)['item'][0]
 
-    positions = orginfo.positioninfo_set.filter(status=status)
+    positions = orginfo.positioninfo_set.filter(status=status).order_by('-create_datetime')
+
     json_positions = serializers.serialize('json', positions)
     positions_list = utls.format_position_item(json.loads(json_positions, encoding='utf-8'))
 
     return JsonResponse(positions_list, safe=False)
 
 
-def positions(request):
-    user = MyUser.objects.get(email='120557727@qq.com')
-    orginfo = user.orginfo_set.all().first()
-    positions = orginfo.positioninfo_set.filter(status='on')
-    print(positions)
-    return render(request, 'positions.html', locals())
-
-
 def interview_or_pass_or_refuse_ajax(request):
-    if request.method == 'POST':
-        status = request.POST.get('status', '')
-        position_id = int(request.POST.get('position_id', ''))
-        resume_id = int(request.POST.get('resume_id', ''))
-        interview_address = request.POST.get('interview_address', '')
-        interview_datatime = request.POST.get('interview_datatime', '')
+    print(request.POST)
+    status = dict(request.POST)['status'][0]
+    position_id = int(dict(request.POST)['position_id'][0])
+    resume_id = int(dict(request.POST)['resume_id'][0])
 
-        return utls.update_pisition_resume_status(position_id=position_id, resume_id=resume_id,
-                                                  interview_address=interview_address,
-                                                  interview_datatime=interview_datatime,
-                                                  status=status)
+    # interview_address = request.POST.get('interview_address', '')
+    # interview_datatime = request.POST.get('interview_datatime', '')
 
-    return HttpResponse('get method')
+    res = utls.update_pisition_resume_status(position_id=position_id, resume_id=resume_id,
+                                             # interview_address=interview_address,
+                                             # interview_datatime=interview_datatime,
+                                             status=status)
+    return JsonResponse(res, safe=False)
+
+
+def update_position_status(request):
+    user = request.user
+    # user = MyUser.objects.get(email='1234@test.com')
+    orginfo = user.orginfo_set.all().first()
+    position_id = dict(request.POST)['position_id'][0]
+    status = dict(request.POST)['status'][0]
+    position = PositionInfo.objects.filter(id=position_id, org_id=orginfo.id)
+
+    position.update(status=status, create_datetime=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    return JsonResponse({'message': 'success'})
 
 
 def get_resume(request):
@@ -227,14 +234,10 @@ def get_html(request):
     """
     order = dict(request.POST)['html'][0]
     html_dict = {
-        'received': 'resume_div/div_resume_received.html',
-        'notified': 'resume_div/div_resume_notified.html',
-        'passed': 'resume_div/div_resume_passed.html',
-        'refused': 'resume_div/div_resume_refused.html',
-        'filtered': 'resume_div/div_resume_filtered.html',
         'div_resume': 'resume_div/div_resume_content.html',
         'div_position': 'position_div/div_position_content.html',
-        'create': 'create_div/create_success.html',
+        'create': 'create_div/create.html',
+        'create_success': 'create_div/create_success.html',
     }
 
     return render(request, html_dict[order])
@@ -242,7 +245,8 @@ def get_html(request):
 
 def org_view(request, item):
     # print(item)
-    if item in ['resumes', 'positions', 'create']:
-        return render(request, 'org_view.html')
+    user = request.user
+    if item in ['resumes', 'positions', 'create', 'create_success']:
+        return render(request, 'org_view.html',context={'username':user.username})
     else:
         return HttpResponse('404!!!')
