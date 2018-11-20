@@ -37,52 +37,77 @@ headers = {
 }
 
 
-class GaLouOrg:
+class GaLouPosition:
     def __init__(self, url: str):
         self.url = url
 
-    def complete_org_info(self):
+    def complete_position_info(self):
         i=1
-        orginfos = OrgInfo.objects.all()
-
-        for orginfo in orginfos:
-            print(i)
-            i+=1
+        positions = PositionInfo.objects.all()
+        for position in positions:
+            # print(i)
+            # i+=1
+            tags_list = []
             desc_list = []
-            type_list = []
-            tag_list = []
-            new_url = self.url.format(orginfo.id)
+            url =''
+            new_url = self.url.format(position.id)
             content = requests.get(new_url, headers=headers).text
             html = etree.HTML(content)
-            spans = html.xpath('//*[@id="company_intro"]/div[2]/div[2]/span[1]')
-            types = html.xpath('//*[@id="basic_container"]/div[2]/ul/li[1]/span')
-            tags = html.xpath('//*[@id="tags_container"]/div[2]/div/ul/li')
-            #                     #desc = '//*[@id="job_detail"]/dd[2]/div'
-            ''
-            for span in spans:
-                ps = span.xpath('./p')
-                if ps:
-                    for p in ps:
-                        if p.text:
-                            desc_list.append(p.text)
-                else:
-                    if span.text:
-                        desc_list.append(span.text)
+            # tags = html.xpath('/html/body/div[2]/div/div[1]/dd/ul/li')
+            # spans = html.xpath('//*[@id="job_detail"]/dd[2]/div')
+            # urls = html.xpath('//*[@id="job_company"]/dd/ul/li[5]/a/@href')
+            address = html.xpath('//*[@id="job_detail"]/dd[3]/div[1]/a')
 
-            desc = ''.join(desc_list)
-            print(desc)
+            final_addr = ''
+            for a in address[:-1]:
+                if a.text is not None:
+                    final_addr+=a.text
+                if a.tail is not None:
+                    final_addr+=a.tail.strip()
+                # city = a[0].text
+                # distict = a[1].text
+                # addr = a[1].tail.strip()
+                # final_addr = city+' - '+distict+addr
+            # b = address[-2].tail.strip()
+            position.address = final_addr
+            position.save()
+            print(final_addr)
+            print(position.id)
 
-            for type in types:
-                type_list += type.text
-            type = ''.join(type_list)
-            print(type)
 
-            for tag in tags:
-                tag_list.append(tag.text.strip())
-            tags = ','.join(tag_list)
-            print(tags)
-            orginfo.domain=type
-            orginfo.desc=desc
-            orginfo.tags=tags
-            orginfo.save()
+
+            # for tag in tags:
+            #     tags_list.append(tag.text.strip())
+            #
+            # tag_str = ','.join(tags_list)
+            #
+            # for span in spans:
+            #     ps = span.xpath('./p')
+            #     if ps:
+            #         for p in ps:
+            #             if p.text and len(p.text) > 10:
+            #                 desc_list.append(p.text)
+            #             else:
+            #                 brs = p.xpath('./br')
+            #                 if brs:
+            #                     for br in brs:
+            #                         if br is not None:
+            #                             if br.tail is not None:
+            #                               desc_list.append(br.tail)
+            #     else:
+            #         desc_list.append(span.text)
+            # desc_str = '=='.join(desc_list)
+            #
+            # if len(urls)>0:
+            #     url = urls
+            # position.tags = tag_str
+            # if len(desc_str) < 1000:
+            #     position.desc = desc_str
+            # else:
+            #     position.desc = desc_str[:1000]
+            # position.org.url = url
+            # position.save()
+            # print(tag_str)
+            # print(desc_str)
+            # print(url)
             print("*"*80)

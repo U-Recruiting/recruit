@@ -13,7 +13,7 @@ import os
 # def myresume_test(request):
 #     return render(request, "myresume.html")
 
-@login_required
+# @login_required
 def my_resume(request):
 
     user = request.user
